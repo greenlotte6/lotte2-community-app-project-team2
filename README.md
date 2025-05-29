@@ -63,15 +63,6 @@
 
 ---
 
-## 🔌 추가 구현 기능
-
-- **롯데멤버스 오픈 플랫폼** 연동 로그인 및 결제 기능 구현  
-  🔗 [https://open.lottemembers.com](https://open.lottemembers.com)
-- **Google Analytics(GA)** 태그 삽입
-- **검색엔진 최적화(SEO)**를 위한 메타 태그 구현
-
----
-
 ## 🗂 산출물
 
 - 아키텍처 설계 문서
