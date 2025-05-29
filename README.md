@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="https://github.com/greenlotte6/lotte2-community-app-project-team2/assets/logo.png" alt="LinkON Logo" width="200"/>
-</p>
-
 # 📌 롯데정보통신 사내 커뮤니티 게시판 사이트 개발 프로젝트
 
 ## 👥 팀 구성
