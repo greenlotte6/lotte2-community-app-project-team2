@@ -1,0 +1,401 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f9f9ff;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 220px;
+  background: #f2f4f8;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #ddd;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.logo > img {
+  height: 35px;
+  width: auto;       
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+.nav ul {
+  list-style: none;
+}
+
+.nav li {
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #333;
+}
+
+.nav li:hover,
+.nav li.active {
+  background: #d6e4ff;
+  font-weight: 500;
+}
+
+.main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.topbar {
+  height: 60px;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+  background: #fff;
+  position: relative;
+}
+
+.topbar .spacer {
+  width: 180px; 
+}
+
+.topbar h1 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.topbar-icons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+/*메인 컨텐츠창*/
+
+.main-content {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  background: #fff;
+}
+
+.content-placeholder {
+  height: 100%;
+  border-radius: 10px;
+  color: #888;
+}
+
+/*창 분리*/
+
+.content-layout {
+  display: flex;
+  height: 100%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/*사이드 영역*/
+.sidebar-panel {
+  width: 280px;
+  min-width: 220px;
+  background: #fafafa;
+  padding: 1.2rem;
+  border-right: 1px solid #ccc;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sidebar-panel p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.sidebar-panel > p {
+  font-weight: 600;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.5rem;
+}
+
+.channel-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.channel-list p {
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.channel-list p:hover {
+  background: #eef3ff;
+  box-shadow: 0 0 0 1px #7e9dd7;
+}
+
+
+/*메인 영역*/
+.main-panel {
+  flex: 1;
+  background: #fff;
+  padding: 1rem;
+}
+
+/*채팅창*/
+
+.chat-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid #ddd;
+  background: #f2f4f8;
+}
+
+.chat-header h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.status {
+  font-size: 0.8rem;
+  color: gray;
+}
+
+.manage-members {
+  background-color: #7e9dd7;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.manage-members:hover {
+  background-color: #5c82c4;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  background: #f9f9f9;
+}
+
+.message {
+  margin-bottom: 10px;
+  display: flex;
+}
+.message.received {
+  justify-content: flex-start;
+}
+.message.sent {
+  justify-content: flex-end;
+}
+.bubble {
+  padding: 10px 14px;
+  border-radius: 20px;
+  max-width: 60%;
+  background: #e0e0e0;
+}
+.message.sent .bubble {
+  background: #7e9dd7;
+  color: #fff;
+}
+
+.chat-input {
+  display: flex;
+  padding: 0.75rem;
+  border-top: 1px solid #ddd;
+  background: #fff;
+}
+.chat-input input {
+  flex: 1;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  outline: none;
+}
+.chat-input button {
+  margin-left: 10px;
+  padding: 0.6rem 1rem;
+  border: none;
+  background: #7e9dd7;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+
+/*모달창*/
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 300px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.member-modal .modal-content {
+  width: 600px;
+  max-width: 90vw;
+  max-height: 80vh;
+  display: flex;
+  gap: 1rem;
+}
+.member-modal .modal-content > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-content h3 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.member-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+.member-list li {
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 0.95rem;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-buttons button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: #7e9dd7;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#closeModalBtn {
+  background: #ddd;
+}
+
+#createChannelBtn {
+  background: #7e9dd7;
+  color: white;
+}
+
+/*인원초대 모달*/
+.modal-content.two-column {
+  width: 600px;
+}
+
+.modal-body {
+  display: flex;
+  gap: 20px;
+}
+
+.friend-list-box,
+.member-list-box {
+  flex: 1;
+}
+
+.friend-list,
+.member-list {
+  list-style: none;
+  padding: 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.friend-list li,
+.member-list li {
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+
+.friend-list li:hover {
+  background: #f0f8ff;
+}
