@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>LinkON 회원가입</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: "Arial", sans-serif;
+      }
+
+      .terms-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .terms-box {
+        width: 400px;
+        padding: 40px;
+        background: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        text-align: center;
+      }
+
+      .title-section {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 2px;
+        margin-bottom: 25px;
+        text-align: left;
+      }
+
+      .title-section .logo {
+        width: 50px;
+      }
+
+      .title-section h2 {
+        margin: 0;
+        font-size: 23px;
+        color: #639fd5;
+      }
+
+      .title-section h1 {
+        margin: 0;
+        margin-left: 10px;
+        margin-bottom: 7px;
+        font-size: 29px;
+        color: #333;
+      }
+
+      .term-section {
+        margin-bottom: 20px;
+        text-align: left;
+      }
+
+      .term-section label {
+        font-weight: bold;
+        font-size: 14px;
+        margin-bottom: 4px;
+        display: block;
+        color: #333;
+      }
+
+      .term-content {
+        border: 1px solid #ccc;
+        background: #f3f5f8;
+        padding: 12px;
+        height: 120px;
+        overflow-y: auto;
+        font-size: 13px;
+        color: #444;
+        border-radius: 4px;
+      }
+
+      .agree-checkbox {
+        margin-top: 5px;
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end; /* 오른쪽 정렬 */
+      }
+
+      .agree-checkbox input {
+        margin-right: 5px;
+      }
+
+      .signup-btn {
+        width: 100%;
+        padding: 12px;
+        background-color: #639fd5;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 15px;
+        cursor: pointer;
+        margin-top: 15px;
+      }
+
+      .already-account {
+        margin-top: 20px;
+        font-size: 13px;
+      }
+
+      .already-account a {
+        color: #639fd5;
+        text-decoration: none;
+      }
+
+      .social-login {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+        justify-content: space-between;
+      }
+
+      .social-login button {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #639fd5;
+        background: white;
+        color: #639fd5;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="terms-container">
+      <div class="terms-box">
+        <div class="title-section">
+          <img src="/2조 로고 아이콘.png" alt="LinkON 로고" class="logo" />
+          <h2>LinkON</h2>
+          <h1>회원가입</h1>
+        </div>
+
+        <form>
+          <div class="input-group">
+            <label for="id">아이디</label>
+            <input type="text" id="id" placeholder="Placeholder" />
+          </div>
+          <div class="input-group">
+            <label for="pw">비밀번호</label>
+            <input type="password" id="pw" placeholder="Placeholder" />
+          </div>
+          <div class="input-group">
+            <label for="pw-check">비밀번호 확인</label>
+            <input type="password" id="pw-check" placeholder="Placeholder" />
+          </div>
+          <div class="input-group">
+            <label for="name">이름</label>
+            <input type="text" id="name" placeholder="Placeholder" />
+          </div>
+          <div class="input-group">
+            <label for="phone">휴대폰</label>
+            <input type="text" id="phone" placeholder="Placeholder" />
+          </div>
+          <div class="input-group">
+            <label for="email">이메일</label>
+            <input type="email" id="email" placeholder="Placeholder" />
+          </div>
+
+          <button type="submit" class="signup-btn">다음</button>
+
+          <div class="already-account">
+            이미 계정이 있으신가요? <a href="#">로그인</a>
+          </div>
+
+          <div class="social-login">
+            <button>Google</button>
+            <button>Apple</button>
+            <button>Twitter</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
