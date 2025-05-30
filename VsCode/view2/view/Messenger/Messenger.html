@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LinkON</title>
+  <link rel="stylesheet" href="/VsCode/css/Messenger/Messenger.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="logo">
+        <img src="/VsCode/image/Logo.png" />
+      </div>
+      <nav class="nav">
+        <ul>
+          <li><i class="fa fa-home"></i> 홈</li>
+          <li class="active"><i class="fa fa-comments"></i> 채팅</li>
+          <li><i class="fa fa-calendar"></i> 캘린더</li>
+          <li><i class="fa fa-folder-open"></i> 프로젝트</li>
+          <li><i class="fa fa-user"></i> 내 정보</li>
+          <li><i class="fa fa-user-shield"></i> 관리자</li>
+          <li><i class="fa fa-cog"></i> 환경설정</li>
+          <li><i class="fa fa-clipboard"></i> 게시판</li>
+          <li><i class="fa fa-hdd"></i> 드라이브</li>
+          <li><i class="fa fa-users"></i> 멤버십</li>
+        </ul>
+      </nav>
+    </aside>
+
+    <div class="main-wrapper">
+      <header class="topbar">
+        <div class="spacer"></div>
+        <h1 id="page-title">홈</h1>
+        <div class="topbar-icons">
+          <i class="fa fa-globe"></i>
+          <i class="fa fa-moon"></i>
+          <i class="fa fa-bell"></i>
+          <img class="avatar" src="https://i.pravatar.cc/40" alt="user" />
+        </div>
+      </header>
+
+      <main class="main-content">
+        <div class="content-layout">
+          
+          <section class="sidebar-panel">
+            <p>홍길동<br />hong@gmail.com</p>
+            <div class="channel-list">
+              <p data-role="add-channel">+ 새 채널 만들기</p>
+              <p>채팅 1 ⚙</p>
+              <p>채팅 2 ⚙</p>
+              <p>채팅 3 ⚙</p>
+            </div>
+          </section>
+
+          <section class="main-panel">
+            <div class="chat-wrapper">
+              <div class="chat-header">
+                <h2>채팅 1</h2>
+                <span class="status online manage-members" data-role="view-members">참여인원관리</span>
+              </div>
+
+              <div class="chat-messages">
+                <div class="message received">
+                  <div class="bubble">안녕하세요!</div>
+                </div>
+                <div class="message sent">
+                  <div class="bubble">반갑습니다.</div>
+                </div>
+              </div>
+
+              <div class="chat-input">
+                <input type="text" placeholder="메시지를 입력하세요..." />
+                <button>전송</button>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+  <div id="modal-container"></div>
+  <script src="/VsCode/view/Messenger/js/ModalAddChat.js"></script>
+  <script src="/VsCode/view/Messenger/js/Modalmemberslist.js"></script>
+</body>
+</html>

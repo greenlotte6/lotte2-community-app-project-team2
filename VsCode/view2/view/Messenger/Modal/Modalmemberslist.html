@@ -1,0 +1,27 @@
+<template id="member-modal-template">
+  <div class="modal member-modal" id="memberModal">
+    <div class="modal-content" style="display: flex; gap: 1rem;">
+      
+      <!-- 왼쪽: 친구목록 -->
+      <div style="flex: 1;">
+        <h3>친구 목록</h3>
+        <ul id="friendList" class="member-list">
+          <li data-email="hong@gmail.com">홍길동 (hong@gmail.com)</li>
+          <li data-email="minsoo@naver.com">김민수 (minsoo@naver.com)</li>
+          <li data-email="jieun@kakao.com">이지은 (jieun@kakao.com)</li>
+        </ul>
+      </div>
+
+      <!-- 오른쪽: 참여자 목록 -->
+      <div style="flex: 1;">
+        <h3>참여 인원</h3>
+        <ul id="memberList" class="member-list"></ul>
+        <div class="modal-buttons">
+          <button id="inviteMembersBtn">초대하기</button>
+          <button id="closeMemberModal">닫기</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</template>
