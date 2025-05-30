@@ -70,6 +70,7 @@ header {
 aside {
     position: relative;
     width: 200px;
+    height: 100vh;
     padding: 18px 12px;
     box-shadow: 2px 0px 6px 0px rgba(208, 208, 208, 0.25);
 }
@@ -102,9 +103,16 @@ aside > ul > a:hover:not(.ListSubheader) {
 }
 
 .copyright {
+    position: absolute;
+    width: inherit;
+    bottom: 0px;
+    padding: 12px 0;
+    margin: 0;
+    background-color: white;
     font-size: 10px;
+    text-align: center;
     color: #777;
-    height: 20px;
+    border-top: 1px solid #fafafa;
 }
 
 .dropdown {
@@ -143,4 +151,8 @@ aside > ul > a:hover:not(.ListSubheader) {
 
 .rotate-close {
     transform: rotate(0deg);
+}
+
+.displayNone {
+    display: none;
 }
