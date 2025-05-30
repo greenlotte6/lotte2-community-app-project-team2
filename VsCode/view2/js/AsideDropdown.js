@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const dropdown = this.nextElementSibling;
             const arrow = this.querySelector('.rightArrow');
-            const li = this.querySelector('li');
 
             const isOpen = dropdown.classList.contains('dropdown-true');
 
@@ -15,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.querySelectorAll('.dropdown').forEach(d => {
                 d.classList.remove('dropdown-true');
                 d.classList.add('dropdown-false');
+                d.classList.add('displayNone');
             });
             document.querySelectorAll('.dropdown-toggle li').forEach(l => l.classList.remove('selected'));
             document.querySelectorAll('.rightArrow').forEach(a => {
@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (!isOpen) {
                 dropdown.classList.remove('dropdown-false');
+                dropdown.classList.remove('displayNone');
                 dropdown.classList.add('dropdown-true');
 
                 arrow.classList.remove('rotate-close');
