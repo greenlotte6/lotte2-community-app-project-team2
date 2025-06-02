@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  fetch('/VsCode/view/Messenger/Modal/Modalmemberslist.html')
+  fetch('/view/Messenger/Modal/Modalmemberslist.html')
     .then(res => res.text())
     .then(html => {
       const container = document.createElement('div');

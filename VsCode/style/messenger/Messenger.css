@@ -1,135 +1,31 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* Messenger.css */
 
 html, body {
   height: 100%;
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
   background: #f9f9ff;
+  font-size: 18px;
 }
 
-.container {
-  display: flex;
-  height: 100vh;
+/* 섹션 레이아웃 */
+.messenger-main {
+  flex: 1;
+  padding: 1rem;
   overflow: hidden;
-}
-
-.sidebar {
-  width: 220px;
-  background: #f2f4f8;
-  padding: 1rem;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid #ddd;
 }
 
-.logo {
-  font-size: 1.4rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-}
-
-.logo > img {
-  height: 35px;
-  width: auto;       
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
-}
-
-.nav ul {
-  list-style: none;
-}
-
-.nav li {
-  padding: 10px;
-  margin-bottom: 5px;
-  border-radius: 5px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #333;
-}
-
-.nav li:hover,
-.nav li.active {
-  background: #d6e4ff;
-  font-weight: 500;
-}
-
-.main-wrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
-.topbar {
-  height: 60px;
-  padding: 0 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid #ddd;
-  background: #fff;
-  position: relative;
-}
-
-.topbar .spacer {
-  width: 180px; 
-}
-
-.topbar h1 {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin: 0;
-}
-
-.topbar-icons {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-}
-
-/*메인 컨텐츠창*/
-
-.main-content {
-  flex: 1;
-  padding: 1rem;
-  overflow-y: auto;
-  background: #fff;
-}
-
-.content-placeholder {
-  height: 100%;
-  border-radius: 10px;
-  color: #888;
-}
-
-/*창 분리*/
-
+/* 전체 콘텐츠 배치 (좌측 채널 + 우측 채팅창) */
 .content-layout {
   display: flex;
-  height: 100%;
+  flex: 1;
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
+  background: #fff;
 }
 
-/*사이드 영역*/
+/* 왼쪽 채널 영역 */
 .sidebar-panel {
   width: 280px;
   min-width: 220px;
@@ -145,6 +41,7 @@ html, body {
 .sidebar-panel p {
   margin: 0;
   line-height: 1.5;
+  font-size: 19px;
 }
 
 .sidebar-panel > p {
@@ -174,24 +71,25 @@ html, body {
   box-shadow: 0 0 0 1px #7e9dd7;
 }
 
-
-/*메인 영역*/
+/* 오른쪽 채팅창 영역 */
 .main-panel {
   flex: 1;
+  display: flex;
+  flex-direction: column;
   background: #fff;
   padding: 1rem;
 }
 
-/*채팅창*/
-
+/* 채팅 박스 전체 */
 .chat-wrapper {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  flex: 1;
   border: 1px solid #ddd;
   border-radius: 8px;
 }
 
+/* 상단 채팅 헤더 */
 .chat-header {
   display: flex;
   justify-content: space-between;
@@ -203,7 +101,7 @@ html, body {
 
 .chat-header h2 {
   margin: 0;
-  font-size: 1rem;
+  font-size: 25px;
 }
 
 .status {
@@ -216,7 +114,7 @@ html, body {
   color: white;
   padding: 6px 12px;
   border-radius: 20px;
-  font-size: 0.85rem;
+  font-size: 16px;
   cursor: pointer;
   transition: background 0.2s ease;
 }
@@ -225,6 +123,7 @@ html, body {
   background-color: #5c82c4;
 }
 
+/* 채팅 메시지 영역 */
 .chat-messages {
   flex: 1;
   padding: 1rem;
@@ -233,39 +132,95 @@ html, body {
 }
 
 .message {
-  margin-bottom: 10px;
   display: flex;
+  margin-bottom: 10px;
 }
+
 .message.received {
   justify-content: flex-start;
+  align-items: flex-start;
 }
+
 .message.sent {
   justify-content: flex-end;
+  align-items: flex-start;
 }
+
+.message-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: 8px;
+}
+
+.profile-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 8px;
+}
+
+.chat-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.chat-username {
+  font-size: 0.7rem;
+  color: #555;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
 .bubble {
   padding: 10px 14px;
   border-radius: 20px;
-  max-width: 60%;
+  max-width: 80%;
   background: #e0e0e0;
+  font-size: 18px;
 }
+
 .message.sent .bubble {
   background: #7e9dd7;
   color: #fff;
 }
 
+.message-bubble-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.message.sent .message-bubble-wrapper {
+  align-items: flex-end;
+}
+
+.chat-time {
+  font-size: 0.65rem;
+  color: #999;
+  margin-top: 4px;
+  margin-left: 4px;
+}
+
+
+/* 채팅 입력창 */
 .chat-input {
   display: flex;
-  padding: 0.75rem;
+  padding: 1rem;
   border-top: 1px solid #ddd;
   background: #fff;
 }
+
 .chat-input input {
   flex: 1;
   padding: 0.6rem;
   border: 1px solid #ccc;
   border-radius: 20px;
   outline: none;
+  font-size: 18px;
 }
+
 .chat-input button {
   margin-left: 10px;
   padding: 0.6rem 1rem;
@@ -274,11 +229,22 @@ html, body {
   color: white;
   border-radius: 20px;
   cursor: pointer;
+  font-size: 18px;
 }
 
+.chat-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 0 8px;
+  align-self: flex-end;
+}
 
-/*모달창*/
+.message.received .chat-avatar {
+  order: -1;
+}
 
+/* 모달 공통 스타일 */
 .modal {
   position: fixed;
   top: 0;
@@ -299,7 +265,7 @@ html, body {
   width: 300px;
   max-height: 80vh;
   overflow-y: auto;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .member-modal .modal-content {
@@ -309,6 +275,7 @@ html, body {
   display: flex;
   gap: 1rem;
 }
+
 .member-modal .modal-content > div {
   flex: 1;
   display: flex;
@@ -364,7 +331,7 @@ html, body {
   color: white;
 }
 
-/*인원초대 모달*/
+/* 인원초대 모달 */
 .modal-content.two-column {
   width: 600px;
 }
