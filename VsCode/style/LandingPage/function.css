@@ -42,7 +42,7 @@ header > div > * {
     color: #333;
 }
 
-.logoContainer {
+.logoContainer > a {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -75,7 +75,7 @@ header > div > * {
 
 main {
     width: 100%;
-    padding: 50px 0;
+    padding: 80px 0 120px 0;
 }
 
 .mainContainer {
@@ -90,16 +90,16 @@ main > div > * {
 }
 
 .character {
-    width: 660px;
+    width: 460px;
+    padding-top: 160px;
     object-fit: cover;
 }
 
 .mainContent {
     display: flex;
-    width: 400px;
+    width: 520px;
     flex-direction: column;
     row-gap: 4px;
-    margin-top: 40px;
 }
 
 .title {
@@ -115,7 +115,7 @@ main > div > * {
     display: flex;
     flex-direction: column;
     font-size: 26px;
-    padding: 4px 0;
+    padding: 10px 0;
 }
 
 .subtitle > div {
@@ -125,8 +125,46 @@ main > div > * {
     margin-bottom: 8px;
 }
 
+.subtitle > p {
+    padding-left: 30px;
+    font-size: 16px;
+}
+
+.subtitle h3 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
 .subtitleIcon {
     width: 22px;
+}
+
+.subtitle2 {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+}
+
+.subtitle2 > div {
+    display: flex;
+}
+
+.subtitle2 p {
+    margin-top: 4px;
+    font-size: 16px;
+}
+
+.imgBox {
+    position: relative;
+}
+
+.textBalloon {
+    position: absolute;
+    animation: "fadeInRight";
+    animation-duration: 2s;
+    width: 300px;
+    top: 40px;
+    right: -30px;
 }
 
 footer {
