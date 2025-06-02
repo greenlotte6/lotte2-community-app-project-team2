@@ -1,0 +1,153 @@
+body {
+  margin: 0;
+  font-family: "Arial", sans-serif;
+}
+
+.terms-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.terms-box {
+  width: 400px;
+  padding: 40px;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.title-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2px;
+  margin-bottom: 25px;
+  text-align: left;
+}
+
+.title-section .logo {
+  width: 50px;
+}
+
+.title-section h2 {
+  margin: 0;
+  font-size: 23px;
+  color: #639fd5;
+}
+
+.title-section h1 {
+  margin: 0;
+  margin-left: 10px;
+  margin-bottom: 7px;
+  font-size: 29px;
+  color: #333;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.input-group label {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  display: block;
+  color: #333;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f3f5f8;
+  outline: none;
+  box-sizing: border-box; /* ✨ 핵심 해결 코드 */
+}
+
+.signup-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #639fd5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.input-with-button {
+  display: flex;
+  gap: 8px;
+}
+
+.input-with-button input {
+  flex: 1;
+  box-sizing: border-box;
+}
+
+.check-btn {
+  padding: 10px 12px;
+  font-size: 13px;
+  background-color: #639fd5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+#email-verification {
+  margin-top: 8px;
+  display: flex;
+  gap: 8px;
+}
+
+#email-verification input {
+  flex: 1;
+}
+
+.message {
+  margin-top: 4px;
+  font-size: 13px;
+  color: #639fd5;
+}
+
+.already-account {
+  margin-top: 20px;
+  font-size: 13px;
+}
+
+.already-account a {
+  color: #639fd5;
+  text-decoration: none;
+}
+
+.social-login {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.social-login button {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #639fd5;
+  background: white;
+  color: #639fd5;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+}
