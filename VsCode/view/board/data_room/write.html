@@ -23,8 +23,8 @@
     <script src="/js/AsideDropdown.js"></script>
 
     <link rel="stylesheet" href="/style/common/common.css" />
-    <link rel="stylesheet" href="/style/board/notice/view.css" />
-    <title>notice view</title>
+    <link rel="stylesheet" href="/style/board/data_room/write.css" />
+    <title>data view</title>
   </head>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -234,93 +234,61 @@
         <section>
           <div>
             <div class="title">
-              <p>공지사항</p>
+              <p>자료실</p>
             </div>
             <div class="article-wrapper">
-              <a href="#" class="move-list">&lt; 목록으로</a>
-              <div class="notice-box">
-                <div class="notice-header">
-                  <div class="notice-title">
-                    <span>[안내]</span>
-                    <span>공지사항 입니다.</span>
-                  </div>
-                  <div class="notice-date">2025.05.28</div>
-                </div>
+              <a href="#" class="move-list">< 목록으로</a>
 
-                <div class="attachment">
-                  <span>첨부파일</span>
-                  <button type="button"><span>📎 첨부파일</span></button>
-                  <button type="button">
-                    <span>
-                      <img
-                        src="/images/board/notice/Group 35.png"
-                        alt="다운로드"
-                      />
+              <form action="#">
+                <div class="form-group bold-line">
+                <label>유형
+                    <select>
+                    <option value="">선택</option>
+                    <option value="공지">공지</option>
+                    <option value="일반">일반</option>
+                    </select>
+                    <span class="inline" style="float: right;">
+                    <label class="check">
+                        <input type="checkbox" /> 중요
+                    </label>
                     </span>
-                  </button>
+                </label>
                 </div>
 
-                <div class="content">
-                  블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라<br />
-                  블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라<br />
-                  블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라<br />
-                  블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라<br />
-                  블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라<br />
-                  블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라<br />
-                  블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라<br />
-                  블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라<br />
-                  블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라<br />
-                  블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라
+                <div class="line">
+                <div class="form-group">
+                <label for="title" class="title-name">제목</label>
+                <input class="title-input" type="text" id="title" />
                 </div>
-              </div>
-              <div class="comment-section">
-                <div class="comment">
-                  <div class="comment-header">
-                    <span class="comment-author">이름</span>
-                    <span class="comment-date">2025.05.29</span>
-                  </div>
-                  <div class="comment-body">
-                    내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-                  </div>
-                  <div class="comment-menu">
-                    <button class="menu-button">⋮</button>
-                    <ul class="menu-dropdown hidden">
-                      <li><button type="button">신고</button></li>
-                      <li><button type="button">삭제</button></li>
-                      <li><button type="button">수정</button></li>
-                    </ul>
-                  </div>
                 </div>
 
-                <!-- 댓글 입력 폼 -->
-                <div class="comment-input-wrapper">
-                  <textarea
-                    placeholder="댓글 입력..."
-                    class="comment-input"
-                  ></textarea>
-                  <div class="comment-input-footer">
-                    <div class="comment-icons">
-                      <img
-                        src="/images/board/notice/attachment.png"
-                        alt="파일 첨부"
-                      />
-                      <input type="file" class="hidden-file-input" multiple />
-                      <img src="/images/board/notice/😀.png" alt="이모지" />
-                    </div>
-                    <button class="comment-submit">입력</button>
-                  </div>
+                <div class="form-group line">
+                <label for="file-upload">파일첨부</label>
+                <input type="file" id="file-upload" multiple />
                 </div>
-              </div>
 
-              <div class="btn-area1">
-                <button class="btn-edit all-button">수정</button>
-                <button class="btn-delete all-button">삭제</button>
+                <div class="form-group line">
+                <label for="content">내용</label>
+                <textarea id="content"></textarea>
+                </div>
+
+                <hr />
+
+                <div class="form-group">
+                <label>댓글 설정</label>
+                <label><input type="radio" name="comment" /> 모두</label>
+                <label><input type="radio" name="comment" checked /> 작성자 및 관리자</label>
+                </div>
+
+                <div class="btn-area1">
+                <button class="btn-delete all-button">취소</button>
+                <button class="btn-edit all-button">작성완료</button>
               </div>
 
               <div class="btn-area2">
                 <button class="btn-back all-button">목록</button>
               </div>
-            </div>
+            </form>
           </div>
         </section>
       </main>
