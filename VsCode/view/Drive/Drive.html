@@ -14,10 +14,10 @@
   href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"/>
 
   <link rel="stylesheet" href="/style/common/common.css" />
-  <link rel="stylesheet" href="/style/messenger/Messenger.css" />
+  <link rel="stylesheet" href="/style/Drive/Drive.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <script src="/js/Dropdown/AsideDropdown.js"></script>
-  <title>Messenger</title>
+  <title>Drive</title>
 </head>
 <body>
   <div id="wrapper">
@@ -149,129 +149,24 @@
 
       <section class="messenger-main">
         <div class="content-layout">
-            <div class="sidebar-panel">
-              <p>홍길동<br />hong@gmail.com</p>
-              <div class="channel-list">
-                <p data-role="add-channel">+ 새 채널 만들기</p>
-                <p data-room="채팅 1" class="channel-item">채팅 1 ⚙</p>
-                <p data-room="채팅 2" class="channel-item">채팅 2 ⚙</p>
-                <p data-room="채팅 3" class="channel-item">채팅 3 ⚙</p>
-              </div>
+          <div class="sidebar-panel">
+            <p>홍길동<br />hong@gmail.com</p>
+            <div class="channel-list">
+              <p>파일 업로드</p>
+              <p>내 드라이브</p>
+              <p>공통 드라이브 1</p>
+              <p>공통 드라이브 2</p>
+              <p>공통 드라이브 3</p>
             </div>
+          </div>
 
-            <div class="main-panel">
-              <div class="chat-wrapper">
-                <div class="chat-header">
-                  <h2 id="chat-title">채팅 1</h2>
-                  <span class="status online manage-members" data-role="view-members">참여인원관리</span>
-                </div>
+          <div class="main-panel">
 
-                <div class="chat-messages" id="chat-messages">
-                  <!-- 메시지 내용 여기에 동적으로 들어감 -->
-                </div>
-
-                <div class="chat-input">
-                  <input type="text" placeholder="메시지를 입력하세요..." />
-                  <button>전송</button>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
     </main>
   </div>
-
-  <div id="modal-container"></div>
-  <script src="/js/Messenger/Modaladdchat.js"></script>
-  <script src="/js/Messenger/Modalmemberslist.js"></script>
-
-  <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const chatTitle = document.getElementById("chat-title");
-  const chatMessages = document.getElementById("chat-messages");
-  const channelItems = document.querySelectorAll(".channel-item");
-
-  /*채팅방 자바스트립트 예시 css연결용*/
-  const dummyChats = {
-    "채팅 1": `
-      <div class="message received">
-        <div class="profile-wrapper">
-          <div class="chat-username">홍길동</div>
-          <img class="chat-avatar" src="/images/Avatar.png" alt="상대방 프로필">
-        </div>
-        <div class="message-bubble-wrapper">
-          <div class="bubble">채팅1</div>
-          <div class="chat-time">오후 2:30</div>
-        </div>
-      </div>
-      <div class="message sent">
-        <div class="message-bubble-wrapper">
-          <div class="bubble">채팅1</div>
-          <div class="chat-time">오후 2:31</div>
-        </div>
-        <div class="profile-wrapper">
-          <img class="chat-avatar" src="/images/Avatar.png" alt="내 프로필">
-          <div class="chat-username">나</div>
-        </div>
-      </div>
-    `,
-    "채팅 2": `
-      <div class="message received">
-        <div class="profile-wrapper">
-          <div class="chat-username">김영희</div>
-          <img class="chat-avatar" src="/images/Avatar.png" alt="상대방 프로필">
-        </div>
-        <div class="message-bubble-wrapper">
-          <div class="bubble">채팅 2</div>
-          <div class="chat-time">오전 11:00</div>
-        </div>
-      </div>
-      <div class="message sent">
-        <div class="message-bubble-wrapper">
-          <div class="bubble">채팅 2</div>
-          <div class="chat-time">오전 11:02</div>
-        </div>
-        <div class="profile-wrapper">
-          <img class="chat-avatar" src="/images/Avatar.png" alt="내 프로필">
-          <div class="chat-username">나</div>
-        </div>
-      </div>
-    `,
-    "채팅 3": `
-      <div class="message received">
-        <div class="profile-wrapper">
-          <div class="chat-username">박철수</div>
-          <img class="chat-avatar" src="/images/Avatar.png" alt="상대방 프로필">
-        </div>
-        <div class="message-bubble-wrapper">
-          <div class="bubble">채팅 3</div>
-          <div class="chat-time">오후 4:12</div>
-        </div>
-      </div>
-      <div class="message sent">
-        <div class="message-bubble-wrapper">
-          <div class="bubble">채팅 3</div>
-          <div class="chat-time">오후 4:13</div>
-        </div>
-        <div class="profile-wrapper">
-          <img class="chat-avatar" src="/images/Avatar.png" alt="내 프로필">
-          <div class="chat-username">나</div>
-        </div>
-      </div>
-    `
-  };
-
-  channelItems.forEach(item => {
-    item.addEventListener("click", () => {
-      const roomName = item.dataset.room;
-      chatTitle.textContent = roomName;
-      chatMessages.innerHTML = dummyChats[roomName] || "<p>채팅 없음</p>";
-    });
-  });
-});
-</script>
-
 
 </body>
 </html>

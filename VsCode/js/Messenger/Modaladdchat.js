@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  fetch('/VsCode/view/Messenger/Modal/Modaladdchat.html')
+  fetch('/view/Messenger/Modal/Modaladdchat.html')
     .then(res => res.text())
     .then(html => {
       const container = document.createElement('div');

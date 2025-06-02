@@ -1,0 +1,95 @@
+/* Calender.css */
+
+html, body {
+  height: 100%;
+  background: #f9f9ff;
+  font-size: 18px;
+}
+
+/* 섹션 레이아웃 */
+.messenger-main {
+  flex: 1;
+  padding: 1rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 전체 콘텐츠 배치 (좌측 채널 + 우측 채팅창) */
+.content-layout {
+  display: flex;
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* 왼쪽 채널 영역 */
+.sidebar-panel {
+  width: 280px;
+  min-width: 220px;
+  background: #fafafa;
+  padding: 1.2rem;
+  border-right: 1px solid #ccc;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sidebar-panel p {
+  margin: 0;
+  line-height: 1.5;
+  font-size: 19px;
+}
+
+.sidebar-panel > p {
+  font-weight: 600;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.5rem;
+}
+
+.channel-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.channel-list p {
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.channel-list p:hover {
+  background: #eef3ff;
+  box-shadow: 0 0 0 1px #7e9dd7;
+}
+
+/* 오른쪽 채팅창 영역 */
+.main-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  padding: 1rem;
+}
+
+#calendar {
+  flex: 1;
+  max-width: 100%;
+  height: 900px;
+ }
+ 
+.main-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  padding: 1rem;
+ }
