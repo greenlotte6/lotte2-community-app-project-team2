@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
         element.style.animation = "fadeInUp 1.5s";
     }
 
-    setTimeout(() => fadeUp(first), 1750);
-    setTimeout(() => fadeUp(second), 3250);
-    setTimeout(() => fadeUp(third), 4750);
+    setTimeout(() => fadeUp(first), 1250);
+    setTimeout(() => fadeUp(second), 2500);
+    setTimeout(() => fadeUp(third), 3750);
 });
