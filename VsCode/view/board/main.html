@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Megrim Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Megrim&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Pretendard Font -->
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
+    />
+
+    <script src="/js/AsideDropdown.js"></script>
+
+    <link rel="stylesheet" href="/style/common/common.css" />
+    <link rel="stylesheet" href="/style/board/main.css" />
+    <title>board main</title>
+  </head>
+  <body>
+    <div id="wrapper">
+      <header>
+        <div class="headerLogo">
+          <a href="#">
+            <img
+              src="/images/linkON_logo_upscaled.png"
+              alt="logo"
+              class="logo"
+            />
+          </a>
+          <h2 class="logoText">LinkON</h2>
+        </div>
+        <div class="headerOthers">
+          <img src="/images/DarkMode.svg" alt="DarkMode" class="headerIcon" />
+          <a href="#">
+            <img
+              src="/images/NotificationsNone.svg"
+              alt="Alarm"
+              class="headerIcon"
+            />
+          </a>
+          <a href="#" class="profile">
+            <img src="/images/Avatar.png" alt="Profile" class="headerIcon" />
+            <img src="/images/Status.svg" alt="Status" class="Status" />
+          </a>
+        </div>
+      </header>
+
+      <main>
+        <aside>
+          <ul>
+            <a href="#">
+              <li>
+                <img src="/images/Home.svg" class="asideIcon" />
+                <p>홈</p>
+              </li>
+            </a>
+            <li class="ListSubheader">
+              <img src="/images/ListSubheader.png" />
+            </li>
+            <a href="#">
+              <li>
+                <img src="/images/Message.svg" class="asideIcon" />
+                <p>채팅</p>
+              </li>
+            </a>
+            <a href="#">
+              <li>
+                <img src="/images/User.svg" class="asideIcon" />
+                <p>내 정보</p>
+              </li>
+            </a>
+            <a href="#">
+              <li>
+                <img src="/images/File.svg" class="asideIcon" />
+                <p>페이지</p>
+              </li>
+            </a>
+            <a href="#">
+              <li>
+                <img src="/images/Clipboard.svg" class="asideIcon" />
+                <p>프로젝트</p>
+              </li>
+            </a>
+            <a href="#" class="dropdown-toggle">
+              <li>
+                <img src="/images/Edit.svg" class="asideIcon" />
+                <p>게시판</p>
+              </li>
+              <img
+                src="/images/RightArrow.svg"
+                alt="RightArrow"
+                class="rightArrow"
+              />
+            </a>
+            <div class="dropdown dropdown-false">
+              <ul class="dropItem">
+                <a href="#">
+                  <li>공지사항</li>
+                </a>
+                <a href="#">
+                  <li>고객문의</li>
+                </a>
+              </ul>
+            </div>
+            <a href="#" class="dropdown-toggle">
+              <li>
+                <img src="/images/Folder.svg" class="asideIcon" />
+                <p>드라이브</p>
+              </li>
+              <img
+                src="/images/RightArrow.svg"
+                alt="RightArrow"
+                class="rightArrow"
+              />
+            </a>
+            <div class="dropdown dropdown-false">
+              <ul class="dropItem">
+                <a href="#">
+                  <li>공지사항</li>
+                </a>
+                <a href="#">
+                  <li>고객문의</li>
+                </a>
+              </ul>
+            </div>
+            <a href="#">
+              <li>
+                <img src="/images/CreditCard.svg" class="asideIcon" />
+                <p>멤버십</p>
+              </li>
+            </a>
+            <a href="#" class="dropdown-toggle">
+              <li>
+                <img src="/images/Tool.svg" class="asideIcon" />
+                <p>관리자</p>
+              </li>
+              <img
+                src="/images/RightArrow.svg"
+                alt="RightArrow"
+                class="rightArrow"
+              />
+            </a>
+            <div class="dropdown dropdown-false">
+              <ul class="dropItem">
+                <a href="#">
+                  <li>공지사항</li>
+                </a>
+                <a href="#">
+                  <li>고객문의</li>
+                </a>
+              </ul>
+            </div>
+            <a href="#" class="dropdown-toggle">
+              <li>
+                <img src="/images/Settings.svg" class="asideIcon" />
+                <p>환경설정</p>
+              </li>
+              <img
+                src="/images/RightArrow.svg"
+                alt="RightArrow"
+                class="rightArrow"
+              />
+            </a>
+            <div class="dropdown dropdown-false">
+              <ul class="dropItem">
+                <a href="#">
+                  <li>공지사항</li>
+                </a>
+                <a href="#">
+                  <li>고객문의</li>
+                </a>
+              </ul>
+            </div>
+            <a href="#" class="dropdown-toggle">
+              <li>
+                <img src="/images/Help.svg" class="asideIcon" />
+                <p>고객센터</p>
+              </li>
+              <img
+                src="/images/RightArrow.svg"
+                alt="RightArrow"
+                class="rightArrow"
+              />
+            </a>
+            <div class="dropdown dropdown-false">
+              <ul class="dropItem">
+                <a href="#">
+                  <li>공지사항</li>
+                </a>
+                <a href="#">
+                  <li>고객문의</li>
+                </a>
+              </ul>
+            </div>
+          </ul>
+          <p class="copyright">Copyright © LinkON. All rights reserved.</p>
+        </aside>
+        <!-- prettier-ignore -->
+        <section>
+          <div>
+            <div class="title">
+                <p>게시판</p>
+            </div>
+            <div class="article-wrapper">
+              <article>
+                  <div class="sub-title">
+                    <p>공지사항</p>
+                    <a href="#"
+                        ><img src="/images/board/Group 20.svg" alt="더보기"
+                    /></a>
+                  </div>
+                  <div class="content">
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">사내 복장 단속합니다. 준수하세요.</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">오늘 회사에 정진우 뜸. 조심하셈들.</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">아~~ 피그마 귀찮아~~</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">게시판 미리보기 항목은 5개 띄우기</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">공지사항, 자유게시판 등등</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                  </div>
+              </article>
+              <article>
+                  <div class="sub-title">
+                  <p>자료실</p>
+                  <a href="#"
+                      ><img src="/images/board/Group 20.svg" alt="더보기"
+                  /></a>
+                  </div>
+                  <div class="content">
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">사내 복장 단속합니다. 준수하세요.</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">오늘 회사에 정진우 뜸. 조심하셈들.</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">아~~ 피그마 귀찮아~~</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">게시판 미리보기 항목은 5개 띄우기</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">공지사항, 자유게시판 등등</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                  </div>
+              </article>
+              <article>
+                  <div class="sub-title">
+                  <p>부서별 게시판</p>
+                  <a href="#"
+                      ><img src="/images/board/Group 20.svg" alt="더보기"
+                  /></a>
+                  </div>
+                  <div class="content">
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">사내 복장 단속합니다. 준수하세요.</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">오늘 회사에 정진우 뜸. 조심하셈들.</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">아~~ 피그마 귀찮아~~</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">게시판 미리보기 항목은 5개 띄우기</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">공지사항, 자유게시판 등등</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                  </div>
+              </article>
+              <article>
+                  <div class="sub-title">
+                  <p>자유 게시판</p>
+                  <a href="#"
+                      ><img src="/images/board/Group 20.svg" alt="더보기"
+                  /></a>
+                  </div>
+                  <div class="content">
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">사내 복장 단속합니다. 준수하세요.</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">오늘 회사에 정진우 뜸. 조심하셈들.</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">아~~ 피그마 귀찮아~~</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">게시판 미리보기 항목은 5개 띄우기</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">공지사항, 자유게시판 등등</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                  </div>
+              </article>
+              <article>
+                  <div class="sub-title">
+                  <p>익명 게시판</p>
+                  <a href="#"
+                      ><img src="/images/board/Group 20.svg" alt="더보기"
+                  /></a>
+                  </div>
+                  <div class="content">
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">사내 복장 단속합니다. 준수하세요.</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">오늘 회사에 정진우 뜸. 조심하셈들.</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">아~~ 피그마 귀찮아~~</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">게시판 미리보기 항목은 5개 띄우기</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">공지사항, 자유게시판 등등</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                  </div>
+              </article>
+              <article>
+                  <div class="sub-title">
+                  <p>오늘의 식단</p>
+                  <a href="#"
+                      ><img src="/images/board/Group 20.svg" alt="더보기"
+                  /></a>
+                  </div>
+                  <div class="content">
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">사내 복장 단속합니다. 준수하세요.</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">오늘 회사에 정진우 뜸. 조심하셈들.</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">아~~ 피그마 귀찮아~~</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">게시판 미리보기 항목은 5개 띄우기</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                    <div>
+                    <a href="#">이사</a>
+                    <a href="#">공지사항, 자유게시판 등등</a>
+                    <a href="#">2025.05.28</a>
+                    </div>
+                  </div>
+              </article>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
