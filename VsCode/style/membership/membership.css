@@ -43,7 +43,8 @@
 }
 
 .badge {
-  background-color: #4f46e5;
+  pointer-events: none;
+  background-color: #639fd5;
   color: white;
   padding: 0.25rem 0.75rem;
   font-size: 0.75rem;
@@ -88,7 +89,7 @@
 
 .start-btn {
   margin-top: 2rem;
-  background-color: #4f46e5;
+  background-color: #639fd5;
   color: white;
   border: none;
   border-radius: 0.5rem;
@@ -99,7 +100,7 @@
 }
 
 .start-btn:hover {
-  background-color: #3730a3;
+  background-color: #639fd5;
 }
 
  @media (max-width: 1280px) {
