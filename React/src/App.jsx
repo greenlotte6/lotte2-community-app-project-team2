@@ -1,8 +1,8 @@
 import "./styles/common.scss";
+import "./styles/user/login.scss";
 import { MainLayout } from "./layouts/MainLayout";
 import { RouterProvider } from "react-router-dom";
 import router from "./routers/router";
-
 
 /*
 npm add react-router-dom
