@@ -1,0 +1,163 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Pretendard Variable", Pretendard, sans-serif;
+  font-size: 14px;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+header {
+  box-shadow: 0px 2px 6px 0px rgba(208, 208, 208, 0.25);
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 30px 0px 20px;
+}
+
+.headerLogo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 65px;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+}
+
+.logoText {
+  font-family: "Megrim", system-ui;
+  font-size: 22px;
+}
+
+.headerOthers {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.headerOthers > a {
+  display: flex;
+  align-items: center;
+}
+
+.profile {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.headerIcon {
+  width: 26px;
+}
+
+.Status {
+  position: absolute;
+  width: 10px;
+  bottom: 0;
+  right: 0;
+}
+
+aside {
+  position: relative;
+  width: 200px;
+  height: 100vh;
+  padding: 18px 12px;
+  box-shadow: 2px 0px 6px 0px rgba(208, 208, 208, 0.25);
+}
+
+aside > ul > a {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 8px;
+  margin: 8px 0;
+}
+
+aside > ul > a > li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+aside > ul > a:hover:not(.ListSubheader) {
+  border-radius: 12px;
+  background-color: #f9f9f9;
+  transition: 0.3s;
+}
+
+.ListSubheader > img {
+  width: 200px;
+}
+
+.asideIcon {
+  width: 24px;
+}
+
+.copyright {
+  position: absolute;
+  width: inherit;
+  bottom: 0px;
+  padding: 12px 0;
+  margin: 0;
+  background-color: white;
+  font-size: 10px;
+  text-align: center;
+  color: #777;
+  border-top: 1px solid #fafafa;
+}
+
+.dropdown {
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.dropdown-true {
+  max-height: 1000px;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.dropdown-false {
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.dropItem > a > li {
+  padding: 17px 0px 17px 42px;
+  margin: 8px 0;
+  font-size: 12px;
+  border-radius: 12px;
+}
+
+.rightArrow {
+  transition: transform 0.3s ease;
+}
+
+.rotate-open {
+  transform: rotate(90deg);
+}
+
+.rotate-close {
+  transform: rotate(0deg);
+}
+
+.displayNone {
+  display: none;
+}
+
+main {
+  display: flex;
+}
