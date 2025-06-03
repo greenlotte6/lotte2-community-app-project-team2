@@ -38,6 +38,7 @@
 
 .modalClose {
     display: flex;
+    justify-content: center;
     align-items: center;
 }
 
@@ -45,10 +46,11 @@
     padding: 16px;
 }
 
-.btnContainer {
+.btnContainer > div {
     display: flex;
     justify-content: right;
     margin-top: 16px;
+    column-gap: 6px;
 }
 
 .btnContainer > div > button {
@@ -110,13 +112,13 @@
     display: flex;
     align-items: center;
     column-gap: 10px;
+    margin-bottom: 8px;
 }
 
 .responsibilityList {
     position: relative;
     border: 1px solid #ddd;
     border-radius: 4px;
-    font-size: 14px;
     color: #777;
     padding: 6px 42px 6px 8px;
 }
@@ -137,11 +139,11 @@
 .addWorkModal > .modalContent {
     display: flex;
     flex-direction: column;
-    row-gap: 12px;
+    row-gap: 20px;
 }
 
 .workTitle > input {
-    width: 300px;
+    width: 400px;
     height: 30px;
     padding-left: 8px;
     border: 1px solid #ddd;
@@ -150,7 +152,7 @@
 }
 
 .workContent > textarea {
-    width: 300px;
+    width: 400px;
     height: 200px;
     padding: 8px;
     border: 1px solid #ddd;
