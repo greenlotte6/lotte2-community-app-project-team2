@@ -200,15 +200,21 @@ section {
 
 .projectList {
   display: flex;
+  row-gap: 12px;
+  flex-direction: column;
 }
 
 .projects {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px;
+  border: 1px solid #eee;
+  background-color: white;
+  border-radius: 6px;
   gap: 6px;
 }
 
-.projects > div {
+.projectInfo > div {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -228,10 +234,70 @@ section {
   align-items: center;
   font-size: 12px;
   color: #888;
+  height: 20px;
 }
 
 .editDate::before {
   content: "·";
   font-size: 20px;
   padding-right: 6px;
+}
+
+.MoreIcon {
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+}
+
+.MoreIcon > img {
+  width: 24px;
+}
+
+.MoreBtnContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.MoreOption {
+  display: none !important;
+  position: absolute;
+  top: 30px;
+  right: -6px;
+  width: 120px;
+  flex-direction: column;
+  padding: 8px 0;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0px 0px 0px 1px #d1d9e080, 0px 6px 12px -3px #25292e0a, 0px 6px 18px 0px #25292e1f;
+}
+
+.MoreOption > a {
+  display: flex;
+  align-items: center;
+  margin: 0 6px;
+  padding: 6px 12px 6px 6px;
+}
+
+.MoreOption > a:first-child {
+  padding-bottom: 6px;
+}
+
+.MoreOption > a:hover {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+}
+
+.MoreOption p {
+  font-size: 12px;
+}
+
+.removeIcon {
+  width: 16px;
+  margin-right: 8px;
+}
+
+.editIcon {
+  width: 16px;
+  margin-right: 8px;
 }

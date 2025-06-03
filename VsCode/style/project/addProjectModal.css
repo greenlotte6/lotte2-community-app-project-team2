@@ -1,0 +1,165 @@
+/* 아마도 공용 모달 CSS */
+.modalContainer {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    overflow-y: hidden;
+    background: #c8d1da66;
+}
+
+.modalWrapper {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 0px 1px #d1d9e080, 0px 6px 12px -3px #25292e0a, 0px 6px 18px 0px #25292e1f;
+}
+
+.modalHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.modalHeader > button {
+    background-color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.modalHeader > button > img {
+    width: 12px;
+}
+
+.modalClose {
+    display: flex;
+    align-items: center;
+}
+
+.modalContent {
+    padding: 16px;
+}
+
+.btnContainer {
+    display: flex;
+    justify-content: right;
+    margin-top: 16px;
+}
+
+.btnContainer > div > button {
+    width: 50px;
+    height: 28px;
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.btnContainer > div > button:first-child {
+    background-color: #f8f8f8;
+    color: #444;
+}
+
+.btnContainer > div > button:first-child:hover {
+    background-color: #eeeeee;
+    transition: 0.3s;
+}
+
+.btnContainer > div > button:last-child {
+    background-color: #639FD5;
+    color: white;
+}
+
+.btnContainer > div > button:last-child:hover {
+    background-color: #5c91c0;
+    transition: 0.3s;
+}
+/* 아마도 공용 모달 CSS */
+
+
+/* 새 프로젝트 추가 모달 */
+.inputProjectName > p {
+    font-size: 13px;
+}
+
+.inputProjectName > input {
+    margin-top: 6px;
+    width: 300px;
+    height: 34px;
+    padding-left: 8px;
+    border: 1px solid #ddd;
+    outline: none;
+    font-size: 13px;
+}
+
+.inputProjectName > input::placeholder {
+    font-size: 13px;
+    font-weight: 300;
+    color: #999;
+}
+/* 새 프로젝트 추가 모달 */
+
+
+/* 작업 추가 모달 */
+.responsibility {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.responsibilityList {
+    position: relative;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #777;
+    padding: 6px 42px 6px 8px;
+}
+
+.responsibilityList::after {
+    content: "";
+    background: url("/images/Down.svg");
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 15px 15px;
+    width: 15px;
+    height: 15px;
+    right: 6px;
+    top: 7px;
+    position: absolute;
+}
+
+.addWorkModal > .modalContent {
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+}
+
+.workTitle > input {
+    width: 300px;
+    height: 30px;
+    padding-left: 8px;
+    border: 1px solid #ddd;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.workContent > textarea {
+    width: 300px;
+    height: 200px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    outline: none;
+    resize: none;
+    box-sizing: border-box;
+}
+
+.workTitle > p, .workContent > p {
+    margin-bottom: 8px;
+}
+/* 작업 추가 모달 */
