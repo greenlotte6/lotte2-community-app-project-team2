@@ -1,6 +1,8 @@
 import "./styles/common.scss";
 import "./styles/user/login.scss";
-import { MainLayout } from "./layouts/MainLayout";
+import "./styles/messenger/Messenger.scss"
+import "./styles/Calender/Calender.scss"
+import "./styles/Drive/Drive.scss"
 import { RouterProvider } from "react-router-dom";
 import router from "./routers/router";
 
