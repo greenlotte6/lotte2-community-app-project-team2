@@ -1,7 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getTerms } from "../../api/userAPI";
 
 export const Terms = () => {
+  const [termsText, setTermsText] = useState("");
+  const [privacyText, setPrivacyText] = useState("");
+
+  useEffect(() => {
+    // 약관 데이터 fetch 비동기 함수
+    const fetchData = async () => {
+      try {
+        // 약관 데이터 요청하기
+        const data = await getTerms();
+
+        setTermsText(data.terms);
+        setPrivacyText(data.privacy);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    // 호출
+    fetchData();
+  }, []);
+
   return (
     <div className="terms-container">
       <div className="terms-box">
@@ -20,16 +42,7 @@ export const Terms = () => {
             <label>
               LinkON 이용약관 <span style={{ color: "red" }}>(필수)</span>
             </label>
-            <div className="term-content">
-              이용약관 내용이 여기에 표시됩니다.이용약관 내용이 여기에
-              표시됩니다.이용약관 내용이 여기에 표시됩니다.이용약관 내용이
-              여기에 표시됩니다.이용약관 내용이 여기에 표시됩니다.이용약관
-              내용이 여기에 표시됩니다.이용약관 내용이 여기에
-              표시됩니다.이용약관 내용이 여기에 표시됩니다.이용약관 내용이
-              여기에 표시됩니다.이용약관 내용이 여기에 표시됩니다.이용약관
-              내용이 여기에 표시됩니다.이용약관 내용이 여기에
-              표시됩니다.이용약관 내용이 여기에 표시됩니다.
-            </div>
+            <div className="term-content">{termsText}</div>
             <div className="agree-checkbox">
               <input type="checkbox" id="agree1" />
               <label for="agree1">동의</label>
@@ -41,17 +54,7 @@ export const Terms = () => {
               개인정보 이용 동의 약관
               <span style={{ color: "red" }}>(필수)</span>
             </label>
-            <div className="term-content">
-              개인정보 수집 및 이용에 대한 안내 내용이 여기에
-              표시됩니다.개인정보 수집 및 이용에 대한 안내 내용이 여기에
-              표시됩니다.개인정보 수집 및 이용에 대한 안내 내용이 여기에
-              표시됩니다.개인정보 수집 및 이용에 대한 안내 내용이 여기에
-              표시됩니다.개인정보 수집 및 이용에 대한 안내 내용이 여기에
-              표시됩니다.개인정보 수집 및 이용에 대한 안내 내용이 여기에
-              표시됩니다.개인정보 수집 및 이용에 대한 안내 내용이 여기에
-              표시됩니다.개인정보 수집 및 이용에 대한 안내 내용이 여기에
-              표시됩니다.개인정보 수집 및 이용에 대한 안내 내용이 여기에
-            </div>
+            <div className="term-content">{privacyText}</div>
             <div className="agree-checkbox">
               <input type="checkbox" id="agree2" />
               <label for="agree2">동의</label>

@@ -58,3 +58,7 @@ spring:
 jwt:
     issuer: chhak0503@gmail.com
     secret: 1XudNUpSmog7lw79thJFejF6YfBBQnCI
+
+file:
+    upload:
+        path: uploads
