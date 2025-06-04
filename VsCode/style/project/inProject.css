@@ -166,6 +166,8 @@ section {
   width: 100%;
   padding: 32px 20px;
   background-color: #fafafa;
+    overflow-x: auto;   /* 또는 scroll */
+  white-space: nowrap; 
 }
 
 .sectionHeader {
@@ -256,6 +258,7 @@ section {
   background-color: white;
   border: none;
   cursor: pointer;
+  position: relative;
 }
 
 .moreBtn > img {
@@ -280,6 +283,7 @@ section {
 
 .articles {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   background-color: #fcfcfc;
   border: 1px solid #ddd;
@@ -287,11 +291,18 @@ section {
   padding: 16px 16px 16px 10px;
   box-shadow: 0px 1px 1px 0px #25292e1a, 0px 3px 6px 0px #25292e1f;
   margin-bottom: 12px;
+  box-sizing: border-box;
+}
+
+.articleTitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .articleNumber {
   font-size: 13px;
   color: #666;
+  margin-left: 8px;
 }
 
 .articleFooter {
@@ -328,4 +339,47 @@ section {
   height: 18px;
   object-fit: cover;
   padding-right: 4px;
+}
+
+.MoreOption {
+  display: none !important;
+  position: absolute;
+  top: 24px;
+  right: -6px;
+  width: 120px;
+  flex-direction: column;
+  padding: 8px 0;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0px 0px 0px 1px #d1d9e080, 0px 6px 12px -3px #25292e0a, 0px 6px 18px 0px #25292e1f;
+}
+
+.MoreOption > a {
+  display: flex;
+  align-items: center;
+  margin: 0 6px;
+  padding: 6px 12px 6px 6px;
+}
+
+.MoreOption > a:first-child {
+  padding-bottom: 6px;
+}
+
+.MoreOption > a:hover {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+}
+
+.MoreOption p {
+  font-size: 12px;
+}
+
+.removeIcon {
+  width: 16px;
+  margin-right: 8px;
+}
+
+.editIcon {
+  width: 16px;
+  margin-right: 8px;
 }
