@@ -13,6 +13,7 @@
 }
 
 .modalWrapper {
+    display: none;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0px 0px 0px 1px #d1d9e080, 0px 6px 12px -3px #25292e0a, 0px 6px 18px 0px #25292e1f;
@@ -165,3 +166,52 @@
     margin-bottom: 8px;
 }
 /* 작업 추가 모달 */
+
+
+/* 작업 상태 추가 모달 */
+.addStatusModal > .modalContent {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.workStatusColor {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+    margin-bottom: 8px;
+}
+
+.workStatusColor > input {
+    width: 100px;
+    border: 1px solid #ddd;
+}
+
+.workStatusColor > span {
+    font-size: 12px;
+    color: #999;
+}
+
+.workTitle > input {
+    width: 400px;
+    height: 30px;
+    padding-left: 8px;
+    border: 1px solid #ddd;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.workContent > textarea {
+    width: 400px;
+    height: 200px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    outline: none;
+    resize: none;
+    box-sizing: border-box;
+}
+
+.workTitle > p, .workContent > p {
+    margin-bottom: 8px;
+}
+/* 작업 상태 추가 모달 */
