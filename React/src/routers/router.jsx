@@ -1,6 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Common } from "../pages/Common";
 import { LoginPage } from "../pages/user/LoginPage";
+import { Messengerpage } from "../pages/Messenger/Messengerpage";
+import { Calenderpage } from "../pages/Calendar/Calenderpage";
+import { Drivepage } from "../pages/Drive/Drivepage";
 import { TermsPage } from "../pages/user/TermsPage";
 import { SignupPage } from "../pages/user/SignupPage";
 
@@ -8,6 +11,9 @@ import { SignupPage } from "../pages/user/SignupPage";
 const router = createBrowserRouter([
   { path: "/", element: <Common /> },
   { path: "/user/login", element: <LoginPage /> },
+  { path: "/Messenger", element: <Messengerpage /> },
+  { path: "/Calender", element: <Calenderpage /> },
+  { path: "/Drive", element: <Drivepage /> },
   { path: "/user/terms", element: <TermsPage /> },
   { path: "/user/signup", element: <SignupPage /> },
 ]);

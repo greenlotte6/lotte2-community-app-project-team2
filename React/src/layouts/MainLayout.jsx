@@ -6,8 +6,10 @@ export const MainLayout = ({ children }) => {
   return (
     <div id="container">
       <Header />
-      <main>{children}</main>
+      <main>
       <Aside />
+      {children}
+      </main>
     </div>
   );
 };
