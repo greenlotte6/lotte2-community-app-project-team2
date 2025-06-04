@@ -28,24 +28,27 @@ jobs:
       - name: Get JAR_FILE
         id: jarfile
         run: |
-          JAR_FILE=$(ls build/libs/*.jar | grep -v plain | head -n 1)
+          JAR_FILE=$(ls LinkOn/build/libs/*.jar | grep -v plain | head -n 1)
           echo "JAR_FILE=${JAR_FILE}" >> $GITHUB_ENV
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: app
-          path: ${{ env.JAR_FILE }}
+          path: ${{ env.JAR_FILE }} # JAR 파일 경로가 정확한지 확인
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
           name: app
-          path: LinkOn/build/libs/
+          path: LinkOn/build/libs/ # 정확한 경로로 다운로드
 
       - name: Setup SSH Key
         run: |
@@ -54,15 +57,33 @@ jobs:
 
       - name: Copy JAR to EC2
         run: |
-          JAR_FILE=$(ls build/libs/*.jar | head -n 1)
+          JAR_FILE=$(ls LinkOn/build/libs/*.jar | head -n 1)
           scp -i private_key.pem \
             -o StrictHostKeyChecking=no \
             $JAR_FILE \
             ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_HOST }}:/home/${{ secrets.AWS_EC2_USER }}/
 
+      - name: Check current directory
+        run: |
+          pwd
+
+      - name: Sync uploads to EC2
+        run: |
+          rsync -avz -e "ssh -i private_key.pem -o StrictHostKeyChecking=no" \
+            LinkOn/uploads/ \
+            ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_HOST }}:/home/${{ secrets.AWS_EC2_USER }}/uploads/
+
+      # 이미지를 EC2로 전송 (uploads 디렉토리 복사)
+      #      - name: Copy images (uploads) to EC2
+      #        run: |
+      #          scp -i private_key.pem \
+      #            -o StrictHostKeyChecking=no \
+      #            -r LinkOn/uploads/* \
+      #            ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_HOST }}:/home/${{ secrets.AWS_EC2_USER }}/uploads/
+
       - name: Restart Spring Application on EC2
         run: |
-          JAR_FILE=$(basename $(ls build/libs/*.jar | head -n 1))
+          JAR_FILE=$(basename $(ls LinkOn/build/libs/*.jar | head -n 1))
           ssh -i private_key.pem \
             -o StrictHostKeyChecking=no \
             ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_HOST }} << EOF
