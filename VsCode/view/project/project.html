@@ -261,31 +261,8 @@
         </main>
 
     </div>
-    <div class="modalContainer">
-        <div class="addWorkModal modalWrapper">
-            <div class="modalHeader">
-                <p>작업 추가</p>
-                <button class="modalClose">
-                    <img src="/images/cancel.svg" alt="취소 버튼">
-                </button>
-            </div>
-            <div class="modalContent">
-                <div class="responsibility">
-                    <p>작업 담당자</p>
-                    <div class="responsibilityList">작업 담당자 선택</div>
-                </div>
-                <div class="workTitle">
-                    <p>작업 제목</p>
-                    <input type="text" name="workTitle" placeholder="작업 제목을 입력하세요">
-                </div>
-                <div class="workContent">
-                    <p>작업 내용</p>
-                    <textarea name="workContent">
-                </div>
-            </div>
-        </div>
-    </div>
-<!--
+
+<!-- 
     <div class="modalContainer">
         <div class="addProjectModal modalWrapper">
             <div class="modalHeader">
@@ -309,5 +286,39 @@
         </div>
     </div>
 -->
+
+    <div class="modalContainer">
+        <div class="addWorkModal modalWrapper">
+            <div class="modalHeader">
+                <p>작업 추가</p>
+                <button class="modalClose">
+                    <img src="/images/cancel.svg" alt="취소 버튼">
+                </button>
+            </div>
+            <div class="modalContent">
+                <div class="responsibility">
+                    <p>작업 담당자</p>
+                    <div class="responsibilityList">작업 담당자 선택</div>
+                </div>
+                <div class="workTitle">
+                    <p>작업 제목</p>
+                    <input type="text" name="workTitle" placeholder="작업 제목을 입력하세요">
+                </div>
+                <div class="workContent">
+                    <p>작업 내용</p>
+                    <textarea name="workContent" placeholder="작업 내용을 입력하세요"></textarea>
+                </div>
+                <div class="btnContainer">
+                    <div>
+                        <button type="button" class="modalClose">취소</button>
+                        <button type="button">추가</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
+
+

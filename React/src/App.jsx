@@ -3,6 +3,9 @@ import "./styles/user/login.scss";
 import "./styles/messenger/Messenger.scss"
 import "./styles/Calender/Calender.scss"
 import "./styles/Drive/Drive.scss"
+import "./styles/user/terms.scss";
+import "./styles/user/signup.scss";
+import { MainLayout } from "./layouts/MainLayout";
 import { RouterProvider } from "react-router-dom";
 import router from "./routers/router";
 
