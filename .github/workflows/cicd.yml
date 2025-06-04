@@ -17,12 +17,13 @@ jobs:
           distribution: temurin
 
       - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+        run: chmod +x LinkOn/gradlew
 
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2.6.0
         with:
           arguments: build
+          build-root-directory: LinkOn
 
       - name: Get JAR_FILE
         id: jarfile
@@ -44,7 +45,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: app
-          path: build/libs/
+          path: LinkOn/build/libs/
 
       - name: Setup SSH Key
         run: |
@@ -58,7 +59,7 @@ jobs:
             -o StrictHostKeyChecking=no \
             $JAR_FILE \
             ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_HOST }}:/home/${{ secrets.AWS_EC2_USER }}/
-      
+
       - name: Restart Spring Application on EC2
         run: |
           JAR_FILE=$(basename $(ls build/libs/*.jar | head -n 1))
