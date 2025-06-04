@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { Common } from "../pages/common";
+import { Common } from "../pages/Common";
 import { LoginPage } from "../pages/user/LoginPage";
 import { TermsPage } from "../pages/user/TermsPage";
 import { SignupPage } from "../pages/user/SignupPage";
