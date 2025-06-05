@@ -6,3 +6,4 @@ const SERVER_HOST =
 
 // user
 export const USER_TERMS = `${SERVER_HOST}/terms`;
+export const USER_REGISTER = `${SERVER_HOST}/user`;
