@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getTerms } from "../../api/userAPI";
 
 export const Terms = () => {
   const [termsText, setTermsText] = useState("");
   const [privacyText, setPrivacyText] = useState("");
+
+  // 체크 상태 관리
+  const [agree1, setAgree1] = useState(false);
+  const [agree2, setAgree2] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     // 약관 데이터 fetch 비동기 함수
@@ -23,6 +29,15 @@ export const Terms = () => {
     // 호출
     fetchData();
   }, []);
+
+  const handleNext = () => {
+    if (!agree1 || !agree2) {
+      alert("모든 약관에 동의하셔야 다음 단계로 넘어갈 수 있습니다.");
+      return;
+    }
+    // 모두 동의했으면 회원가입 페이지로 이동
+    navigate("/user/signup");
+  };
 
   return (
     <div className="terms-container">
@@ -44,7 +59,12 @@ export const Terms = () => {
             </label>
             <div className="term-content">{termsText}</div>
             <div className="agree-checkbox">
-              <input type="checkbox" id="agree1" />
+              <input
+                type="checkbox"
+                id="agree1"
+                checked={agree1}
+                onChange={(e) => setAgree1(e.target.checked)}
+              />
               <label for="agree1">동의</label>
             </div>
           </div>
@@ -56,16 +76,17 @@ export const Terms = () => {
             </label>
             <div className="term-content">{privacyText}</div>
             <div className="agree-checkbox">
-              <input type="checkbox" id="agree2" />
+              <input
+                type="checkbox"
+                id="agree2"
+                checked={agree2}
+                onChange={(e) => setAgree2(e.target.checked)}
+              />
               <label for="agree2">동의</label>
             </div>
           </div>
 
-          <button
-            type="button"
-            className="signup-btn"
-            onClick={() => (window.location.href = "/user/signup")}
-          >
+          <button type="button" className="signup-btn" onClick={handleNext}>
             다음
           </button>
 

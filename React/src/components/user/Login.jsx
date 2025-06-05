@@ -1,7 +1,54 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import { postUserLogin } from "../../api/userAPI";
+
+const initState = {
+  uid: "",
+  pass: "",
+};
 
 export const Login = () => {
+  const [user, setUser] = useState({ ...initState });
+
+  const { login } = useAuth();
+
+  const navigate = useNavigate();
+
+  // 핸들러
+  const changeHandler = (e) => {
+    e.preventDefault();
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    // 서버 요청 정의
+    const fetchData = async () => {
+      try {
+        // 로그인
+        const data = await postUserLogin(user);
+        console.log(data);
+
+        if (data.username) {
+          // redux login 호출
+          //dispatch(login(data));
+
+          // context login 호출
+          login(data.username);
+
+          // 메인 이동(컴포넌트 라우팅)
+          navigate("/");
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    // 호출
+    fetchData();
+  };
   return (
     <div className="login-container">
       <div className="login-box">
@@ -12,13 +59,27 @@ export const Login = () => {
         />
         <h1>LinkON</h1>
 
-        <form>
+        <form onSubmit={submitHandler}>
           <div className="input-group">
-            <input type="text" id="email" placeholder="아이디" />
+            <input
+              type="text"
+              id="email"
+              name="uid"
+              value={user.uid}
+              onChange={changeHandler}
+              placeholder="아이디"
+            />
           </div>
 
           <div className="input-group">
-            <input type="password" id="password" placeholder="비밀번호" />
+            <input
+              type="password"
+              id="password"
+              name="pass"
+              value={user.pass}
+              onChange={changeHandler}
+              placeholder="비밀번호"
+            />
           </div>
 
           <div className="options">
@@ -31,11 +92,7 @@ export const Login = () => {
             </div>
           </div>
 
-          <button
-            type="button"
-            className="login-btn"
-            onclick="location.href='/view/myPage/myPage.html'"
-          >
+          <button type="submit" className="login-btn" value="로그인">
             로그인
           </button>
         </form>
