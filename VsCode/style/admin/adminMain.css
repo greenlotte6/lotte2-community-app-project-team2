@@ -1,0 +1,70 @@
+main {
+  display: flex;
+}
+
+section {
+  width: 100%;
+  padding: 32px 20px;
+  background-color: #fafafa;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 28px;
+  margin-bottom: 28px;
+}
+
+.sectionHeader h3 {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.sectionContent {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.contents {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+.contents > p {
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.greeting {
+    width: 100%;
+}
+
+.department {
+    width: 100%;
+}
+
+.employees {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 40px 10px 14px;
+}
+
+.employees:not(:last-child) {
+    border-bottom: 1px solid #eee;
+}
+
+.employees > div {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.profileImg {
+    width: 34px;
+}
