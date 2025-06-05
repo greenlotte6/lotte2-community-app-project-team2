@@ -17,6 +17,7 @@
     <script src="/js/Project/modalControllerInProject.js"></script>
     <script src="/js/Project/workStatusColor.js"></script>
     <script src="/js/Project/showOption.js"></script>
+    <script src="/js/Project/showWorkOption.js"></script>
 
     <link rel="icon" sizes="32x32" href="/images/favicon.png">
     <link rel="stylesheet" href="/style/project/inProject.css">
@@ -56,16 +57,22 @@
                     <li class="ListSubheader">
                         <img src="/images/ListSubheader.png">
                     </li>
-                    <a href="#">
+                    <a href="/view/Messenger/Messenger.html">
                         <li>
                             <img src="/images/Message.svg" class="asideIcon">
                             <p>채팅</p>
                         </li>
                     </a>
-                    <a href="#">
+                    <a href="/view/myPage/myPage.html">
                         <li>
                             <img src="/images/User.svg" class="asideIcon">
                             <p>내 정보</p>
+                        </li>
+                    </a>
+                    <a href="/view/Calendar/Calender.html">
+                        <li>
+                            <img src="/images/Calendar.svg" class="asideIcon">
+                            <p>캘린더</p>
                         </li>
                     </a>
                     <a href="#">
@@ -90,33 +97,37 @@
 
                     <div class="dropdown displayNone dropdown-false">
                         <ul class="dropItem">
-                            <a href="#">
+                            <a href="/view/board/main.html">
+                                <li>게시판 목록</li>
+                            </a>
+                            <a href="/view/board/nitice/list.html">
                                 <li>공지사항</li>
                             </a>
-                            <a href="#">
-                                <li>고객문의</li>
+                            <a href="/view/board/data_room/list.html">
+                                <li>자료실</li>
+                            </a>
+                            <a href="/view/board/department/list.html">
+                                <li>부서별 게시판</li>
+                            </a>
+                            <a href="/view/board/free/list.html">
+                                <li>자유게시판</li>
+                            </a>
+                            <a href="/view/board/anonymity/list.html">
+                                <li>익명 게시판</li>
+                            </a>
+                            <a href="/view/board/diet/list.html">
+                                <li>오늘의 식단</li>
                             </a>
                         </ul>
                     </div>
-                    <a href="#" class="dropdown-toggle">
+
+                    <a href="/view/Drive/Drive.html">
                         <li>
                             <img src="/images/Folder.svg" class="asideIcon">
                             <p>드라이브</p>
                         </li>
-                        <img src="/images/RightArrow.svg" alt="RightArrow" class="rightArrow">
                     </a>
-
-                    <div class="dropdown displayNone dropdown-false">
-                        <ul class="dropItem">
-                            <a href="#">
-                                <li>공지사항</li>
-                            </a>
-                            <a href="#">
-                                <li>고객문의</li>
-                            </a>
-                        </ul>
-                    </div>
-                    <a href="#">
+                    <a href="/view/membership/membership.html">
                         <li>
                             <img src="/images/CreditCard.svg" class="asideIcon">
                             <p>멤버십</p>
@@ -211,51 +222,195 @@
                         <div class="articleWrapper">
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                         </div>
                         <div class="articleFooter">
@@ -289,51 +444,195 @@
                         <div class="articleWrapper">
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                         </div>
                         <div class="articleFooter">
@@ -367,51 +666,195 @@
                         <div class="articleWrapper">
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                             <div class="articles">
                                 <p class="articleTitle">RQ-012 프로젝트 화면 구현</p>
-                                <p class="articleNumber">#1</p>
+                                <button class="workMoreBtn">
+                                    <img src="/images/MoreVertical.svg" class="workMoreIcon" alt="더보기 아이콘">
+                                    <div class="workMoreOption">
+                                    <a href="#">
+                                        <img src="/images/edit2.svg" alt="수정아이콘" class="editIcon">
+                                        <p>작업 수정</p>
+                                    </a>
+                                    <a href="#">
+                                        <img src="/images/remove.svg" alt="삭제아이콘" class="removeIcon">
+                                        <p>삭제</p>
+                                    </a>
+                                </div>
+                                </button>
                             </div>
                         </div>
                         <div class="articleFooter">
