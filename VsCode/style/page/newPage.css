@@ -19,6 +19,11 @@ section {
   font-size: 25px;
 }
 
+button {
+  background-color: #f3f8fd;
+  border: none;
+}
+
 article {
   width: calc(48% - 40px);
   height: auto;
@@ -41,10 +46,68 @@ article:hover {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 30px auto;
 }
 
 article p:nth-of-type(1) {
   font-size: 18px;
   font-weight: 600;
+}
+.main {
+  display: flex;
+  flex: 1;
+}
+
+.sidebar {
+  position: relative;
+  width: 250px;
+  background-color: #f2f8fd;
+  display: flex;
+  height: 100vh;
+  padding: 30px 16px 16px 16px;
+}
+
+.sidebar-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar-actions span {
+  font-size: 14px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.page-list {
+  margin-top: 20px;
+  list-style: none;
+}
+
+.page-list li {
+  color: #999999;
+  font-size: 14px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  padding: 50px;
+}
+
+input {
+  border: none;
+  height: 36px;
+}
+
+.content > input::placeholder {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.trash {
+  position: absolute;
+  bottom: 10px;
 }
