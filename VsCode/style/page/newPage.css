@@ -20,7 +20,7 @@ section {
 }
 
 article {
-  width: calc(50% - 40px);
+  width: calc(48% - 40px);
   height: auto;
   display: flex;
   flex-wrap: wrap;
@@ -41,36 +41,10 @@ article:hover {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 20px 20px;
+  margin: 30px auto;
 }
 
 article p:nth-of-type(1) {
   font-size: 18px;
   font-weight: 600;
-}
-
-.sub-title {
-  width: 635px;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 20px;
-  margin-top: 20px;
-}
-
-.content {
-  margin-bottom: 10px;
-}
-
-.content div {
-  width: 620px;
-  margin: 10px 0 15px 25px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.content a:hover {
-  font-weight: 600;
-  transform: translateY(-3px);
 }

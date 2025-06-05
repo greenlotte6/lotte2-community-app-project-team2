@@ -70,9 +70,10 @@ header {
 
 aside {
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: 200px;
-  height: 100vh;
-  padding: 18px 12px;
+  padding: 18px 12px 160px 12px;
   box-shadow: 2px 0px 6px 0px rgba(208, 208, 208, 0.25);
 }
 
@@ -105,10 +106,9 @@ aside > ul > a:hover:not(.ListSubheader) {
 
 .copyright {
   position: absolute;
+  bottom: 0;
   width: inherit;
-  bottom: 0px;
   padding: 12px 0;
-  margin: 0;
   background-color: white;
   font-size: 10px;
   text-align: center;
@@ -166,7 +166,7 @@ section {
   width: 100%;
   padding: 32px 20px;
   background-color: #fafafa;
-    overflow-x: auto;   /* 또는 scroll */
+  overflow-x: auto;
   white-space: nowrap; 
 }
 
@@ -288,21 +288,16 @@ section {
   background-color: #fcfcfc;
   border: 1px solid #ddd;
   border-radius: 6px;
-  padding: 16px 16px 16px 10px;
+  padding: 16px 10px 16px 12px;
   box-shadow: 0px 1px 1px 0px #25292e1a, 0px 3px 6px 0px #25292e1f;
   margin-bottom: 12px;
   box-sizing: border-box;
+  position: relative;
 }
 
 .articleTitle {
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.articleNumber {
-  font-size: 13px;
-  color: #666;
-  margin-left: 8px;
 }
 
 .articleFooter {
@@ -352,6 +347,7 @@ section {
   border-radius: 8px;
   background-color: white;
   box-shadow: 0px 0px 0px 1px #d1d9e080, 0px 6px 12px -3px #25292e0a, 0px 6px 18px 0px #25292e1f;
+  z-index: 100;
 }
 
 .MoreOption > a {
@@ -374,6 +370,40 @@ section {
   font-size: 12px;
 }
 
+.workMoreOption {
+  display: none;
+  position: absolute;
+  top: 23px;
+  right: -9px;
+  width: 100px;
+  flex-direction: column;
+  padding: 8px 0;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0px 0px 0px 1px #d1d9e080, 0px 6px 12px -3px #25292e0a, 0px 6px 18px 0px #25292e1f;
+  z-index: 100;
+}
+
+.workMoreOption > a {
+  display: flex;
+  align-items: center;
+  margin: 0 6px;
+  padding: 6px 12px 6px 6px;
+}
+
+.workMoreOption > a:first-child {
+  padding-bottom: 6px;
+}
+
+.workMoreOption > a:hover {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+}
+
+.workMoreOption p {
+  font-size: 12px;
+}
+
 .removeIcon {
   width: 16px;
   margin-right: 8px;
@@ -382,4 +412,17 @@ section {
 .editIcon {
   width: 16px;
   margin-right: 8px;
+}
+
+.workMoreBtn {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.workMoreBtn > img {
+  width: 20px;
 }
