@@ -64,7 +64,7 @@ export const Terms = () => {
           <button
             type="button"
             className="signup-btn"
-            onclick="location.href='/view/user/signup.html'"
+            onClick={() => (window.location.href = "/user/signup")}
           >
             다음
           </button>

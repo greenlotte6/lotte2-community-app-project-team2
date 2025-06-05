@@ -10,12 +10,16 @@ import { SignupPage } from "../pages/user/SignupPage";
 // 라우터 생성
 const router = createBrowserRouter([
   { path: "/", element: <Common /> },
+
+  //--------------------user---------------------
   { path: "/user/login", element: <LoginPage /> },
+  { path: "/user/terms", element: <TermsPage /> },
+  { path: "/user/signup", element: <SignupPage /> },
+  //--------------------user----------------------
+
   { path: "/Messenger", element: <Messengerpage /> },
   { path: "/Calender", element: <Calenderpage /> },
   { path: "/Drive", element: <Drivepage /> },
-  { path: "/user/terms", element: <TermsPage /> },
-  { path: "/user/signup", element: <SignupPage /> },
 ]);
 
 // 라우터 내보내기

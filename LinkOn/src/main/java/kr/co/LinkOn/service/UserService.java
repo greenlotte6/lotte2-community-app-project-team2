@@ -1,7 +1,9 @@
 package kr.co.LinkOn.service;
 
 import kr.co.LinkOn.dto.user.TermsDTO;
+import kr.co.LinkOn.dto.user.UserDTO;
 import kr.co.LinkOn.entity.user.Terms;
+import kr.co.LinkOn.entity.user.User;
 import kr.co.LinkOn.repository.user.TermsRepository;
 import kr.co.LinkOn.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +34,16 @@ public class UserService {
         }
         return null;
 
+    }
+
+    public String register(UserDTO userDTO) {
+
+        String encoded = passwordEncoder.encode(userDTO.getPass());
+        userDTO.setPass(encoded);
+
+        User user = modelMapper.map(userDTO, User.class);
+        User savedUser = userRepository.save(user);
+
+        return savedUser.getUid();
     }
 }
