@@ -1,232 +1,272 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- FullCalendar CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+    <!-- FullCalendar CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
 
-  <!-- Megrim Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Megrim&display=swap" rel="stylesheet">
+    <!-- Megrim Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Megrim&display=swap"
+      rel="stylesheet"
+    />
 
-  <!-- Pretendard Font -->
-  <link rel="stylesheet" as="style" crossorigin
-  href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"/>
+    <!-- Pretendard Font -->
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
+    />
 
-  <link rel="stylesheet" href="/style/common/common.css" />
-  <link rel="stylesheet" href="/style/Calender/Calender.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <script src="/js/Dropdown/AsideDropdown.js"></script>
-  <title>Calender</title>
-</head>
-<body>
-  <div id="wrapper">
-    <header>
-      <div class="headerLogo">
-        <a href="#"><img src="/images/linkON_logo_upscaled.png" alt="logo" class="logo"></a>
-        <h2 class="logoText">LinkON</h2>
-      </div>
-      <div class="headerOthers">
-        <img src="/images/DarkMode.svg" alt="DarkMode" class="headerIcon">
-        <a href="#"><img src="/images/NotificationsNone.svg" alt="Alarm" class="headerIcon"></a>
-        <a href="#" class="profile">
-          <img src="/images/Avatar.png" alt="Profile" class="headerIcon">
-          <img src="/images/Status.svg" alt="Status" class="Status">
-        </a>
-      </div>
-    </header>
+    <link rel="stylesheet" href="/style/common/common.css" />
+    <link rel="stylesheet" href="/style/Calender/Calender.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <script src="/js/Dropdown/AsideDropdown.js"></script>
+    <title>Calender</title>
+  </head>
+  <body>
+    <div id="wrapper">
+      <header>
+        <div class="headerLogo">
+          <a href="#"
+            ><img
+              src="/images/linkON_logo_upscaled.png"
+              alt="logo"
+              class="logo"
+          /></a>
+          <h2 class="logoText">LinkON</h2>
+        </div>
+        <div class="headerOthers">
+          <img src="/images/DarkMode.svg" alt="DarkMode" class="headerIcon" />
+          <a href="#"
+            ><img
+              src="/images/NotificationsNone.svg"
+              alt="Alarm"
+              class="headerIcon"
+          /></a>
+          <a href="#" class="profile">
+            <img src="/images/Avatar.png" alt="Profile" class="headerIcon" />
+            <img src="/images/Status.svg" alt="Status" class="Status" />
+          </a>
+        </div>
+      </header>
 
-    <main>
-      <aside>
-                <ul>
-                    <a href="#">
-                        <li>
-                            <img src="/images/Home.svg" class="asideIcon">
-                            <p>홈</p>
-                        </li>
-                    </a>
-                    <li class="ListSubheader">
-                        <img src="/images/ListSubheader.png">
-                    </li>
-                    <a href="/view/Messenger/Messenger.html">
-                        <li>
-                            <img src="/images/Message.svg" class="asideIcon">
-                            <p>채팅</p>
-                        </li>
-                    </a>
-                    <a href="/view/myPage/myPage.html">
-                        <li>
-                            <img src="/images/User.svg" class="asideIcon">
-                            <p>내 정보</p>
-                        </li>
-                    </a>
-                    <a href="/view/Calendar/Calender.html">
-                        <li>
-                            <img src="/images/Calendar.svg" class="asideIcon">
-                            <p>캘린더</p>
-                        </li>
-                    </a>
-                    <a href="#">
-                        <li>
-                            <img src="/images/File.svg" class="asideIcon">
-                            <p>페이지</p>
-                        </li>
-                    </a>
-                    <a href="/view/project/project.html">
-                        <li>
-                            <img src="/images/Clipboard.svg" class="asideIcon">
-                            <p>프로젝트</p>
-                        </li>
-                    </a>
-                    <a href="#" class="dropdown-toggle">
-                        <li>
-                            <img src="/images/Edit.svg" class="asideIcon">
-                            <p>게시판</p>
-                        </li>
-                        <img src="/images/RightArrow.svg" alt="RightArrow" class="rightArrow">
-                    </a>
+      <main>
+        <aside>
+          <ul>
+            <a href="#">
+              <li>
+                <img src="/images/Home.svg" class="asideIcon" />
+                <p>홈</p>
+              </li>
+            </a>
+            <li class="ListSubheader">
+              <img src="/images/ListSubheader.png" />
+            </li>
+            <a href="/view/Messenger/Messenger.html">
+              <li>
+                <img src="/images/Message.svg" class="asideIcon" />
+                <p>채팅</p>
+              </li>
+            </a>
+            <a href="/view/myPage/myPage.html">
+              <li>
+                <img src="/images/User.svg" class="asideIcon" />
+                <p>내 정보</p>
+              </li>
+            </a>
+            <a href="/view/Calendar/Calender.html">
+              <li>
+                <img src="/images/Calendar.svg" class="asideIcon" />
+                <p>캘린더</p>
+              </li>
+            </a>
+            <a href="#">
+              <li>
+                <img src="/images/File.svg" class="asideIcon" />
+                <p>페이지</p>
+              </li>
+            </a>
+            <a href="/view/project/project.html">
+              <li>
+                <img src="/images/Clipboard.svg" class="asideIcon" />
+                <p>프로젝트</p>
+              </li>
+            </a>
+            <a href="#" class="dropdown-toggle">
+              <li>
+                <img src="/images/Edit.svg" class="asideIcon" />
+                <p>게시판</p>
+              </li>
+              <img
+                src="/images/RightArrow.svg"
+                alt="RightArrow"
+                class="rightArrow"
+              />
+            </a>
 
-                    <div class="dropdown displayNone dropdown-false">
-                        <ul class="dropItem">
-                            <a href="/view/board/main.html">
-                                <li>게시판 목록</li>
-                            </a>
-                            <a href="/view/board/nitice/list.html">
-                                <li>공지사항</li>
-                            </a>
-                            <a href="/view/board/data_room/list.html">
-                                <li>자료실</li>
-                            </a>
-                            <a href="/view/board/department/list.html">
-                                <li>부서별 게시판</li>
-                            </a>
-                            <a href="/view/board/free/list.html">
-                                <li>자유게시판</li>
-                            </a>
-                            <a href="/view/board/anonymity/list.html">
-                                <li>익명 게시판</li>
-                            </a>
-                            <a href="/view/board/diet/list.html">
-                                <li>오늘의 식단</li>
-                            </a>
-                        </ul>
-                    </div>
+            <div class="dropdown displayNone dropdown-false">
+              <ul class="dropItem">
+                <a href="/view/board/main.html">
+                  <li>게시판 목록</li>
+                </a>
+                <a href="/view/board/nitice/list.html">
+                  <li>공지사항</li>
+                </a>
+                <a href="/view/board/data_room/list.html">
+                  <li>자료실</li>
+                </a>
+                <a href="/view/board/department/list.html">
+                  <li>부서별 게시판</li>
+                </a>
+                <a href="/view/board/free/list.html">
+                  <li>자유게시판</li>
+                </a>
+                <a href="/view/board/anonymity/list.html">
+                  <li>익명 게시판</li>
+                </a>
+                <a href="/view/board/diet/list.html">
+                  <li>오늘의 식단</li>
+                </a>
+              </ul>
+            </div>
 
-                    <a href="/view/Drive/Drive.html">
-                        <li>
-                            <img src="/images/Folder.svg" class="asideIcon">
-                            <p>드라이브</p>
-                        </li>
-                    </a>
-                    <a href="/view/membership/membership.html">
-                        <li>
-                            <img src="/images/CreditCard.svg" class="asideIcon">
-                            <p>멤버십</p>
-                        </li>
-                    </a>
-                    <a href="#" class="dropdown-toggle">
-                        <li>
-                            <img src="/images/Tool.svg" class="asideIcon">
-                            <p>관리자</p>
-                        </li>
-                        <img src="/images/RightArrow.svg" alt="RightArrow" class="rightArrow">
-                    </a>
+            <a href="/view/Drive/Drive.html">
+              <li>
+                <img src="/images/Folder.svg" class="asideIcon" />
+                <p>드라이브</p>
+              </li>
+            </a>
+            <a href="/view/membership/membership.html">
+              <li>
+                <img src="/images/CreditCard.svg" class="asideIcon" />
+                <p>멤버십</p>
+              </li>
+            </a>
+            <a href="#" class="dropdown-toggle">
+              <li>
+                <img src="/images/Tool.svg" class="asideIcon" />
+                <p>관리자</p>
+              </li>
+              <img
+                src="/images/RightArrow.svg"
+                alt="RightArrow"
+                class="rightArrow"
+              />
+            </a>
 
-                    <div class="dropdown displayNone dropdown-false">
-                        <ul class="dropItem">
-                            <a href="#">
-                                <li>공지사항</li>
-                            </a>
-                            <a href="#">
-                                <li>고객문의</li>
-                            </a>
-                        </ul>
-                    </div>
-                    <a href="#" class="dropdown-toggle">
-                        <li>
-                            <img src="/images/Settings.svg" class="asideIcon">
-                            <p>환경설정</p>
-                        </li>
-                        <img src="/images/RightArrow.svg" alt="RightArrow" class="rightArrow">
-                    </a>
+            <div class="dropdown displayNone dropdown-false">
+              <ul class="dropItem">
+                <a href="#">
+                  <li>공지사항</li>
+                </a>
+                <a href="#">
+                  <li>고객문의</li>
+                </a>
+              </ul>
+            </div>
+            <a href="#" class="dropdown-toggle">
+              <li>
+                <img src="/images/Settings.svg" class="asideIcon" />
+                <p>환경설정</p>
+              </li>
+              <img
+                src="/images/RightArrow.svg"
+                alt="RightArrow"
+                class="rightArrow"
+              />
+            </a>
 
-                    <div class="dropdown displayNone dropdown-false">
-                        <ul class="dropItem">
-                            <a href="#">
-                                <li>공지사항</li>
-                            </a>
-                            <a href="#">
-                                <li>고객문의</li>
-                            </a>
-                        </ul>
-                    </div>
-                    <a href="#" class="dropdown-toggle">
-                        <li>
-                            <img src="/images/Help.svg" class="asideIcon">
-                            <p>고객센터</p>
-                        </li>
-                        <img src="/images/RightArrow.svg" alt="RightArrow" class="rightArrow">
-                    </a>
+            <div class="dropdown displayNone dropdown-false">
+              <ul class="dropItem">
+                <a href="#">
+                  <li>공지사항</li>
+                </a>
+                <a href="#">
+                  <li>고객문의</li>
+                </a>
+              </ul>
+            </div>
+            <a href="#" class="dropdown-toggle">
+              <li>
+                <img src="/images/Help.svg" class="asideIcon" />
+                <p>고객센터</p>
+              </li>
+              <img
+                src="/images/RightArrow.svg"
+                alt="RightArrow"
+                class="rightArrow"
+              />
+            </a>
 
-                    <div class="dropdown displayNone dropdown-false">
-                        <ul class="dropItem">
-                            <a href="#">
-                                <li>공지사항</li>
-                            </a>
-                            <a href="#">
-                                <li>고객문의</li>
-                            </a>
-                        </ul>
-                    </div>
-                </ul>
-                <p class="copyright">Copyright © LinkON. All rights reserved.</p>
-            </aside>
+            <div class="dropdown displayNone dropdown-false">
+              <ul class="dropItem">
+                <a href="#">
+                  <li>공지사항</li>
+                </a>
+                <a href="#">
+                  <li>고객문의</li>
+                </a>
+              </ul>
+            </div>
+          </ul>
+          <p class="copyright">
+            Copyright © LinkON. All rights reserved. 0.0.1-SNAPSHOT
+          </p>
+        </aside>
 
-      <section class="messenger-main">
-        <div class="content-layout">
-          <div class="sidebar-panel">
-            <p>홍길동<br />hong@gmail.com</p>
-            <div class="channel-list">
-              <p>+ 새 일정 만들기</p>
-              <p class="channel-item">일정 1 ⚙</p>
-              <p class="channel-item">일정 2 ⚙</p>
-              <p class="channel-item">일정 3 ⚙</p>
+        <section class="messenger-main">
+          <div class="content-layout">
+            <div class="sidebar-panel">
+              <p>홍길동<br />hong@gmail.com</p>
+              <div class="channel-list">
+                <p>+ 새 일정 만들기</p>
+                <p class="channel-item">일정 1 ⚙</p>
+                <p class="channel-item">일정 2 ⚙</p>
+                <p class="channel-item">일정 3 ⚙</p>
+              </div>
+            </div>
+            <div class="main-panel">
+              <div id="calendar"></div>
             </div>
           </div>
-          <div class="main-panel">
-            <div id="calendar"></div>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
+        </section>
+      </main>
+    </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const calendarEl = document.getElementById('calendar');
-      const calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        locale: 'ko',
-        height: 700,
-        events: [
-          {
-            title: '회의',
-            start: '2025-06-05'
-          },
-          {
-            title: '개발 일정',
-            start: '2025-06-10T10:30:00',
-            allDay: false
-          }
-        ]
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const calendarEl = document.getElementById("calendar");
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: "dayGridMonth",
+          locale: "ko",
+          height: 700,
+          events: [
+            {
+              title: "회의",
+              start: "2025-06-05",
+            },
+            {
+              title: "개발 일정",
+              start: "2025-06-10T10:30:00",
+              allDay: false,
+            },
+          ],
+        });
+        calendar.render();
       });
-      calendar.render();
-    });
-  </script>
-
-</body>
+    </script>
+  </body>
 </html>
