@@ -70,9 +70,10 @@ header {
 
 aside {
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: 200px;
-  height: 100vh;
-  padding: 18px 12px;
+  padding: 18px 12px 160px 12px;
   box-shadow: 2px 0px 6px 0px rgba(208, 208, 208, 0.25);
 }
 
@@ -105,10 +106,9 @@ aside > ul > a:hover:not(.ListSubheader) {
 
 .copyright {
   position: absolute;
+  bottom: 0;
   width: inherit;
-  bottom: 0px;
   padding: 12px 0;
-  margin: 0;
   background-color: white;
   font-size: 10px;
   text-align: center;
