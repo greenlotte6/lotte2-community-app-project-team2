@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Megrim Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Megrim&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Pretendard Font -->
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
+    />
+
+    <script src="/js/AsideDropdown.js"></script>
+
+    <link rel="stylesheet" href="/style/common/common.css" />
+    <link rel="stylesheet" href="/style/customerCenter/view.css" />
+    <title>data view</title>
+  </head>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".menu-button").forEach((button) => {
+        button.addEventListener("click", (e) => {
+          const dropdown = button.nextElementSibling;
+          dropdown.classList.toggle("hidden");
+        });
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!e.target.closest(".comment-menu")) {
+          document.querySelectorAll(".menu-dropdown").forEach((menu) => {
+            menu.classList.add("hidden");
+          });
+        }
+      });
+    });
+
+    document
+      .querySelector(".hidden-file-input")
+      .addEventListener("change", (e) => {
+        const files = e.target.files;
+        // 파일 처리 로직 추가 예정
+        console.log("첨부된 파일 목록:", files);
+      });
+  </script>
+  <body>
+    <div id="wrapper">
+      <header>
+        <div class="headerLogo">
+          <a href="#">
+            <img
+              src="/images/linkON_logo_upscaled.png"
+              alt="logo"
+              class="logo"
+            />
+          </a>
+          <h2 class="logoText">LinkON</h2>
+        </div>
+        <div class="headerOthers">
+          <img src="/images/DarkMode.svg" alt="DarkMode" class="headerIcon" />
+          <a href="#">
+            <img
+              src="/images/NotificationsNone.svg"
+              alt="Alarm"
+              class="headerIcon"
+            />
+          </a>
+          <a href="#" class="profile">
+            <img src="/images/Avatar.png" alt="Profile" class="headerIcon" />
+            <img src="/images/Status.svg" alt="Status" class="Status" />
+          </a>
+        </div>
+      </header>
+
+      <main>
+        <aside>
+          <ul>
+            <a href="#">
+              <li>
+                <img src="/images/Home.svg" class="asideIcon" />
+                <p>홈</p>
+              </li>
+            </a>
+            <li class="ListSubheader">
+              <img src="/images/ListSubheader.png" />
+            </li>
+            <a href="#">
+              <li>
+                <img src="/images/Message.svg" class="asideIcon" />
+                <p>채팅</p>
+              </li>
+            </a>
+            <a href="#">
+              <li>
+                <img src="/images/User.svg" class="asideIcon" />
+                <p>내 정보</p>
+              </li>
+            </a>
+            <a href="#">
+              <li>
+                <img src="/images/File.svg" class="asideIcon" />
+                <p>페이지</p>
+              </li>
+            </a>
+            <a href="#">
+              <li>
+                <img src="/images/Clipboard.svg" class="asideIcon" />
+                <p>프로젝트</p>
+              </li>
+            </a>
+            <a href="#" class="dropdown-toggle">
+              <li>
+                <img src="/images/Edit.svg" class="asideIcon" />
+                <p>게시판</p>
+              </li>
+              <img
+                src="/images/RightArrow.svg"
+                alt="RightArrow"
+                class="rightArrow"
+              />
+            </a>
+            <div class="dropdown dropdown-false">
+              <ul class="dropItem">
+                <a href="#">
+                  <li>공지사항</li>
+                </a>
+                <a href="#">
+                  <li>고객문의</li>
+                </a>
+              </ul>
+            </div>
+            <a href="#" class="dropdown-toggle">
+              <li>
+                <img src="/images/Folder.svg" class="asideIcon" />
+                <p>드라이브</p>
+              </li>
+              <img
+                src="/images/RightArrow.svg"
+                alt="RightArrow"
+                class="rightArrow"
+              />
+            </a>
+            <div class="dropdown dropdown-false">
+              <ul class="dropItem">
+                <a href="#">
+                  <li>공지사항</li>
+                </a>
+                <a href="#">
+                  <li>고객문의</li>
+                </a>
+              </ul>
+            </div>
+            <a href="#">
+              <li>
+                <img src="/images/CreditCard.svg" class="asideIcon" />
+                <p>멤버십</p>
+              </li>
+            </a>
+            <a href="#" class="dropdown-toggle">
+              <li>
+                <img src="/images/Tool.svg" class="asideIcon" />
+                <p>관리자</p>
+              </li>
+              <img
+                src="/images/RightArrow.svg"
+                alt="RightArrow"
+                class="rightArrow"
+              />
+            </a>
+            <div class="dropdown dropdown-false">
+              <ul class="dropItem">
+                <a href="#">
+                  <li>공지사항</li>
+                </a>
+                <a href="#">
+                  <li>고객문의</li>
+                </a>
+              </ul>
+            </div>
+            <a href="#" class="dropdown-toggle">
+              <li>
+                <img src="/images/Settings.svg" class="asideIcon" />
+                <p>환경설정</p>
+              </li>
+              <img
+                src="/images/RightArrow.svg"
+                alt="RightArrow"
+                class="rightArrow"
+              />
+            </a>
+            <div class="dropdown dropdown-false">
+              <ul class="dropItem">
+                <a href="#">
+                  <li>공지사항</li>
+                </a>
+                <a href="#">
+                  <li>고객문의</li>
+                </a>
+              </ul>
+            </div>
+            <a href="#" class="dropdown-toggle">
+              <li>
+                <img src="/images/Help.svg" class="asideIcon" />
+                <p>고객센터</p>
+              </li>
+              <img
+                src="/images/RightArrow.svg"
+                alt="RightArrow"
+                class="rightArrow"
+              />
+            </a>
+            <div class="dropdown dropdown-false">
+              <ul class="dropItem">
+                <a href="#">
+                  <li>공지사항</li>
+                </a>
+                <a href="#">
+                  <li>고객문의</li>
+                </a>
+              </ul>
+            </div>
+          </ul>
+          <p class="copyright">Copyright © LinkON. All rights reserved.</p>
+        </aside>
+        <section>
+          <div>
+            <div class="title">
+              <p>고객센터</p>
+            </div>
+            <div class="article-wrapper">
+              <a href="#" class="move-list">&lt; 목록으로</a>
+              <div class="notice-box">
+                <div class="notice-header">
+                  <div class="notice-title">
+                    <span>[안내]</span>
+                    <span>공지사항 입니다.</span>
+                  </div>
+                  <div class="notice-date">2025.05.28</div>
+                </div>
+
+                <div class="attachment">
+                  <span>첨부파일</span>
+                  <button type="button"><span>📎 첨부파일</span></button>
+                  <button type="button">
+                    <span>
+                      <img
+                        src="/images/board/notice/Group 35.png"
+                        alt="다운로드"
+                      />
+                    </span>
+                  </button>
+                </div>
+
+                <div class="content">
+                  블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라<br />
+                  블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라<br />
+                  블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라<br />
+                  블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라<br />
+                  블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라<br />
+                  블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라<br />
+                  블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라<br />
+                  블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라<br />
+                  블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라<br />
+                  블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라
+                </div>
+              </div>
+
+              <div class="btn-area1">
+                <button class="btn-edit all-button">수정</button>
+                <button class="btn-delete all-button">삭제</button>
+              </div>
+
+              <div class="btn-area2">
+                <button class="btn-back all-button">목록</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

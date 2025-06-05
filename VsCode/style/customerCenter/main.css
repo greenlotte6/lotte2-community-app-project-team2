@@ -20,7 +20,7 @@ section {
 }
 
 article {
-  width: calc(50% - 40px);
+  width: calc(48% - 40px);
   height: auto;
   display: flex;
   flex-wrap: wrap;
@@ -41,7 +41,7 @@ article:hover {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 20px 20px;
+  margin: 30px auto;
 }
 
 article p:nth-of-type(1) {
@@ -50,7 +50,7 @@ article p:nth-of-type(1) {
 }
 
 .sub-title {
-  width: 635px;
+  width: 715px;
   display: flex;
   justify-content: space-between;
   padding: 0 20px;
@@ -61,8 +61,8 @@ article p:nth-of-type(1) {
   margin-bottom: 10px;
 }
 
-.content div {
-  width: 620px;
+.content > div {
+  width: 705px;
   margin: 10px 0 15px 25px;
   display: flex;
   flex-wrap: wrap;
@@ -73,4 +73,44 @@ article p:nth-of-type(1) {
 .content a:hover {
   font-weight: 600;
   transform: translateY(-3px);
+}
+
+/* 원형 메뉴 */
+.circle-menu {
+  display: flex;
+  justify-content: right;
+  margin: 50px 80px 0 0;
+  gap: 20px;
+}
+
+.circle-item {
+  width: 100px;
+  height: 100px;
+  background-color: #f5faff;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.circle-item:hover {
+  transform: translateY(-5px);
+}
+
+.circle-item img {
+  width: 30px;
+  height: 30px;
+  margin-bottom: 5px;
+  filter: invert(35%) sepia(92%) saturate(437%) hue-rotate(184deg)
+    brightness(92%) contrast(90%);
+}
+
+.circle-item span {
+  font-size: 14px;
+  color: #3b82f6;
+  font-weight: 500;
 }
