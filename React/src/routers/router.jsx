@@ -6,6 +6,8 @@ import { Calenderpage } from "../pages/Calendar/Calenderpage";
 import { Drivepage } from "../pages/Drive/Drivepage";
 import { TermsPage } from "../pages/user/TermsPage";
 import { SignupPage } from "../pages/user/SignupPage";
+import { FindIdPage } from "../pages/user/FindIdPage";
+import { FindPasswordPage } from "../pages/user/FindPasswordPage";
 
 // 라우터 생성
 const router = createBrowserRouter([
@@ -15,6 +17,8 @@ const router = createBrowserRouter([
   { path: "/user/login", element: <LoginPage /> },
   { path: "/user/terms", element: <TermsPage /> },
   { path: "/user/signup", element: <SignupPage /> },
+  { path: "/user/findId", element: <FindIdPage /> },
+  { path: "/user/findPassword", element: <FindPasswordPage /> },
   //--------------------user----------------------
 
   { path: "/Messenger", element: <Messengerpage /> },
