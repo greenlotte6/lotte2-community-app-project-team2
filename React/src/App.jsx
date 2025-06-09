@@ -1,10 +1,12 @@
 import "./styles/common.scss";
 import "./styles/user/login.scss";
-import "./styles/messenger/Messenger.scss"
-import "./styles/Calender/Calender.scss"
-import "./styles/Drive/Drive.scss"
+import "./styles/messenger/Messenger.scss";
+import "./styles/Calender/Calender.scss";
+import "./styles/Drive/Drive.scss";
 import "./styles/user/terms.scss";
 import "./styles/user/signup.scss";
+import "./styles/user/findId.scss";
+import "./styles/user/findPassword.scss";
 import { MainLayout } from "./layouts/MainLayout";
 import { RouterProvider } from "react-router-dom";
 import router from "./routers/router";
