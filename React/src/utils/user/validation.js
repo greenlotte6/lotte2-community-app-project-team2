@@ -1,12 +1,21 @@
-// 아이디 중복 체크 (서버 연동 전 간단 모킹)
-export const checkId = (id) => {
+// 정규표현식
+const reUid = /^[a-z]+[a-z0-9]{4,19}$/g;
+const rePass =
+  /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
+const reName = /^[가-힣]{2,10}$/;
+const reEmail =
+  /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+const reHp = /^01(?:0|1|[6-9])-(?:\d{4})-\d{4}$/;
+
+// 아이디 형식 검사 (서버 중복 확인 전에 사용 가능)
+export const validateUid = (id) => {
   if (!id) {
     return { valid: false, msg: "아이디를 입력해주세요.", color: "gray" };
   }
-  if (id === "testuser") {
-    return { valid: false, msg: "이미 존재하는 아이디입니다.", color: "red" };
+  if (!reUid.test(id)) {
+    return { valid: false, msg: "영문 시작, 5~20자 입력하세요.", color: "red" };
   }
-  return { valid: true, msg: "사용 가능한 아이디입니다.", color: "green" };
+  return { valid: true, msg: "", color: "green" };
 };
 
 // 이메일 형식 검사

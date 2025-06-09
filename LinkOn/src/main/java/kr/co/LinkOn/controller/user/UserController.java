@@ -15,10 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -112,4 +109,20 @@ public class UserController {
         }
     }
 
+    // 유효성 검사
+    @GetMapping("check/{type}/{value}")
+    public ResponseEntity<Map<String, Long>> user(@PathVariable("type") String type,
+                                                  @PathVariable("value") String value) {
+        log.info("type : " + type + ", value : " + value);
+
+        long count = userService.checkUser(type, value);
+
+        Map<String, Long> resultMap = new HashMap<>();
+        resultMap.put("count", count);
+
+        // JSON 반환
+        return ResponseEntity.ok().body(resultMap);
+    }
+
+    // JSON 단일 문자열값이 직접 String으로 매핑되지 않기 때문에 JSON과 호환되는 Map 타입으로 JSON 수신
 }
