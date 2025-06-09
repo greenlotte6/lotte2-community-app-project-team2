@@ -33,3 +33,38 @@ export const postUserLogin = async (data) => {
     console.log(err);
   }
 };
+
+// 중복 확인 API
+export const checkUserDuplicate = async (type, value) => {
+  try {
+    const response = await axios.get(`/check/${type}/${value}`);
+    console.log(response.data); // 여기에서 count 값이 실제로 오는지 확인
+    const count = response.data.count;
+
+    let label;
+    if (type === "uid") label = "아이디";
+    else if (type === "email") label = "이메일";
+    else if (type === "hp") label = "연락처";
+
+    if (count > 0) {
+      return {
+        valid: false,
+        msg: `이미 존재하는 ${label}입니다.`,
+        color: "red",
+      };
+    } else {
+      return {
+        valid: true,
+        msg: `사용 가능한 ${label}입니다.`,
+        color: "green",
+      };
+    }
+  } catch (error) {
+    console.log(error);
+    return {
+      valid: false,
+      msg: "서버 오류가 발생했습니다.",
+      color: "red",
+    };
+  }
+};

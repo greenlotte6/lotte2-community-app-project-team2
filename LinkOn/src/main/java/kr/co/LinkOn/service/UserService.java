@@ -46,4 +46,19 @@ public class UserService {
 
         return savedUser.getUid();
     }
+
+    // 유효성 검사
+    public long checkUser(String type, String value) {
+        long count = 0;
+
+        if (type.equals("uid")) {
+            count = userRepository.countByUid(value);
+        } else if (type.equals("email")) {
+            count = userRepository.countByEmail(value); // ✅ 중복 여부만 확인
+        } else if (type.equals("hp")) {
+            count = userRepository.countByHp(value);
+        }
+
+        return count;
+    }
 }

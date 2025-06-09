@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { postUser } from "../../api/userAPI";
+import { checkUserDuplicate, postUser } from "../../api/userAPI";
 
 // utils 함수 import
 import {
-  checkId,
   validateEmail,
+  validateUid,
   sendEmailCode,
   verifyCode,
 } from "../../utils/user/validation";
@@ -13,6 +13,7 @@ import {
 const initState = {
   uid: "",
   pass: "",
+  pass2: "",
   name: "",
   email: "",
   hp: "",
@@ -37,8 +38,13 @@ export const Signup = () => {
   };
 
   // 아이디 중복확인 버튼 클릭
-  const handleCheckId = () => {
-    const result = checkId(user.uid);
+  const handleCheckId = async () => {
+    if (!user.uid) {
+      setIdMsg({ text: "아이디를 입력해주세요.", color: "gray" });
+      return;
+    }
+
+    const result = await checkUserDuplicate("uid", user.uid);
     setIdMsg({ text: result.msg, color: result.color });
   };
 
@@ -123,7 +129,7 @@ export const Signup = () => {
 
         <form onSubmit={submitHandler}>
           <div className="input-group">
-            <label for="id">아이디</label>
+            <label htmlFor="id">아이디</label>
             <div className="input-with-button">
               <input
                 type="text"
@@ -146,7 +152,7 @@ export const Signup = () => {
             </p>
           </div>
           <div className="input-group">
-            <label for="pw">비밀번호</label>
+            <label htmlFor="pw">비밀번호</label>
             <input
               type="password"
               id="pw"
@@ -157,7 +163,7 @@ export const Signup = () => {
             />
           </div>
           <div className="input-group">
-            <label for="pw-check">비밀번호 확인</label>
+            <label htmlFor="pw-check">비밀번호 확인</label>
             <input
               type="password"
               id="pw-check"
@@ -168,7 +174,7 @@ export const Signup = () => {
             />
           </div>
           <div className="input-group">
-            <label for="name">이름</label>
+            <label htmlFor="name">이름</label>
             <input
               type="text"
               id="name"
@@ -179,7 +185,7 @@ export const Signup = () => {
             />
           </div>
           <div className="input-group">
-            <label for="phone">휴대폰</label>
+            <label htmlFor="phone">휴대폰</label>
             <input
               type="text"
               id="phone"
@@ -191,7 +197,7 @@ export const Signup = () => {
           </div>
 
           <div className="input-group">
-            <label for="email">이메일</label>
+            <label htmlFor="email">이메일</label>
             <div className="input-with-button">
               <input
                 type="email"
