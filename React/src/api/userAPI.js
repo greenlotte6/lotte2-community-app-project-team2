@@ -1,11 +1,5 @@
 import axios from "axios";
-import {
-  USER_LOGIN,
-  USER_REGISTER,
-  USER_TERMS,
-  SERVER_HOST,
-  USER_LOGOUT,
-} from "./_http";
+import { USER_LOGIN, USER_REGISTER, USER_TERMS } from "./_http";
 
 export const getTerms = async () => {
   try {
@@ -43,7 +37,8 @@ export const postUserLogin = async (data) => {
 // 중복 확인 API
 export const checkUserDuplicate = async (type, value) => {
   try {
-    const response = await axios.get(`${SERVER_HOST}/user/${type}/${value}`);
+    const response = await axios.get(`/check/${type}/${value}`);
+    console.log(response.data); // 여기에서 count 값이 실제로 오는지 확인
     const count = response.data.count;
 
     let label;
@@ -65,22 +60,11 @@ export const checkUserDuplicate = async (type, value) => {
       };
     }
   } catch (error) {
+    console.log(error);
     return {
       valid: false,
       msg: "서버 오류가 발생했습니다.",
       color: "red",
     };
-  }
-};
-
-export const getUserLogout = async () => {
-  try {
-    const response = await axios.get(`${USER_LOGOUT}`, {
-      withCredentials: true,
-    });
-    console.log(response);
-    return response.data;
-  } catch (err) {
-    console.log(err);
   }
 };

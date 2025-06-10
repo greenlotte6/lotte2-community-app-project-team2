@@ -39,7 +39,7 @@ export const Login = () => {
           login(data.username);
 
           // 메인 이동(컴포넌트 라우팅)
-          navigate("/myPage/myPage");
+          navigate("/mypage/mypage");
         }
       } catch (err) {
         console.error(err);
