@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { checkUserDuplicate, postUser } from "../../api/userAPI";
 
-// utils 함수 import
-import {
-  validateEmail,
-  validateUid,
-  sendEmailCode,
-  verifyCode,
-} from "../../utils/user/validation";
+// 정규표현식
+const reUid = /^[a-z]+[a-z0-9]{4,19}$/g;
+const rePass =
+  /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{5,16}$/;
+const reName = /^[가-힣]{2,10}$/;
+const reHp = /^01(?:0|1|[6-9])-(?:\d{4})-\d{4}$/;
+const reEmail =
+  /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 
 const initState = {
   uid: "",
@@ -21,97 +22,147 @@ const initState = {
 
 export const Signup = () => {
   const navigate = useNavigate();
-
   const [user, setUser] = useState({ ...initState });
 
-  // 유효성 메시지 상태
   const [idMsg, setIdMsg] = useState({ text: "", color: "gray" });
+  const [passMsg, setPassMsg] = useState({ text: "", color: "gray" });
+  const [nameMsg, setNameMsg] = useState({ text: "", color: "gray" });
+  const [hpMsg, setHpMsg] = useState({ text: "", color: "gray" });
   const [emailMsg, setEmailMsg] = useState({ text: "", color: "gray" });
+
   const [showEmailVerification, setShowEmailVerification] = useState(false);
   const [emailCodeInput, setEmailCodeInput] = useState("");
   const [emailVerified, setEmailVerified] = useState(false);
 
-  // 입력 핸들러
+  const [isUidOk, setIsUidOk] = useState(false);
+  const [isPassOk, setIsPassOk] = useState(false);
+  const [isNameOk, setIsNameOk] = useState(false);
+  const [isHpOk, setIsHpOk] = useState(false);
+  const [isEmailOk, setIsEmailOk] = useState(false);
+
   const changeHandler = (e) => {
     const { name, value } = e.target;
     setUser((prev) => ({ ...prev, [name]: value }));
+
+    // 각 필드별 유효성 검사
+    if (name === "uid") {
+      setIsUidOk(false);
+      setIdMsg({ text: "", color: "gray" });
+    } else if (name === "pass" || name === "pass2") {
+      if (!rePass.test(user.pass)) {
+        setPassMsg({
+          text: "비밀번호는 영문/숫자/특수문자 포함 5~16자",
+          color: "red",
+        });
+        setIsPassOk(false);
+      } else if (user.pass !== user.pass2) {
+        setPassMsg({ text: "비밀번호가 일치하지 않습니다.", color: "red" });
+        setIsPassOk(false);
+      } else {
+        setPassMsg({ text: "사용 가능한 비밀번호입니다.", color: "green" });
+        setIsPassOk(true);
+      }
+    } else if (name === "name") {
+      if (!reName.test(value)) {
+        setNameMsg({ text: "이름 형식이 올바르지 않습니다.", color: "red" });
+        setIsNameOk(false);
+      } else {
+        setNameMsg({ text: "", color: "gray" });
+        setIsNameOk(true);
+      }
+    } else if (name === "hp") {
+      if (!reHp.test(value)) {
+        setHpMsg({ text: "휴대폰 형식이 올바르지 않습니다.", color: "red" });
+        setIsHpOk(false);
+      } else {
+        setHpMsg({ text: "유효한 휴대폰 번호입니다.", color: "green" });
+        setIsHpOk(true);
+      }
+    }
   };
 
-  // 아이디 중복확인 버튼 클릭
   const handleCheckId = async () => {
-    if (!user.uid) {
-      setIdMsg({ text: "아이디를 입력해주세요.", color: "gray" });
+    if (!user.uid.match(reUid)) {
+      setIdMsg({ text: "아이디 형식이 올바르지 않습니다.", color: "red" });
       return;
     }
 
     const result = await checkUserDuplicate("uid", user.uid);
     setIdMsg({ text: result.msg, color: result.color });
+    setIsUidOk(result.color === "green");
   };
 
-  // 이메일 인증번호 발송 버튼 클릭
-  const handleSendEmailCode = () => {
-    const result = sendEmailCode(user.email);
-    setEmailMsg({ text: result.msg, color: result.success ? "green" : "red" });
-    if (result.success) {
+  const handleCheckEmail = async () => {
+    if (!reEmail.test(user.email)) {
+      setEmailMsg({ text: "이메일 형식이 올바르지 않습니다.", color: "red" });
+      setIsEmailOk(false);
+      return;
+    }
+
+    const result = await checkUserDuplicate("email", user.email);
+    setEmailMsg({ text: result.msg, color: result.color });
+
+    if (result.valid) {
       setShowEmailVerification(true);
-      setEmailVerified(false);
+    }
+
+    setIsEmailOk(false);
+  };
+
+  const handleSendEmailCode = () => {
+    if (!reEmail.test(user.email)) {
+      setEmailMsg({ text: "이메일 형식이 올바르지 않습니다.", color: "red" });
+      setIsEmailOk(false);
+      return;
+    }
+
+    setEmailMsg({ text: "인증번호를 전송했습니다.", color: "green" });
+    setShowEmailVerification(true);
+    setEmailVerified(false);
+    setIsEmailOk(false);
+  };
+
+  const handleVerifyCode = () => {
+    if (emailCodeInput === "123456") {
+      // 테스트용 코드
+      setEmailMsg({ text: "이메일이 인증되었습니다.", color: "green" });
+      setEmailVerified(true);
+      setIsEmailOk(true);
     } else {
-      setShowEmailVerification(false);
+      setEmailMsg({ text: "인증번호가 올바르지 않습니다.", color: "red" });
+      setEmailVerified(false);
+      setIsEmailOk(false);
     }
   };
 
-  // 인증번호 입력 변화
-  const handleEmailCodeChange = (e) => {
-    setEmailCodeInput(e.target.value);
+  const handleCheckHp = async () => {
+    if (!reHp.test(user.hp)) {
+      setHpMsg({ text: "휴대폰 형식이 올바르지 않습니다.", color: "red" });
+      setIsHpOk(false);
+      return;
+    }
+
+    const result = await checkUserDuplicate("hp", user.hp);
+    setHpMsg({ text: result.msg, color: result.color });
+    setIsHpOk(result.valid);
   };
 
-  // 인증번호 확인 버튼 클릭
-  const handleVerifyCode = () => {
-    const result = verifyCode(emailCodeInput);
-    setEmailMsg({ text: result.msg, color: result.success ? "green" : "red" });
-    setEmailVerified(result.success);
-  };
-
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
 
-    // 기본 유효성 체크 (예: 아이디, 이메일 인증 등)
-    if (!user.uid) {
-      alert("아이디를 입력해주세요.");
-      return;
-    }
-    if (idMsg.color !== "green") {
-      alert("아이디 중복확인을 해주세요.");
-      return;
-    }
-    if (!emailVerified) {
-      alert("이메일 인증을 완료해주세요.");
-      return;
-    }
-    if (user.pass !== user.pass2) {
-      alert("비밀번호가 일치하지 않습니다.");
-      return;
-    }
-    // 추가 유효성 검사 필요시 여기 추가
-    console.log(user);
+    if (!isUidOk) return alert("아이디 중복 확인이 필요합니다.");
+    if (!isPassOk) return alert("비밀번호를 확인해주세요.");
+    if (!isNameOk) return alert("이름을 확인해주세요.");
+    if (!isHpOk) return alert("휴대폰 번호를 확인해주세요.");
+    if (!isEmailOk) return alert("이메일 인증이 필요합니다.");
 
-    // 서버 전송
-    const fetchData = async () => {
-      try {
-        const data = await postUser(user);
-        console.log(data);
-
-        alert("회원가입 완료");
-
-        // 로그인 이동(컴포넌트 라우팅)
-        navigate("/user/login");
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    // 호출
-    fetchData();
+    try {
+      const data = await postUser(user);
+      alert("회원가입 완료");
+      navigate("/user/login");
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -128,6 +179,7 @@ export const Signup = () => {
         </div>
 
         <form onSubmit={submitHandler}>
+          {/* 아이디 */}
           <div className="input-group">
             <label htmlFor="id">아이디</label>
             <div className="input-with-button">
@@ -151,6 +203,8 @@ export const Signup = () => {
               {idMsg.text}
             </p>
           </div>
+
+          {/* 비밀번호 */}
           <div className="input-group">
             <label htmlFor="pw">비밀번호</label>
             <input
@@ -172,7 +226,12 @@ export const Signup = () => {
               onChange={changeHandler}
               placeholder="비밀번호 확인"
             />
+            <p className="message" style={{ color: passMsg.color }}>
+              {passMsg.text}
+            </p>
           </div>
+
+          {/* 이름 */}
           <div className="input-group">
             <label htmlFor="name">이름</label>
             <input
@@ -181,21 +240,39 @@ export const Signup = () => {
               name="name"
               value={user.name}
               onChange={changeHandler}
-              placeholder="Placeholder"
+              placeholder="이름 입력"
             />
-          </div>
-          <div className="input-group">
-            <label htmlFor="phone">휴대폰</label>
-            <input
-              type="text"
-              id="phone"
-              name="hp"
-              value={user.hp}
-              onChange={changeHandler}
-              placeholder="Placeholder"
-            />
+            <p className="message" style={{ color: nameMsg.color }}>
+              {nameMsg.text}
+            </p>
           </div>
 
+          {/* 휴대폰 */}
+          <div className="input-group">
+            <label htmlFor="phone">휴대폰</label>
+            <div className="input-with-button">
+              <input
+                type="text"
+                id="phone"
+                name="hp"
+                value={user.hp}
+                onChange={changeHandler}
+                placeholder="010-0000-0000"
+              />
+              <button
+                type="button"
+                className="check-btn"
+                onClick={handleCheckHp}
+              >
+                중복확인
+              </button>
+            </div>
+            <p className="message" style={{ color: hpMsg.color }}>
+              {hpMsg.text}
+            </p>
+          </div>
+
+          {/* 이메일 */}
           <div className="input-group">
             <label htmlFor="email">이메일</label>
             <div className="input-with-button">
@@ -210,22 +287,18 @@ export const Signup = () => {
               <button
                 type="button"
                 className="check-btn"
-                onClick={handleSendEmailCode}
+                onClick={handleCheckEmail}
               >
                 인증
               </button>
             </div>
             {showEmailVerification && (
-              <div
-                id="email-verification"
-                style={{ display: "flex", gap: "8px", marginTop: "8px" }}
-              >
+              <div style={{ display: "flex", gap: "8px", marginTop: "8px" }}>
                 <input
                   type="text"
-                  id="email-code"
                   placeholder="인증번호 입력"
                   value={emailCodeInput}
-                  onChange={handleEmailCodeChange}
+                  onChange={(e) => setEmailCodeInput(e.target.value)}
                 />
                 <button
                   type="button"

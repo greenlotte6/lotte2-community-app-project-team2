@@ -1,5 +1,8 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { getUserLogout } from "../../api/userAPI";
+import useAuth from "../../hooks/useAuth";
+import { getMyPage } from "../../api/myPageAPI";
 
 export const MyPage = () => {
   useEffect(() => {
@@ -72,6 +75,46 @@ export const MyPage = () => {
     });
   }, []); // 빈 배열을 넣어서 컴포넌트가 처음 마운트될 때만 실행되도록 함
 
+  const navigate = useNavigate();
+  const { username, logout } = useAuth();
+
+  // 로그아웃
+  const logoutHandler = () => {
+    // 로그아웃 서버 요청
+    const fetchData = async () => {
+      try {
+        const data = await getUserLogout();
+        console.log(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    // 호출
+    fetchData();
+
+    // 로그아웃 처리
+    logout();
+
+    // 로그인 이동
+    navigate("/user/login");
+  };
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const data = await getMyPage();
+        setUser(data);
+      } catch (err) {
+        console.error("사용자 정보 불러오기 실패:", err);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
   return (
     <div className="info-container">
       <div className="info-box">
@@ -96,8 +139,11 @@ export const MyPage = () => {
           </div>
 
           <div className="profile-basic">
-            <h2 className="user-name">홍길동</h2>
-            <p className="user-position">개발팀 / 주임</p>
+            <h2 className="user-name">{user?.name}</h2>
+            <p className="user-position">
+              {user?.department} / {user?.position}
+            </p>
+            <Link onClick={logoutHandler}>로그아웃 |</Link>
           </div>
         </div>
 
@@ -105,7 +151,7 @@ export const MyPage = () => {
           <div className="info-row">
             <span className="label">연락처</span>
             <span className="value" data-label="연락처">
-              <span className="value-text">010-1234-5678</span>
+              <span className="value-text">{user?.hp}</span>
               <Link to="#" className="change-link">
                 변경
               </Link>
@@ -114,7 +160,7 @@ export const MyPage = () => {
           <div className="info-row">
             <span className="label">이메일</span>
             <span className="value">
-              <span className="value-text">hong@linkon.com</span>
+              <span className="value-text">{user?.email}</span>
               <Link to="#" className="change-link">
                 변경
               </Link>
@@ -123,16 +169,8 @@ export const MyPage = () => {
           <div className="info-row">
             <span className="label">비밀번호</span>
             <span className="value">
-              <span className="value-text">••••••••</span>
-              <Link to="#" className="change-link">
-                변경
-              </Link>
-            </span>
-          </div>
-          <div className="info-row">
-            <span className="label">주소</span>
-            <span className="value">
-              <span className="value-text">서울특별시 강남구 테헤란로 123</span>
+              <span className="value-text">{"•".repeat(8)}</span> // 비밀번호는
+              보안상 직접 표시 X
               <Link to="#" className="change-link">
                 변경
               </Link>
@@ -140,19 +178,19 @@ export const MyPage = () => {
           </div>
           <div className="info-row">
             <span className="label">가입일</span>
-            <span className="value">2023-04-15</span>
+            <span className="value">{user?.regDate?.substring(0, 10)}</span>
           </div>
           <div className="info-row">
             <span className="label">상태</span>
-            <span className="value">재직중</span>
+            <span className="value">{user?.status}</span>
           </div>
           <div className="info-row">
-            <span className="label">권한</span>
+            <span className="value">{user?.role?.replace("ROLE_", "")}</span>
             <span className="value">관리자</span>
           </div>
           <div className="info-row">
             <span className="label">멤버십</span>
-            <span className="value">Premium</span>
+            <span className="value">{user?.membership}</span>
           </div>
         </div>
       </div>
