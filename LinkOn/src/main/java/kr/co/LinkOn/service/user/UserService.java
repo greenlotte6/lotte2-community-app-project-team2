@@ -1,4 +1,4 @@
-package kr.co.LinkOn.service;
+package kr.co.LinkOn.service.user;
 
 import kr.co.LinkOn.dto.user.TermsDTO;
 import kr.co.LinkOn.dto.user.UserDTO;
@@ -60,5 +60,11 @@ public class UserService {
         }
 
         return count;
+    }
+
+    public UserDTO getUserInfo(String userId) {
+        return userRepository.findById(userId)
+                .map(user -> modelMapper.map(user, UserDTO.class))
+                .orElseThrow(() -> new RuntimeException("사용자 정보를 찾을 수 없습니다."));
     }
 }

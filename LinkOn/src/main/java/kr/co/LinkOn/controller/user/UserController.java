@@ -4,7 +4,7 @@ import kr.co.LinkOn.dto.user.TermsDTO;
 import kr.co.LinkOn.dto.user.UserDTO;
 import kr.co.LinkOn.entity.user.User;
 import kr.co.LinkOn.security.MyUserDetails;
-import kr.co.LinkOn.service.UserService;
+import kr.co.LinkOn.service.user.UserService;
 import kr.co.LinkOn.util.JWTProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -110,7 +110,7 @@ public class UserController {
     }
 
     // 유효성 검사
-    @GetMapping("check/{type}/{value}")
+    @GetMapping("/user/{type}/{value}")
     public ResponseEntity<Map<String, Long>> user(@PathVariable("type") String type,
                                                   @PathVariable("value") String value) {
         log.info("type : " + type + ", value : " + value);
@@ -125,4 +125,30 @@ public class UserController {
     }
 
     // JSON 단일 문자열값이 직접 String으로 매핑되지 않기 때문에 JSON과 호환되는 Map 타입으로 JSON 수신
+
+    // 로그아웃
+    @GetMapping("/user/logout")
+    public ResponseEntity logout(){
+        // HttpOnly Cookie 생성
+        ResponseCookie accessTokenCookie = ResponseCookie.from("access_token", "")
+                .httpOnly(true) // httpOnly 설정(XSS 방지)
+                .secure(false)  // https 보안 프로토콜 적용
+                .path("/")      // 쿠키 경로
+                .maxAge(0) // 쿠키 수명
+                .build();
+
+        ResponseCookie refreshTokenCookie = ResponseCookie.from("refresh_token", "")
+                .httpOnly(true) // httpOnly 설정(XSS 방지)
+                .secure(false)  // https 보안 프로토콜 적용
+                .path("/")      // 쿠키 경로
+                .maxAge(0) // 쿠키 수명
+                .build();
+
+        // 쿠키를 Response 헤더에 추가
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.SET_COOKIE, accessTokenCookie.toString());
+        headers.add(HttpHeaders.SET_COOKIE, refreshTokenCookie.toString());
+
+        return ResponseEntity.ok().headers(headers).body(null);
+    }
 }
