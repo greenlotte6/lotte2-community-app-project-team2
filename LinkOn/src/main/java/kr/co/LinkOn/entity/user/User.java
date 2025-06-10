@@ -33,6 +33,11 @@ public class User {
     private LocalDateTime regDate;
     private LocalDateTime leaveDate;
 
+    private String department; //팀명
+    private String position;  // 직급
+    private String status;  // 상태
+    private String membership;  // 맴버십
+
 
     // 사용자 권한 및 인가 설정을 hasRole() 메서드로 처리하기 위해 접두어 "ROLE_" 추가
     public String getRole() {
