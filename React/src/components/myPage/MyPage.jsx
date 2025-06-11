@@ -185,8 +185,8 @@ export const MyPage = () => {
             <span className="value">{user?.status}</span>
           </div>
           <div className="info-row">
+            <span className="label">권한</span>
             <span className="value">{user?.role?.replace("ROLE_", "")}</span>
-            <span className="value">관리자</span>
           </div>
           <div className="info-row">
             <span className="label">멤버십</span>
