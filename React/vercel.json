@@ -3,6 +3,10 @@
     {
       "source": "/user/:path*",
       "destination": "http://54.180.113.128:8080/user/:path*"
+    },
+    {
+      "source": "/myPage/:path*",
+      "destination": "http://54.180.113.128:8080/myPage/:path*"
     }
   ]
 }
