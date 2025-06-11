@@ -118,7 +118,7 @@ export const MyPage = () => {
   return (
     <div className="info-container">
       <div className="info-box">
-        <h1>내 정보</h1>
+        <h1>내 정보..</h1>
 
         <div className="profile-section">
           <img
