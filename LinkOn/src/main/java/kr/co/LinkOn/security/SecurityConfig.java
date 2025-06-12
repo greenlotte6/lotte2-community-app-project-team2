@@ -36,6 +36,7 @@ public class SecurityConfig {
 
         // 토큰기반 인증 시큐리티 설정
         httpSecurity
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))      //******확인*********
                 .csrf(CsrfConfigurer::disable)              // 사이트 위변조 방지
                 .httpBasic(HttpBasicConfigurer::disable)    // 기본 HTTP 인증 방식 비활성
                 .formLogin(FormLoginConfigurer::disable)
