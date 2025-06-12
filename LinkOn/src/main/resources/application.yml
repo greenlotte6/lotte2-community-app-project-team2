@@ -1,3 +1,9 @@
+file:
+    upload:
+        path: uploads
+jwt:
+    issuer: chhak0503@gmail.com
+    secret: 1XudNUpSmog7lw79thJFejF6YfBBQnCI
 logging:
     level:
         org:
@@ -13,23 +19,6 @@ server:
     servlet:
         context-path: /
 spring:
-    servlet:
-        multipart:
-            location: uploads
-            max-file-size: 10MB
-
-    mail:
-        host: smtp.gmail.com
-        port: 587
-        username: clsrntkdgh@gmail.com
-        password: redohcjnlkzeagdo
-        properties:
-            mail:
-                smtp:
-                    auth: true
-                    timeout: 5000
-                    starttls:
-                        enable: true
     application:
         name: LinkOn
         version: 0.0.1-SNAPSHOT
@@ -51,14 +40,21 @@ spring:
             hibernate:
                 format_sql: true
                 show_sql: false
+    mail:
+        host: smtp.gmail.com
+        password: redohcjnlkzeagdo
+        port: 587
+        properties:
+            mail:
+                smtp:
+                    auth: true
+                    starttls:
+                        enable: true
+                    timeout: 5000
+        username: clsrntkdgh@gmail.com
+    servlet:
+        multipart:
+            location: uploads
+            max-file-size: 10MB
     thymeleaf:
         prefix: classpath:/templates
-
-
-jwt:
-    issuer: chhak0503@gmail.com
-    secret: 1XudNUpSmog7lw79thJFejF6YfBBQnCI
-
-file:
-    upload:
-        path: uploads
