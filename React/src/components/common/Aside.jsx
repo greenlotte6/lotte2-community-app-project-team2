@@ -39,7 +39,7 @@ export const Aside = () => {
               <p>페이지</p>
             </li>
           </Link>
-          <Link to="/view/project/project.html">
+          <Link to="/project/project">
             <li>
               <img src="/images/Clipboard.svg" className="asideIcon" />
               <p>프로젝트</p>
