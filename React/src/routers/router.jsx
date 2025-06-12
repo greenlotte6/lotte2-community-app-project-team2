@@ -11,6 +11,10 @@ import { FindPasswordPage } from "../pages/user/FindPasswordPage";
 import { MyPagePage } from "../pages/myPage/MyPagePage";
 import { MembershipPage } from "../pages/membership/MembershipPage";
 import { CheckoutPage } from "../pages/membership/CheckoutPage";
+import  ListPage  from "../pages/board/ListPage";
+import { ViewPage } from "../pages/board/ViewPage";
+import { WritePage } from "../pages/board/WritePage";
+import { MainPage } from "../pages/board/MainPage";
 
 // 라우터 생성
 const router = createBrowserRouter([
@@ -33,6 +37,12 @@ const router = createBrowserRouter([
   //--------------------membership-----------------------
   { path: "/membership/membership", element: <MembershipPage /> },
   { path: "/membership/checkout", element: <CheckoutPage /> },
+
+  //--------------------board-----------------------
+  { path: "/board", element: <MainPage /> },
+  { path: "/board/list", element: <ListPage /> },
+  { path: "/board/view", element: <ViewPage /> },
+  { path: "/board/write", element: <WritePage /> },
 ]);
 
 // 라우터 내보내기
