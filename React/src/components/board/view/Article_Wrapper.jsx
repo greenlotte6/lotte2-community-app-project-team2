@@ -1,7 +1,7 @@
-import React from 'react'
-import { Box } from './box';
-import { CommentSection } from './CommentSection';
-import { Button } from './Button';
+import React from "react";
+import { Box } from "./Box";
+import { CommentSection } from "./CommentSection";
+import { Button } from "./Button";
 
 export const Article_Wrapper = () => {
   return (
@@ -9,9 +9,9 @@ export const Article_Wrapper = () => {
       <a href="#" class="move-list">
         &lt; 목록으로
       </a>
-      <Box/>
-      <CommentSection/>
-      <Button/>
+      <Box />
+      <CommentSection />
+      <Button />
     </div>
   );
-}
+};
