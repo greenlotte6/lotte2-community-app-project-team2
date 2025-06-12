@@ -14,8 +14,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -65,5 +64,22 @@ public class MyPageController {
         log.info("Extracted User ID for myPage: {}", userId); // 추출된 최종 userId를 확인합니다.
         UserDTO userDTO = userService.getUserInfo(userId);
         return ResponseEntity.ok(userDTO);
+    }
+
+    // 나의 설정 수정 엔드포인트 (PUT 요청)
+    @PutMapping("/myPage/myPage")
+    public ResponseEntity<UserDTO> modify(
+            @RequestBody UserDTO userDTO,
+            @AuthenticationPrincipal MyUserDetails myUserDetails) { // <-- 이 부분이 핵심 변경
+
+        // MyUserDetails 객체에서 직접 UID를 가져옵니다.
+        String loginUserId = myUserDetails.getUsername();
+
+        log.info("Received request to modify user for UID: {}", loginUserId);
+        log.info("Received DTO: {}", userDTO);
+
+        // 서비스 메서드 호출 시 추출한 loginUserId를 넘겨줍니다.
+        UserDTO updatedUser = myPageService.modifyUser(userDTO, loginUserId);
+        return ResponseEntity.ok(updatedUser);
     }
 }
