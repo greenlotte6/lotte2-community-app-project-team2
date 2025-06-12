@@ -4,13 +4,13 @@ export const Article = () => {
   return (
     <>
       <article>
-        <div class="sub-title">
+        <div className="sub-title">
           <p>공지사항</p>
           <a href="#">
             <img src="/images/board/Group 20.svg" alt="더보기" />
           </a>
         </div>
-        <div class="content">
+        <div className="content">
           <div>
             <a href="#">이사</a>
             <a href="#">사내 복장 단속합니다. 준수하세요.</a>
@@ -39,13 +39,13 @@ export const Article = () => {
         </div>
       </article>
       <article>
-        <div class="sub-title">
+        <div className="sub-title">
           <p>자료실</p>
           <a href="#">
             <img src="/images/board/Group 20.svg" alt="더보기" />
           </a>
         </div>
-        <div class="content">
+        <div className="content">
           <div>
             <a href="#">이사</a>
             <a href="#">사내 복장 단속합니다. 준수하세요.</a>
@@ -74,13 +74,13 @@ export const Article = () => {
         </div>
       </article>
       <article>
-        <div class="sub-title">
+        <div className="sub-title">
           <p>부서별 게시판</p>
           <a href="#">
             <img src="/images/board/Group 20.svg" alt="더보기" />
           </a>
         </div>
-        <div class="content">
+        <div className="content">
           <div>
             <a href="#">이사</a>
             <a href="#">사내 복장 단속합니다. 준수하세요.</a>
@@ -109,13 +109,13 @@ export const Article = () => {
         </div>
       </article>
       <article>
-        <div class="sub-title">
+        <div className="sub-title">
           <p>자유 게시판</p>
           <a href="#">
             <img src="/images/board/Group 20.svg" alt="더보기" />
           </a>
         </div>
-        <div class="content">
+        <div className="content">
           <div>
             <a href="#">이사</a>
             <a href="#">사내 복장 단속합니다. 준수하세요.</a>
@@ -144,13 +144,13 @@ export const Article = () => {
         </div>
       </article>
       <article>
-        <div class="sub-title">
+        <div className="sub-title">
           <p>익명 게시판</p>
           <a href="#">
             <img src="/images/board/Group 20.svg" alt="더보기" />
           </a>
         </div>
-        <div class="content">
+        <div className="content">
           <div>
             <a href="#">이사</a>
             <a href="#">사내 복장 단속합니다. 준수하세요.</a>
@@ -179,13 +179,13 @@ export const Article = () => {
         </div>
       </article>
       <article>
-        <div class="sub-title">
+        <div className="sub-title">
           <p>오늘의 식단</p>
           <a href="#">
             <img src="/images/board/Group 20.svg" alt="더보기" />
           </a>
         </div>
-        <div class="content">
+        <div className="content">
           <div>
             <a href="#">이사</a>
             <a href="#">사내 복장 단속합니다. 준수하세요.</a>

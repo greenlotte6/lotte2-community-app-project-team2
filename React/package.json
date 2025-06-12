@@ -23,7 +23,7 @@
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.6.1",
-    "sass": "^1.89.1",
+    "sass": "^1.89.2",
     "socket.io": "^4.8.1"
   },
   "devDependencies": {
