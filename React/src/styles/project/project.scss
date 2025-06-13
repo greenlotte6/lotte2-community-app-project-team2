@@ -88,52 +88,70 @@
     }
 
     .MoreBtnContainer {
-    position: relative;
-    display: flex;
-    align-items: center;
-    }
+      position: relative;
+      display: flex;
+      align-items: center;
+        
+        .MoreOption {
+            z-index: 999;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            top: 30px;
+            right: -6px;
+            width: 120px;
+            padding: 8px 6px;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0px 0px 0px 1px #d1d9e080, 0px 6px 12px -3px #25292e0a, 0px 6px 18px 0px #25292e1f;
+        }
 
-    .MoreOption {
-    display: none !important;
-    position: absolute;
-    top: 30px;
-    right: -6px;
-    width: 120px;
-    flex-direction: column;
-    padding: 8px 0;
-    border-radius: 8px;
-    background-color: white;
-    box-shadow: 0px 0px 0px 1px #d1d9e080, 0px 6px 12px -3px #25292e0a, 0px 6px 18px 0px #25292e1f;
-    }
+        .MoreOption > button {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: white;
+          border: none;
+          border-radius: 8px;
+          padding: 8px 0;
+          margin: 2px 0;
+          cursor: pointer;
+        }
 
-    .MoreOption > a {
-    display: flex;
-    align-items: center;
-    margin: 0 6px;
-    padding: 6px 12px 6px 6px;
-    }
+        .MoreOption > button:hover {
+          transition: 0.3s;
+          background-color: #f5f5f5;
+        }
 
-    .MoreOption > a:first-child {
-    padding-bottom: 6px;
-    }
+        .MoreOption > a {
+            display: flex;
+            align-items: center;
+            margin: 0 6px;
+            padding: 6px 12px 6px 6px;
+        }
 
-    .MoreOption > a:hover {
-    background-color: #f5f5f5;
-    border-radius: 8px;
-    }
+        .MoreOption > a:first-child {
+            padding-bottom: 6px;
+        }
 
-    .MoreOption p {
-    font-size: 12px;
-    }
+        .MoreOption > a:hover {
+            background-color: #f5f5f5;
+            border-radius: 8px;
+        }
 
-    .removeIcon {
-    width: 16px;
-    margin-right: 8px;
-    }
+        .MoreOption p {
+            font-size: 12px;
+        }
 
-    .editIcon {
-    width: 16px;
-    margin-right: 8px;
-    }
-    
+        .removeIcon {
+            width: 16px;
+            margin-right: 8px;
+        }
+
+        .editIcon {
+            width: 16px;
+            margin-right: 8px;
+        }
+
+    } 
 }
