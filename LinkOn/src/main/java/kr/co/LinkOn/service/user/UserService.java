@@ -62,9 +62,5 @@ public class UserService {
         return count;
     }
 
-    public UserDTO getUserInfo(String userId) {
-        return userRepository.findByUid(userId)
-                .map(user -> modelMapper.map(user, UserDTO.class))
-                .orElseThrow(() -> new RuntimeException("사용자 정보를 찾을 수 없습니다."));
-    }
+
 }

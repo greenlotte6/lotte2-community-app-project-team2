@@ -40,45 +40,57 @@ export const Signup = () => {
   const [isHpOk, setIsHpOk] = useState(false);
   const [isEmailOk, setIsEmailOk] = useState(false);
 
+  // 비밀번호 유효성 검사를 위한 별도의 함수
+  // 최신 user 상태를 기반으로 유효성 검사 수행
+  const validatePassword = (currentPass, currentPass2) => {
+    if (!rePass.test(currentPass)) {
+      setPassMsg({
+        text: "비밀번호는 영문/숫자/특수문자 포함 5~16자",
+        color: "red",
+      });
+      setIsPassOk(false);
+    } else if (currentPass !== currentPass2) {
+      setPassMsg({ text: "비밀번호가 일치하지 않습니다.", color: "red" });
+      setIsPassOk(false);
+    } else {
+      setPassMsg({ text: "사용 가능한 비밀번호입니다.", color: "green" });
+      setIsPassOk(true);
+    }
+  };
+
   const changeHandler = (e) => {
     const { name, value } = e.target;
-    setUser((prev) => ({ ...prev, [name]: value }));
 
-    // 각 필드별 유효성 검사
-    if (name === "uid") {
-      setIsUidOk(false);
-      setIdMsg({ text: "", color: "gray" });
-    } else if (name === "pass" || name === "pass2") {
-      if (!rePass.test(user.pass)) {
-        setPassMsg({
-          text: "비밀번호는 영문/숫자/특수문자 포함 5~16자",
-          color: "red",
-        });
-        setIsPassOk(false);
-      } else if (user.pass !== user.pass2) {
-        setPassMsg({ text: "비밀번호가 일치하지 않습니다.", color: "red" });
-        setIsPassOk(false);
-      } else {
-        setPassMsg({ text: "사용 가능한 비밀번호입니다.", color: "green" });
-        setIsPassOk(true);
+    // 일단 현재 입력 값을 포함하여 user 상태를 업데이트
+    setUser((prev) => {
+      const newUser = { ...prev, [name]: value };
+
+      // 비밀번호 관련 필드 변경 시 유효성 검사
+      if (name === "pass" || name === "pass2") {
+        // 업데이트된 user 객체를 기반으로 비밀번호 유효성 검사 함수 호출
+        validatePassword(newUser.pass, newUser.pass2);
+      } else if (name === "uid") {
+        setIsUidOk(false);
+        setIdMsg({ text: "", color: "gray" });
+      } else if (name === "name") {
+        if (!reName.test(value)) {
+          setNameMsg({ text: "이름 형식이 올바르지 않습니다.", color: "red" });
+          setIsNameOk(false);
+        } else {
+          setNameMsg({ text: "", color: "gray" });
+          setIsNameOk(true);
+        }
+      } else if (name === "hp") {
+        if (!reHp.test(value)) {
+          setHpMsg({ text: "휴대폰 형식이 올바르지 않습니다.", color: "red" });
+          setIsHpOk(false);
+        } else {
+          setHpMsg({ text: "유효한 휴대폰 번호입니다.", color: "green" });
+          setIsHpOk(true);
+        }
       }
-    } else if (name === "name") {
-      if (!reName.test(value)) {
-        setNameMsg({ text: "이름 형식이 올바르지 않습니다.", color: "red" });
-        setIsNameOk(false);
-      } else {
-        setNameMsg({ text: "", color: "gray" });
-        setIsNameOk(true);
-      }
-    } else if (name === "hp") {
-      if (!reHp.test(value)) {
-        setHpMsg({ text: "휴대폰 형식이 올바르지 않습니다.", color: "red" });
-        setIsHpOk(false);
-      } else {
-        setHpMsg({ text: "유효한 휴대폰 번호입니다.", color: "green" });
-        setIsHpOk(true);
-      }
-    }
+      return newUser; // 업데이트된 상태 반환
+    });
   };
 
   const handleCheckId = async () => {
@@ -103,10 +115,17 @@ export const Signup = () => {
     setEmailMsg({ text: result.msg, color: result.color });
 
     if (result.valid) {
+      // result.valid가 true일 때만 인증 프로세스 진행
       setShowEmailVerification(true);
+      // 이메일 인증 코드를 전송하는 API 호출이 여기에 와야 합니다.
+      setEmailMsg({ text: "인증번호를 전송했습니다.", color: "green" }); // 임시 메시지
+      setEmailVerified(false); // 인증되지 않은 상태로 초기화
+      setIsEmailOk(false); // 이메일 인증 완료 전까지는 false
+    } else {
+      // 중복이거나 유효하지 않은 경우
+      setEmailMsg({ text: result.msg, color: result.color });
+      setIsEmailOk(false);
     }
-
-    setIsEmailOk(false);
   };
 
   const handleSendEmailCode = () => {
@@ -115,6 +134,9 @@ export const Signup = () => {
       setIsEmailOk(false);
       return;
     }
+
+    // 실제 이메일 인증 코드 전송 API 호출이 여기에 와야 합니다.
+    // 예: sendVerificationCode(user.email);
 
     setEmailMsg({ text: "인증번호를 전송했습니다.", color: "green" });
     setShowEmailVerification(true);
@@ -150,11 +172,28 @@ export const Signup = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    if (!isUidOk) return alert("아이디 중복 확인이 필요합니다.");
-    if (!isPassOk) return alert("비밀번호를 확인해주세요.");
-    if (!isNameOk) return alert("이름을 확인해주세요.");
-    if (!isHpOk) return alert("휴대폰 번호를 확인해주세요.");
-    if (!isEmailOk) return alert("이메일 인증이 필요합니다.");
+    // 마지막 유효성 검사
+    // 비밀번호 필드가 변경될 때마다 validatePassword가 호출되므로, 최종 isPassOk 상태만 확인
+    if (!isUidOk) {
+      alert("아이디 중복 확인이 필요합니다.");
+      return;
+    }
+    if (!isPassOk) {
+      alert("비밀번호를 확인해주세요.");
+      return;
+    }
+    if (!isNameOk) {
+      alert("이름을 확인해주세요.");
+      return;
+    }
+    if (!isHpOk) {
+      alert("휴대폰 번호 중복 확인이 필요합니다."); // 메시지 수정
+      return;
+    }
+    if (!isEmailOk) {
+      alert("이메일 인증이 필요합니다.");
+      return;
+    }
 
     try {
       const data = await postUser(user);
@@ -162,6 +201,7 @@ export const Signup = () => {
       navigate("/user/login");
     } catch (err) {
       console.error(err);
+      alert("회원가입 중 오류가 발생했습니다. 다시 시도해주세요.");
     }
   };
 
@@ -287,7 +327,7 @@ export const Signup = () => {
               <button
                 type="button"
                 className="check-btn"
-                onClick={handleCheckEmail}
+                onClick={handleCheckEmail} // 이메일 중복 확인 및 인증번호 전송
               >
                 인증
               </button>

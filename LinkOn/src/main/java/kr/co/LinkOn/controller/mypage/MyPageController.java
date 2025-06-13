@@ -8,6 +8,7 @@ import kr.co.LinkOn.service.myPage.MyPageService;
 import kr.co.LinkOn.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -28,55 +29,56 @@ public class MyPageController {
 
     // 나의 설정
     @GetMapping("/myPage/myPage")
-    public ResponseEntity<UserDTO> myPage(Principal principal) {
-        String userId = null;
+    public ResponseEntity<UserDTO> myPage(@AuthenticationPrincipal MyUserDetails myUserDetails) { // MyUserDetails로 직접 받음
 
-        // 1. Principal 객체가 Spring Security의 Authentication 타입인지 확인합니다.
-        //    대부분의 경우 주입되는 Principal은 Authentication 인스턴스입니다.
-        if (principal instanceof Authentication) {
-            Authentication authentication = (Authentication) principal;
-
-            // 2. Authentication 객체에서 실제 principal(사용자 정보) 객체를 가져옵니다.
-            //    JWTProvider에서 User 엔티티를 principal로 설정했으므로, 이 시점에서는 User 엔티티 객체입니다.
-            Object authenticatedPrincipal = authentication.getPrincipal();
-
-            // 3. 가져온 principal 객체가 User 엔티티 타입인지 확인하고, User 타입으로 캐스팅합니다.
-            if (authenticatedPrincipal instanceof User) {
-                User userEntity = (User) authenticatedPrincipal;
-                // 4. User 엔티티에서 올바른 uid 값을 추출합니다.
-                userId = userEntity.getUid();
-            } else {
-                // 예상치 못한 타입인 경우 (로그를 남기고 런타임 예외를 발생시켜 디버깅에 도움을 줍니다.)
-                log.error("Error: Authenticated principal is not an instance of User entity. Type: {}", authenticatedPrincipal.getClass().getName());
-                throw new RuntimeException("인증된 사용자 주체 타입이 올바르지 않습니다.");
-            }
-        } else {
-            // Principal이 Authentication이 아닌 경우 (Spring Security 설정에 문제가 있을 수 있습니다.)
-            log.error("Error: Principal is not an instance of Authentication. Type: {}", principal.getClass().getName());
-            throw new RuntimeException("인증 객체를 Principal에서 찾을 수 없습니다.");
+        if (myUserDetails == null) {
+            log.warn("MyPageController - myPage: @AuthenticationPrincipal MyUserDetails is null. User not authenticated.");
+            // 401 Unauthorized 또는 다른 적절한 에러 처리
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(null); // 또는 에러 DTO 반환
         }
 
-        // 최종적으로 추출된 userId가 null이면 예외를 발생시킵니다.
-        if (userId == null) {
-            throw new RuntimeException("인증된 사용자 ID를 추출할 수 없습니다.");
+        // MyUserDetails 객체에서 User 엔티티를 가져옵니다.
+        // MyUserDetails는 User 엔티티가 아니므로 직접 캐스팅하면 안 됩니다.
+        User user = myUserDetails.getUser(); // MyUserDetails 내부에 있는 User 엔티티를 가져옴
+
+        if (user == null) {
+            log.error("MyPageController - myPage: User entity inside MyUserDetails is null for principal: {}", myUserDetails.getUsername());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(null); // 또는 적절한 에러 DTO 반환
         }
 
-        log.info("Extracted User ID for myPage: {}", userId); // 추출된 최종 userId를 확인합니다.
-        UserDTO userDTO = userService.getUserInfo(userId);
-        return ResponseEntity.ok(userDTO);
+        log.info("MyPageController - myPage: Authenticated user UID: {}", user.getUid());
+
+        // MyPageService에서 사용자 정보를 조회하는 메서드 호출
+        // 서비스 메서드는 User 엔티티 또는 UID를 인자로 받을 수 있습니다.
+        UserDTO myPageInfo = myPageService.getMyPageInfo(user.getUid()); // UID를 서비스로 전달
+
+        if (myPageInfo == null) {
+            log.warn("MyPageController - myPage: MyPage info not found for UID: {}", user.getUid());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(null);
+        }
+
+        return ResponseEntity.ok(myPageInfo);
     }
 
     // 나의 설정 수정 엔드포인트 (PUT 요청)
     @PutMapping("/myPage/myPage")
     public ResponseEntity<UserDTO> modify(
             @RequestBody UserDTO userDTO,
-            @AuthenticationPrincipal MyUserDetails myUserDetails) { // <-- 이 부분이 핵심 변경
+            @AuthenticationPrincipal MyUserDetails myUserDetails) {
 
-        // MyUserDetails 객체에서 직접 UID를 가져옵니다.
+        if (myUserDetails == null) {
+            log.warn("MyPageController - modify: @AuthenticationPrincipal MyUserDetails is null. User not authenticated.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(null); // 또는 오류 메시지 포함한 DTO
+        }
+
+        // MyUserDetails 객체에서 직접 UID를 가져옵니다. (getUsername() 사용)
         String loginUserId = myUserDetails.getUsername();
-
-        log.info("Received request to modify user for UID: {}", loginUserId);
-        log.info("Received DTO: {}", userDTO);
+        log.info("MyPageController - modify: Received request to modify user for UID: {}", loginUserId);
+        log.info("MyPageController - modify: Received DTO: {}", userDTO);
 
         // 서비스 메서드 호출 시 추출한 loginUserId를 넘겨줍니다.
         UserDTO updatedUser = myPageService.modifyUser(userDTO, loginUserId);

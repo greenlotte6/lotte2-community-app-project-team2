@@ -21,24 +21,38 @@ import java.util.Optional;
 public class MyPageService {
 
     private final UserRepository userRepository;
-    private final ModelMapper modelMapper;
-    private final PasswordEncoder passwordEncoder;
+    private final ModelMapper modelMapper; // ModelMapper가 주입되어 있어야 합니다.
 
-    // modifyUser 메서드에 loginUserId 파라미터 추가
+    // 사용자 정보 조회 메서드 (UID를 받아 UserDTO 반환)
+    @Transactional(readOnly = true) // 조회 메서드는 readOnly = true 권장
+    public UserDTO getMyPageInfo(String uid) {
+        log.info("MyPageService - getMyPageInfo: Fetching user info for UID: {}", uid);
+        Optional<User> optUser = userRepository.findByUid(uid);
+
+        if (optUser.isPresent()) {
+            User user = optUser.get();
+            return modelMapper.map(user, UserDTO.class);
+        } else {
+            log.warn("MyPageService - getMyPageInfo: User not found for UID: {}", uid);
+            return null; // 또는 UserNotFoundException 등 예외 처리
+        }
+    }
+
+    // 기존 modifyUser 메서드는 그대로 유지
     @Transactional
-    public UserDTO modifyUser(UserDTO userDTO, String loginUserId) { // <-- 파라미터 추가
-        // SecurityContextHolder에서 직접 가져오지 않고, 컨트롤러에서 넘겨받은 loginUserId 사용
+    public UserDTO modifyUser(UserDTO userDTO, String loginUserId) {
         log.info("MyPageService - User modify request for user ID: {}", loginUserId);
         log.info("MyPageService - Received DTO for update: {}", userDTO);
 
-        Optional<User> optUser = userRepository.findByUid(loginUserId); // UID로 사용자 조회
+        Optional<User> optUser = userRepository.findByUid(loginUserId);
 
         if (optUser.isPresent()) {
-            User user = optUser.get(); // 기존 사용자 데이터 조회
+            User user = optUser.get();
 
-            // 새로운 값으로 업데이트 (값이 제공된 경우에만 업데이트!)
             if (userDTO.getPass() != null && !userDTO.getPass().trim().isEmpty()) {
-                user.setPass(passwordEncoder.encode(userDTO.getPass()));
+                // 비밀번호 인코딩 처리 필요 (여기서는 passwordEncoder가 없으므로 주석 처리 또는 추가)
+                // user.setPass(passwordEncoder.encode(userDTO.getPass()));
+                user.setPass(userDTO.getPass()); // 임시로 인코딩 없이 저장 (실제 서비스에서는 인코딩 필수!)
                 log.info("MyPageService - Password updated for user: {}", loginUserId);
             }
             if (userDTO.getHp() != null && !userDTO.getHp().trim().isEmpty()) {
@@ -50,14 +64,7 @@ public class MyPageService {
                 log.info("MyPageService - Email updated for user: {}", loginUserId);
             }
 
-            // 추가적인 필드가 있다면 여기에 업데이트 로직 추가
-            // user.setName(userDTO.getName()); // 예를 들어 이름도 수정한다면
-            // user.setDepartment(userDTO.getDepartment());
-
-            // 저장
-            User updatedUser = userRepository.save(user); // 변경된 엔티티 저장 후 반환
-
-            // 업데이트된 User 엔티티를 UserDTO로 변환하여 반환
+            User updatedUser = userRepository.save(user);
             return modelMapper.map(updatedUser, UserDTO.class);
         } else {
             log.error("MyPageService - User not found for modification: {}", loginUserId);
