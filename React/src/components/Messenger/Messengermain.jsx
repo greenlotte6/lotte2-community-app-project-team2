@@ -1,25 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MemberModal } from "./Modal/MemberModal";
+import socket from "../../socket"; // socket.js import
 
 export const Messengermain = ({ currentRoom }) => {
   const [showMemberModal, setShowMemberModal] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
 
-  const dummyChats = {
-    "채팅 1": [
-      { sender: "홍길동", message: "채팅1", time: "오후 2:30", type: "received" },
-      { sender: "나", message: "채팅1", time: "오후 2:31", type: "sent" },
-    ],
-    "채팅 2": [
-      { sender: "김영희", message: "채팅 2", time: "오전 11:00", type: "received" },
-      { sender: "나", message: "채팅 2", time: "오전 11:02", type: "sent" },
-    ],
-    "채팅 3": [
-      { sender: "박철수", message: "채팅 3", time: "오후 4:12", type: "received" },
-      { sender: "나", message: "채팅 3", time: "오후 4:13", type: "sent" },
-    ],
+  useEffect(() => {
+    if (!currentRoom) return;
+
+    // 채팅방 입장
+    socket.emit("join_room", currentRoom);
+
+    // 메시지 수신
+    socket.on("receive_message", (data) => {
+      setMessages((prev) => [...prev, { ...data, type: "received" }]);
+    });
+
+    return () => {
+      socket.off("receive_message");
+    };
+  }, [currentRoom]);
+
+  const sendMessage = () => {
+    if (input.trim()) {
+      const msg = {
+        room: currentRoom,
+        sender: "나", // 임시
+        message: input,
+        time: new Date().toLocaleTimeString("ko-KR", {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+      };
+      socket.emit("send_message", msg);
+      setMessages((prev) => [...prev, { ...msg, type: "sent" }]);
+      setInput("");
+    }
   };
-
-  const messages = dummyChats[currentRoom] || [];
 
   return (
     <div className="main-panel">
@@ -28,24 +47,19 @@ export const Messengermain = ({ currentRoom }) => {
           <h2 id="chat-title">{currentRoom}</h2>
           <span
             className="status online manage-members"
-            data-role="view-members"
             onClick={() => setShowMemberModal(true)}
           >
             참여인원관리
           </span>
         </div>
 
-        <div className="chat-messages" id="chat-messages">
-          {messages.map((msg, index) => (
-            <div key={index} className={`message ${msg.type}`}>
+        <div className="chat-messages">
+          {messages.map((msg, i) => (
+            <div key={i} className={`message ${msg.type}`}>
               {msg.type === "received" && (
                 <div className="profile-wrapper">
                   <div className="chat-username">{msg.sender}</div>
-                  <img
-                    className="chat-avatar"
-                    src="/images/Avatar.png"
-                    alt="상대방 프로필"
-                  />
+                  <img src="/images/Avatar.png" alt="상대방" className="chat-avatar" />
                 </div>
               )}
               <div className="message-bubble-wrapper">
@@ -54,11 +68,7 @@ export const Messengermain = ({ currentRoom }) => {
               </div>
               {msg.type === "sent" && (
                 <div className="profile-wrapper">
-                  <img
-                    className="chat-avatar"
-                    src="/images/Avatar.png"
-                    alt="내 프로필"
-                  />
+                  <img src="/images/Avatar.png" alt="나" className="chat-avatar" />
                   <div className="chat-username">{msg.sender}</div>
                 </div>
               )}
@@ -67,14 +77,18 @@ export const Messengermain = ({ currentRoom }) => {
         </div>
 
         <div className="chat-input">
-          <input type="text" placeholder="메시지를 입력하세요..." />
-          <button>전송</button>
+          <input
+            type="text"
+            placeholder="메시지를 입력하세요..."
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+          />
+          <button onClick={sendMessage}>전송</button>
         </div>
       </div>
 
-      {showMemberModal && (
-        <MemberModal onClose={() => setShowMemberModal(false)} />
-      )}
+      {showMemberModal && <MemberModal onClose={() => setShowMemberModal(false)} />}
     </div>
   );
 };
