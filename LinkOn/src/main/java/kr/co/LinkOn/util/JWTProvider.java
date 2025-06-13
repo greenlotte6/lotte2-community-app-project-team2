@@ -6,6 +6,7 @@ import io.jsonwebtoken.security.Keys;
 
 
 import kr.co.LinkOn.entity.user.User;
+import kr.co.LinkOn.security.MyUserDetails;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -76,19 +77,23 @@ public class JWTProvider {
         // 클레임에서 사용자, 권한 가져오기
         Claims claims = getClaims(token);
         String uid  = (String) claims.get("username");
-        String role = (String) claims.get("role");
+        String role = (String) claims.get("role"); // 클레임의 role은 "ROLE_ADMIN" 형태일 것
 
-        // 권한목록 생성
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(role));
+        // MyUserDetails를 생성하기 위한 User 엔티티 재구성
+        // User 엔티티의 getRole() 메서드가 "ROLE_"를 다시 붙이므로,
+        // 클레임의 "ROLE_ADMIN"에서 "ROLE_"를 제거한 "ADMIN"을 User.builder()에 넘겨야 합니다.
+        String rawRoleForUserEntity = role.startsWith("ROLE_") ? role.substring(5) : role;
 
-        // 사용자 인증객체 생성
-        User principal = User.builder()
+        User userForMyUserDetails = User.builder()
                 .uid(uid)
-                .role(role)
+                .role(rawRoleForUserEntity) // User 엔티티의 'role' 필드에는 'ADMIN'이 저장되도록
                 .build();
 
-        return new UsernamePasswordAuthenticationToken(principal, token, authorities);
+        // MyUserDetails 객체를 생성하여 principal로 사용합니다.
+        MyUserDetails myUserDetails = new MyUserDetails(userForMyUserDetails); // MyUserDetails 생성자 호출
+
+        // UsernamePasswordAuthenticationToken의 principal로 MyUserDetails를 넘겨줍니다.
+        return new UsernamePasswordAuthenticationToken(myUserDetails, token, myUserDetails.getAuthorities());
     }
 
     public void validateToken(String token) throws Exception {

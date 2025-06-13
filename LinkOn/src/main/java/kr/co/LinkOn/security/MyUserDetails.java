@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 @Log4j2
 @Getter
@@ -26,6 +27,16 @@ public class MyUserDetails implements UserDetails {
 
     // User 엔티티
     private User user;
+
+    // --- 추가해야 할 부분: public 생성자 ---
+    // Lombok의 @Builder와 함께 사용해도 됩니다.
+    // JWTProvider에서 new MyUserDetails(user)를 호출할 수 있도록 public으로 선언
+    public MyUserDetails(User user) {
+        // user 객체가 null이 아닌지 확인하여 NullPointerException 방지
+        // Objects.requireNonNull은 null이면 NullPointerException을 던집니다.
+        this.user = Objects.requireNonNull(user, "MyUserDetails의 User 엔티티는 null일 수 없습니다.");
+    }
+    // --- 추가 끝 ---
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
