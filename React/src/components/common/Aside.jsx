@@ -15,7 +15,7 @@ export const Aside = () => {
           <li className="ListSubheader">
             <img src="/images/ListSubheader.png" />
           </li>
-          <Link to="/view/Messenger/Messenger.html">
+          <Link to="/Messenger">
             <li>
               <img src="/images/Message.svg" className="asideIcon" />
               <p>채팅</p>
