@@ -8,7 +8,12 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000", // 리액트 포트
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:5173", // Vite 개발용
+      "http://127.0.0.1:5173",
+      "https://lotte2-community-app-project-team2-blush.vercel.app", // ✅ Vercel 배포 주소
+    ], // 리액트 포트
     methods: ["GET", "POST"],
   },
 });
