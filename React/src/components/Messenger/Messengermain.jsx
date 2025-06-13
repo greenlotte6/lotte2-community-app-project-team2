@@ -8,20 +8,33 @@ export const Messengermain = ({ currentRoom }) => {
   const [input, setInput] = useState("");
 
   useEffect(() => {
-    if (!currentRoom) return;
+  if (!currentRoom) return;
 
-    // 채팅방 입장
-    socket.emit("join_room", currentRoom);
+  socket.emit("join_room", currentRoom);
 
-    // 메시지 수신
-    socket.on("receive_message", (data) => {
-      setMessages((prev) => [...prev, { ...data, type: "received" }]);
-    });
+  // ✅ 이전 메시지 받기
+  socket.on("previous_messages", (prevMsgs) => {
+  const formatted = prevMsgs.map(msg => ({
+    ...msg,
+    type: "received",
+    time: msg.time || new Date().toLocaleTimeString("ko-KR", {
+      hour: "2-digit",
+      minute: "2-digit",
+    }),
+  }));
+  setMessages(formatted);
+});
 
-    return () => {
-      socket.off("receive_message");
-    };
-  }, [currentRoom]);
+  // ✅ 실시간 수신 메시지 처리
+  socket.on("receive_message", (data) => {
+    setMessages((prev) => [...prev, { ...data, type: "received" }]);
+  });
+
+  return () => {
+    socket.off("receive_message");
+    socket.off("previous_messages"); // 꼭 해제!
+  };
+}, [currentRoom]);
 
   const sendMessage = () => {
     if (input.trim()) {
