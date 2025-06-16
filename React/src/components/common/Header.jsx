@@ -28,7 +28,7 @@ export const Header = () => {
               className="headerIcon"
             />
           </Link>
-          <Link to="/user/login" className="profile">
+          <Link to="/myPage/myPage" className="profile">
             <img
               src="/images/Avatar.png"
               alt="Profile"

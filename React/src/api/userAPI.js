@@ -5,6 +5,8 @@ import {
   USER_TERMS,
   SERVER_HOST,
   USER_LOGOUT,
+  USER_EMAIL_SEND_CODE,
+  USER_EMAIL_VERIFY_CODE,
 } from "./_http";
 
 export const getTerms = async () => {
@@ -82,5 +84,38 @@ export const getUserLogout = async () => {
     return response.data;
   } catch (err) {
     console.log(err);
+  }
+};
+
+// --- 이메일 인증 코드 발송 API ---
+export const sendEmailVerificationCode = async (email) => {
+  try {
+    const response = await axios.post(
+      USER_EMAIL_SEND_CODE,
+      { email },
+      { withCredentials: true } // <-- 이 부분을 추가합니다.
+    );
+    console.log("Email send response:", response);
+    return response.data; // 성공 메시지 반환
+  } catch (err) {
+    console.error("Failed to send email verification code:", err);
+    throw err; // 에러 다시 던지기
+  }
+};
+
+// --- 이메일 인증 코드 확인 API ---
+export const verifyEmailVerificationCode = async (authCode) => {
+  try {
+    const response = await axios.post(
+      USER_EMAIL_VERIFY_CODE,
+      { authCode },
+      { withCredentials: true } // <-- 이 부분을 추가합니다.
+    );
+    console.log("Email verify response:", response);
+    // 백엔드에서 { "isVerified": true/false } 형태로 오므로, isVerified 값을 반환
+    return response.data.isVerified;
+  } catch (err) {
+    console.error("Failed to verify email verification code:", err);
+    throw err;
   }
 };
