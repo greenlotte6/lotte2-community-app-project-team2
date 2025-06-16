@@ -27,7 +27,7 @@ export const Aside = () => {
               <p>내 정보</p>
             </li>
           </Link>
-          <Link to="/view/Calendar/Calender.html">
+          <Link to="/Calender">
             <li>
               <img src="/images/Calendar.svg" className="asideIcon" />
               <p>캘린더</p>
@@ -45,7 +45,7 @@ export const Aside = () => {
               <p>프로젝트</p>
             </li>
           </Link>
-          <Link to="#" className="dropdown-toggle">
+          <Link to="/board" className="dropdown-toggle">
             <li>
               <img src="/images/Edit.svg" className="asideIcon" />
               <p>게시판</p>
@@ -83,13 +83,13 @@ export const Aside = () => {
             </ul>
           </div>
 
-          <Link to="/view/Drive/Drive.html">
+          <Link to="/Drive">
             <li>
               <img src="/images/Folder.svg" className="asideIcon" />
               <p>드라이브</p>
             </li>
           </Link>
-          <Link to="/view/membership/membership.html">
+          <Link to="/membership/membership">
             <li>
               <img src="/images/CreditCard.svg" className="asideIcon" />
               <p>멤버십</p>
