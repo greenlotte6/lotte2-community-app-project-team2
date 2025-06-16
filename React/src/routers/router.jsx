@@ -11,7 +11,7 @@ import { FindPasswordPage } from "../pages/user/FindPasswordPage";
 import { MyPagePage } from "../pages/myPage/MyPagePage";
 import { MembershipPage } from "../pages/membership/MembershipPage";
 import { CheckoutPage } from "../pages/membership/CheckoutPage";
-import  ListPage  from "../pages/board/ListPage";
+import ListPage from "../pages/board/ListPage";
 import { ViewPage } from "../pages/board/ViewPage";
 import { WritePage } from "../pages/board/WritePage";
 import { MainPage } from "../pages/board/MainPage";
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
 
   //--------------------mypage-----------------------
   { path: "/myPage/myPage", element: <MyPagePage /> },
-  
+
   { path: "/Messenger", element: <Messengerpage /> },
   { path: "/Calender", element: <Calenderpage /> },
   { path: "/Drive", element: <Drivepage /> },
@@ -45,7 +45,7 @@ const router = createBrowserRouter([
   { path: "/board/list", element: <ListPage /> },
   { path: "/board/view", element: <ViewPage /> },
   { path: "/board/write", element: <WritePage /> },
-  
+
   //-----------------------Project-----------------------
   { path: "/project/project", element: <ProjectPage /> },
   { path: "/project/inProject", element: <InProjectPage /> },
