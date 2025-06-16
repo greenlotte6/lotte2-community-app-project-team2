@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { checkUserDuplicate, postUser } from "../../api/userAPI";
+import {
+  checkUserDuplicate,
+  postUser,
+  sendEmailVerificationCode,
+  verifyEmailVerificationCode,
+} from "../../api/userAPI";
 
 // 정규표현식
 const reUid = /^[a-z]+[a-z0-9]{4,19}$/g;
@@ -104,6 +109,7 @@ export const Signup = () => {
     setIsUidOk(result.color === "green");
   };
 
+  // --- 이메일 중복 확인 및 인증번호 발송 ---
   const handleCheckEmail = async () => {
     if (!reEmail.test(user.email)) {
       setEmailMsg({ text: "이메일 형식이 올바르지 않습니다.", color: "red" });
@@ -111,47 +117,101 @@ export const Signup = () => {
       return;
     }
 
-    const result = await checkUserDuplicate("email", user.email);
-    setEmailMsg({ text: result.msg, color: result.color });
-
-    if (result.valid) {
-      // result.valid가 true일 때만 인증 프로세스 진행
-      setShowEmailVerification(true);
-      // 이메일 인증 코드를 전송하는 API 호출이 여기에 와야 합니다.
-      setEmailMsg({ text: "인증번호를 전송했습니다.", color: "green" }); // 임시 메시지
-      setEmailVerified(false); // 인증되지 않은 상태로 초기화
-      setIsEmailOk(false); // 이메일 인증 완료 전까지는 false
-    } else {
-      // 중복이거나 유효하지 않은 경우
+    try {
+      const result = await checkUserDuplicate("email", user.email);
       setEmailMsg({ text: result.msg, color: result.color });
+
+      if (result.valid) {
+        // 이메일 중복이 아니면 인증 프로세스 시작
+        setShowEmailVerification(true); // 인증번호 입력 UI 표시
+
+        // 인증번호 발송 API 호출
+        await sendEmailVerificationCode(user.email);
+        setEmailMsg({
+          text: "인증번호를 전송했습니다. 이메일을 확인해주세요.",
+          color: "green",
+        });
+        setEmailVerified(false); // 인증되지 않은 상태로 초기화
+        setIsEmailOk(false); // 이메일 인증 완료 전까지는 false
+      } else {
+        // 중복이거나 유효하지 않은 경우
+        setEmailMsg({ text: result.msg, color: result.color });
+        setIsEmailOk(false);
+        setShowEmailVerification(false); // 인증 UI 숨김
+      }
+    } catch (error) {
+      console.error("이메일 중복 확인 또는 인증 코드 발송 실패:", error);
+      setEmailMsg({
+        text: "이메일 확인 또는 인증 코드 발송에 실패했습니다.",
+        color: "red",
+      });
       setIsEmailOk(false);
     }
   };
 
-  const handleSendEmailCode = () => {
+  // handleSendEmailCode는 handleCheckEmail에 통합되거나, 별도 버튼으로 사용 시 다시 정의
+  // 현재는 handleCheckEmail에서 중복 확인 후 바로 인증 코드 발송하도록 설계했습니다.
+  // 만약 "인증번호 재전송" 버튼을 만들고 싶다면 이 함수를 활용하세요.
+  const handleSendEmailCode = async () => {
     if (!reEmail.test(user.email)) {
       setEmailMsg({ text: "이메일 형식이 올바르지 않습니다.", color: "red" });
       setIsEmailOk(false);
       return;
     }
+    if (!user.email) {
+      // 이메일 입력 여부 확인
+      setEmailMsg({ text: "이메일 주소를 입력해주세요.", color: "red" });
+      return;
+    }
 
-    // 실제 이메일 인증 코드 전송 API 호출이 여기에 와야 합니다.
-    // 예: sendVerificationCode(user.email);
-
-    setEmailMsg({ text: "인증번호를 전송했습니다.", color: "green" });
-    setShowEmailVerification(true);
-    setEmailVerified(false);
-    setIsEmailOk(false);
+    try {
+      // 인증번호 발송 API 호출
+      await sendEmailVerificationCode(user.email);
+      setEmailMsg({
+        text: "인증번호를 재전송했습니다. 이메일을 확인해주세요.",
+        color: "green",
+      });
+      setShowEmailVerification(true); // 혹시 숨겨져 있다면 다시 표시
+      setEmailVerified(false);
+      setIsEmailOk(false);
+    } catch (error) {
+      console.error("인증 코드 재전송 실패:", error);
+      setEmailMsg({ text: "인증 코드 재전송에 실패했습니다.", color: "red" });
+      setIsEmailOk(false);
+    }
   };
 
-  const handleVerifyCode = () => {
-    if (emailCodeInput === "123456") {
-      // 테스트용 코드
-      setEmailMsg({ text: "이메일이 인증되었습니다.", color: "green" });
-      setEmailVerified(true);
-      setIsEmailOk(true);
-    } else {
-      setEmailMsg({ text: "인증번호가 올바르지 않습니다.", color: "red" });
+  // --- 이메일 인증 코드 확인 ---
+  const handleVerifyCode = async () => {
+    if (!emailCodeInput) {
+      setEmailMsg({ text: "인증번호를 입력해주세요.", color: "red" });
+      return;
+    }
+
+    try {
+      const isVerified = await verifyEmailVerificationCode(emailCodeInput);
+
+      if (isVerified) {
+        setEmailMsg({
+          text: "이메일이 성공적으로 인증되었습니다.",
+          color: "green",
+        });
+        setEmailVerified(true); // 인증 완료
+        setIsEmailOk(true); // 최종적으로 이메일 필드 유효성 OK
+      } else {
+        setEmailMsg({
+          text: "인증번호가 일치하지 않거나 만료되었습니다.",
+          color: "red",
+        });
+        setEmailVerified(false); // 인증 실패
+        setIsEmailOk(false);
+      }
+    } catch (error) {
+      console.error("이메일 인증 코드 확인 실패:", error);
+      setEmailMsg({
+        text: "인증 코드 확인 중 오류가 발생했습니다.",
+        color: "red",
+      });
       setEmailVerified(false);
       setIsEmailOk(false);
     }
@@ -323,11 +383,13 @@ export const Signup = () => {
                 value={user.email}
                 onChange={changeHandler}
                 placeholder="이메일 입력"
+                disabled={emailVerified} // 인증 완료 후에는 이메일 입력 필드 비활성화
               />
               <button
                 type="button"
                 className="check-btn"
-                onClick={handleCheckEmail} // 이메일 중복 확인 및 인증번호 전송
+                onClick={handleCheckEmail} // 이메일 중복 확인 및 인증번호 발송
+                disabled={emailVerified} // 인증 완료 후 버튼 비활성화
               >
                 인증
               </button>
@@ -339,14 +401,27 @@ export const Signup = () => {
                   placeholder="인증번호 입력"
                   value={emailCodeInput}
                   onChange={(e) => setEmailCodeInput(e.target.value)}
+                  disabled={emailVerified} // 인증 완료 후 입력 필드 비활성화
                 />
                 <button
                   type="button"
                   className="check-btn"
                   onClick={handleVerifyCode}
+                  disabled={emailVerified} // 인증 완료 후 버튼 비활성화
                 >
                   확인
                 </button>
+                {/* 인증번호 재전송 버튼 (선택 사항) */}
+                {!emailVerified && ( // 인증되지 않았을 때만 재전송 버튼 표시
+                  <button
+                    type="button"
+                    className="check-btn"
+                    onClick={handleSendEmailCode} // 재전송 기능
+                    style={{ marginLeft: "8px" }}
+                  >
+                    재전송
+                  </button>
+                )}
               </div>
             )}
             <p className="message" style={{ color: emailMsg.color }}>

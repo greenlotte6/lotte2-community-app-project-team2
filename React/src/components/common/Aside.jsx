@@ -21,7 +21,7 @@ export const Aside = () => {
               <p>채팅</p>
             </li>
           </Link>
-          <Link to="/view/myPage/myPage.html">
+          <Link to="/myPage/myPage">
             <li>
               <img src="/images/User.svg" className="asideIcon" />
               <p>내 정보</p>

@@ -8,5 +8,9 @@ export const USER_REGISTER = `${SERVER_HOST}/user`;
 export const USER_LOGIN = `${SERVER_HOST}/user/login`;
 export const USER_LOGOUT = `${SERVER_HOST}/user/logout`;
 
+// --- 이메일 인증 관련 경로 추가 ---
+export const USER_EMAIL_SEND_CODE = `${SERVER_HOST}/user/email/sendCode`;
+export const USER_EMAIL_VERIFY_CODE = `${SERVER_HOST}/user/email/auth`; // 기존 email/auth 경로 활용
+
 // mypage
 export const MYPAGE_MYPAGE = `${SERVER_HOST}/myPage/myPage`;

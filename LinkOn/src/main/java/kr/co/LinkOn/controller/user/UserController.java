@@ -1,5 +1,6 @@
 package kr.co.LinkOn.controller.user;
 
+import jakarta.servlet.http.HttpSession;
 import kr.co.LinkOn.dto.user.TermsDTO;
 import kr.co.LinkOn.dto.user.UserDTO;
 import kr.co.LinkOn.entity.user.User;
@@ -125,6 +126,47 @@ public class UserController {
     }
 
     // JSON 단일 문자열값이 직접 String으로 매핑되지 않기 때문에 JSON과 호환되는 Map 타입으로 JSON 수신
+
+    //이메일
+    // --- 이메일 인증 코드 발송 엔드포인트 ---
+    @PostMapping("/user/email/sendCode") // 클라이언트에서 이메일 주소를 받아 인증 코드 발송
+    public ResponseEntity<String> sendEmailCode(@RequestBody Map<String, String> map, HttpSession session) {
+        String email = map.get("email");
+        if (email == null || email.isEmpty()) {
+            return ResponseEntity.badRequest().body("이메일 주소를 제공해야 합니다.");
+        }
+        try {
+            userService.sendEmailCode(email, session); // UserService의 메서드 호출
+            return ResponseEntity.ok().body("인증 코드가 이메일로 발송되었습니다.");
+        } catch (RuntimeException e) { // UserService에서 발생한 예외를 여기서 처리
+            log.error("Email sending failed for {}: {}", email, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("이메일 발송에 실패했습니다: " + e.getMessage());
+        }
+    }
+
+    // --- 이메일 인증 코드 확인 엔드포인트 ---
+    // 기존 @PostMapping("/email/auth")를 그대로 사용하되, UserService를 통해 처리
+    @PostMapping("/user/email/auth")
+    public ResponseEntity<Map<String, Boolean>> emailAuth(@RequestBody Map<String, String> map, HttpSession session) {
+        String authCode = map.get("authCode");
+        log.info("Received authCode for verification: {}", authCode);
+
+        // Map<String, Boolean> 형태로 변경하여 프론트에서 isVerified를 확인하도록 합니다.
+        // 클라이언트에서 이메일 주소도 같이 보내주는 것이 좋습니다. (어떤 이메일에 대한 코드인지 명확히)
+        // 현재는 세션에 하나만 저장한다고 가정
+        boolean isVerified = userService.verifyEmailCode(authCode, session);
+
+        // 결과 Map 생성
+        Map<String, Boolean> response = Map.of("isVerified", isVerified);
+
+        if (isVerified) {
+            return ResponseEntity.ok().body(response);
+        } else {
+            // 400 Bad Request 대신 200 OK와 함께 isVerified: false를 보내는 것이 일반적
+            // 클라이언트에서 isVerified 값을 보고 처리
+            return ResponseEntity.ok().body(response);
+        }
+    }
 
     // 로그아웃
     @GetMapping("/user/logout")
