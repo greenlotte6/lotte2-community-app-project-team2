@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -100,7 +101,8 @@ public class UserController {
             Map<String, Object> map = new HashMap<>();
             map.put("grantType", "Bearer");
             map.put("username", user.getUid());
-            //map.put("accessToken", access);
+            map.put("name", user.getName());
+            map.put("accessToken", access);
             //map.put("refreshToken", refresh);
 
             return ResponseEntity.ok().headers(headers).body(map);
@@ -194,6 +196,20 @@ public class UserController {
 
         return ResponseEntity.ok().headers(headers).body(null);
     }
+
+
+    @GetMapping("/user/list")
+    public ResponseEntity<List<Map<String, String>>> getAllUsers() {
+        List<User> users = userService.getAllUsers(); // 서비스 계층에 위임
+
+        List<Map<String, String>> userList = users.stream()
+                .map(user -> Map.of(
+                        "uid", user.getUid(),
+                        "name", user.getName()
+                ))
+                .toList();
+
+        return ResponseEntity.ok(userList);
 
     // --- 아이디 찾기 - 이메일 인증 코드 발송 엔드포인트 ---
     @PostMapping("/user/findId/sendCode") // 경로를 더 명확하게 변경
