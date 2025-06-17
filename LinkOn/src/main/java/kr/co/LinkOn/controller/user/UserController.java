@@ -210,6 +210,7 @@ public class UserController {
                 .toList();
 
         return ResponseEntity.ok(userList);
+    }
 
     // --- 아이디 찾기 - 이메일 인증 코드 발송 엔드포인트 ---
     @PostMapping("/user/findId/sendCode") // 경로를 더 명확하게 변경
