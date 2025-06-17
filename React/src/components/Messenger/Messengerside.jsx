@@ -1,21 +1,48 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from "react";
 import { ChannelModal } from "./Modal/ChannelModal";
-
-
+import socket, { getUserFromToken } from "../../socket";
 
 export const Messengerside = ({ currentRoom, setCurrentRoom }) => {
-  const [channels, setChannels] = useState(["채팅 1", "채팅 2", "채팅 3"]);
+  const [channels, setChannels] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
+  useEffect(() => {
+    const uid = getUserFromToken();
+    if (!uid) return;
+
+    // ✅ 처음 연결 시 채널 목록 요청
+    socket.emit("get_channels", uid); // (추후 사용 가능)
+
+    // ✅ 서버에서 보낸 채널 목록 수신
+    socket.on("channel_list", (channelList) => {
+      setChannels(channelList);
+    });
+
+    // ✅ 클린업
+    return () => {
+      socket.off("channel_list");
+    };
+  }, []);
+
   const handleAddChannel = (name) => {
-    setChannels([...channels, name]);
-    setShowModal(false);
+    const uid = getUserFromToken();
+    console.log("채널 생성 요청됨:", name, uid); // ✅ 콘솔 확인
+
+    if (!uid) return alert("로그인이 필요합니다.");
+
+    socket.emit("create_channel", { name, creator: uid }, (res) => {
+      if (!res.ok) {
+        alert("채널 생성 실패: " + res.error);
+        return;
+      }
+      setShowModal(false);
+    });
   };
 
   return (
     <>
       <div className="sidebar-panel">
-        <p>홍길동<br />hong@gmail.com</p>
+        <p>내 채널</p>
         <div className="channel-list">
           <p data-role="add-channel" onClick={() => setShowModal(true)}>
             + 새 채널 만들기
@@ -23,15 +50,16 @@ export const Messengerside = ({ currentRoom, setCurrentRoom }) => {
           {channels.map((room, idx) => (
             <p
               key={idx}
-              data-room={room}
-              className={`channel-item ${currentRoom === room ? "active" : ""}`}
-              onClick={() => setCurrentRoom(room)}
+              data-room={room.name}
+              className={`channel-item ${currentRoom === room.name ? "active" : ""}`}
+              onClick={() => setCurrentRoom(room.name)}
             >
-              {room} ⚙
+              {room.name} ⚙
             </p>
           ))}
         </div>
       </div>
+
       {showModal && (
         <ChannelModal
           onClose={() => setShowModal(false)}

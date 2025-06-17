@@ -12,6 +12,14 @@ export const USER_LOGOUT = `${SERVER_HOST}/user/logout`;
 export const USER_EMAIL_SEND_CODE = `${SERVER_HOST}/user/email/sendCode`;
 export const USER_EMAIL_VERIFY_CODE = `${SERVER_HOST}/user/email/auth`; // 기존 email/auth 경로 활용
 
+// --- 아이디 찾기 관련 경로 추가 ---
+export const USER_FIND_ID_SEND_CODE = `${SERVER_HOST}/user/findId/sendCode`; // 새로운 경로
+export const USER_FIND_ID_VERIFY_CODE = `${SERVER_HOST}/user/findId/verifyCode`; // 새로운 경로
+
+// --- 비밀번호 찾기 관련 경로 추가 ---
+export const USER_FIND_PASSWORD_SEND_CODE = `${SERVER_HOST}/user/findPassword/sendCode`; // 새로운 경로
+export const USER_FIND_PASSWORD_RESET = `${SERVER_HOST}/user/findPassword/reset`; // 새로운 경로
+
 // mypage
 export const MYPAGE_MYPAGE = `${SERVER_HOST}/myPage/myPage`;
 
