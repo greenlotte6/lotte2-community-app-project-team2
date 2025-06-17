@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Log4j2
 @RequiredArgsConstructor
@@ -192,5 +193,179 @@ public class UserController {
         headers.add(HttpHeaders.SET_COOKIE, refreshTokenCookie.toString());
 
         return ResponseEntity.ok().headers(headers).body(null);
+    }
+
+    // --- 아이디 찾기 - 이메일 인증 코드 발송 엔드포인트 ---
+    @PostMapping("/user/findId/sendCode") // 경로를 더 명확하게 변경
+    public ResponseEntity<Map<String, String>> sendCodeForFindId(@RequestBody Map<String, String> map,
+                                                                 HttpSession session) {
+        String name = map.get("name");
+        String email = map.get("email");
+        Map<String, String> response = new HashMap<>();
+
+        if (name == null || name.isEmpty() || email == null || email.isEmpty()) {
+            response.put("status", "FAIL");
+            response.put("message", "이름과 이메일을 모두 입력해주세요.");
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        // 이름+이메일 매칭 여부 검사
+        boolean exists = userService.existsByNameAndEmail(name, email);
+        if (!exists) {
+            response.put("status", "NO_USER");
+            response.put("message", "입력하신 이름과 이메일에 해당하는 사용자 정보가 없습니다.");
+            return ResponseEntity.ok(response); // 200 OK와 함께 NO_USER 상태 반환
+        }
+
+        try {
+            // 이메일 인증 코드 발송 (UserService의 기존 sendEmailCode 재활용)
+            // sendEmailCode는 세션에 "emailAuthCode"와 "emailAuthTime"을 저장하므로,
+            // findId에서 이를 활용하도록 변경합니다.
+            userService.sendEmailCode(email, session); // HttpSession을 함께 전달하도록 수정
+            log.info("아이디 찾기 이메일 코드 발송 완료 및 세션 저장: [{}]", email);
+
+            response.put("status", "SENT");
+            response.put("message", "인증 코드가 이메일로 발송되었습니다.");
+            return ResponseEntity.ok(response);
+
+        } catch (RuntimeException e) {
+            log.error("아이디 찾기 이메일 발송 실패: {}", e.getMessage());
+            response.put("status", "ERROR");
+            response.put("message", "이메일 발송에 실패했습니다. 잠시 후 다시 시도해주세요.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    // --- 아이디 찾기 - 이메일 인증 및 아이디 반환 엔드포인트 ---
+    @PostMapping("/user/findId/verifyCode") // 경로를 더 명확하게 변경
+    public ResponseEntity<Map<String, String>> findIdAndVerifyCode(@RequestBody Map<String, String> map, HttpSession session) {
+        String name = map.get("name"); // 이름도 함께 받는 것이 보안상 더 좋음
+        String email = map.get("email");
+        String inputCode = map.get("code"); // 'code' -> 'inputCode'로 변수명 변경 (명확성)
+        Map<String, String> response = new HashMap<>();
+
+        if (name == null || name.isEmpty() || email == null || email.isEmpty() || inputCode == null || inputCode.isEmpty()) {
+            response.put("status", "FAIL");
+            response.put("message", "모든 정보를 입력해주세요.");
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        // 1. 이메일 인증 코드 유효성 검사 (기존 UserService.verifyEmailCode 재활용)
+        // verifyEmailCode는 내부적으로 세션에서 "emailAuthCode", "emailAuthTime"을 사용
+        boolean isCodeVerified = userService.verifyEmailCode(inputCode, session);
+
+        if (!isCodeVerified) {
+            response.put("status", "CODE_MISMATCH_OR_EXPIRED");
+            response.put("message", "인증 코드가 일치하지 않거나 만료되었습니다.");
+            return ResponseEntity.ok(response);
+        }
+
+        // 2. 이름과 이메일로 사용자 아이디 찾기 (인증 성공 시에만 수행)
+        Optional<String> foundId = userService.findUserId(name, email);
+
+        if (foundId.isPresent()) {
+            response.put("status", "SUCCESS");
+            response.put("message", "당신의 아이디는 다음과 같습니다.");
+            response.put("userId", foundId.get()); // 찾은 아이디를 'userId' 키로 반환
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("status", "USER_NOT_FOUND"); // 인증은 성공했으나, 이름/이메일로 최종 사용자 불일치
+            response.put("message", "인증되었지만, 일치하는 회원 정보가 없습니다.");
+            return ResponseEntity.ok(response);
+        }
+    }
+
+    // --- 비밀번호 찾기/재설정 - 이메일 인증 코드 발송 엔드포인트 ---
+    @PostMapping("/user/findPassword/sendCode") // 새로운 경로
+    public ResponseEntity<Map<String, String>> sendCodeForFindPassword(@RequestBody Map<String, String> map,
+                                                                       HttpSession session) {
+        String uid = map.get("uid"); // 아이디 -> uid로 변경
+        String email = map.get("email");
+        Map<String, String> response = new HashMap<>();
+
+        if (uid == null || uid.isEmpty() || email == null || email.isEmpty()) {
+            response.put("status", "FAIL");
+            response.put("message", "아이디와 이메일을 모두 입력해주세요.");
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        // 아이디 + 이메일 매칭 여부 검사
+        boolean exists = userService.existsByUidAndEmail(uid, email); // existsByUidAndEmail 호출
+        if (!exists) {
+            response.put("status", "NO_USER");
+            response.put("message", "입력하신 아이디와 이메일에 해당하는 사용자 정보가 없습니다.");
+            return ResponseEntity.ok(response);
+        }
+
+        try {
+            userService.sendEmailCodeForPasswordReset(email, session);
+
+            response.put("status", "SENT");
+            response.put("message", "인증 코드가 이메일로 발송되었습니다. 5분 이내에 입력해주세요.");
+            return ResponseEntity.ok(response);
+
+        } catch (RuntimeException e) {
+            log.error("비밀번호 찾기 이메일 발송 실패: {}", e.getMessage());
+            response.put("status", "ERROR");
+            response.put("message", "이메일 발송에 실패했습니다. 잠시 후 다시 시도해주세요.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    // --- 비밀번호 찾기/재설정 - 인증 코드 확인 및 비밀번호 업데이트 엔드포인트 ---
+    @PostMapping("/user/findPassword/reset") // 새로운 경로
+    public ResponseEntity<Map<String, String>> resetPassword(@RequestBody Map<String, String> map, HttpSession session) {
+        String uid = map.get("uid"); // 아이디 -> uid로 변경
+        String email = map.get("email");
+        String inputCode = map.get("code");
+        String newPassword = map.get("newPassword");
+        String confirmPassword = map.get("confirmPassword");
+
+        Map<String, String> response = new HashMap<>();
+
+        if (uid == null || uid.isEmpty() || email == null || email.isEmpty() ||
+                inputCode == null || inputCode.isEmpty() ||
+                newPassword == null || newPassword.isEmpty() ||
+                confirmPassword == null || confirmPassword.isEmpty()) {
+            response.put("status", "FAIL");
+            response.put("message", "모든 정보를 입력해주세요.");
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        if (!newPassword.equals(confirmPassword)) {
+            response.put("status", "PASSWORD_MISMATCH");
+            response.put("message", "새 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        // 이메일 인증 코드 유효성 검사 (비밀번호 찾기 전용 세션 키 사용)
+        boolean isCodeVerified = userService.verifyEmailCodeForPasswordReset(inputCode, session);
+
+        if (!isCodeVerified) {
+            response.put("status", "CODE_MISMATCH_OR_EXPIRED");
+            response.put("message", "인증 코드가 일치하지 않거나 만료되었습니다.");
+            return ResponseEntity.ok(response);
+        }
+
+        // 아이디와 이메일로 최종 사용자 확인 (인증 성공 시에만 수행, 이중 확인)
+        boolean userExists = userService.existsByUidAndEmail(uid, email); // existsByUidAndEmail 호출
+        if (!userExists) {
+            response.put("status", "USER_NOT_FOUND");
+            response.put("message", "아이디 또는 이메일 정보가 일치하지 않습니다.");
+            return ResponseEntity.ok(response);
+        }
+
+        try {
+            // 비밀번호 업데이트
+            userService.updatePassword(uid, newPassword); // updatePassword 호출
+            response.put("status", "SUCCESS");
+            response.put("message", "비밀번호가 성공적으로 변경되었습니다. 다시 로그인해주세요.");
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException e) {
+            log.error("비밀번호 업데이트 실패: {}", e.getMessage(), e);
+            response.put("status", "ERROR");
+            response.put("message", "비밀번호 변경 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
     }
 }
