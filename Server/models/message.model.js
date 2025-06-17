@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const messageSchema = new mongoose.Schema({
   room: String,
   sender: String,
+  senderName: String,
   message: String,
   time: String,
 });

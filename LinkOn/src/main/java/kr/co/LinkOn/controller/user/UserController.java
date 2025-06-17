@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Log4j2
@@ -99,7 +100,8 @@ public class UserController {
             Map<String, Object> map = new HashMap<>();
             map.put("grantType", "Bearer");
             map.put("username", user.getUid());
-            //map.put("accessToken", access);
+            map.put("name", user.getName());
+            map.put("accessToken", access);
             //map.put("refreshToken", refresh);
 
             return ResponseEntity.ok().headers(headers).body(map);
@@ -192,5 +194,19 @@ public class UserController {
         headers.add(HttpHeaders.SET_COOKIE, refreshTokenCookie.toString());
 
         return ResponseEntity.ok().headers(headers).body(null);
+    }
+
+    @GetMapping("/user/list")
+    public ResponseEntity<List<Map<String, String>>> getAllUsers() {
+        List<User> users = userService.getAllUsers(); // 서비스 계층에 위임
+
+        List<Map<String, String>> userList = users.stream()
+                .map(user -> Map.of(
+                        "uid", user.getUid(),
+                        "name", user.getName()
+                ))
+                .toList();
+
+        return ResponseEntity.ok(userList);
     }
 }

@@ -31,7 +31,10 @@ export const Login = () => {
         const data = await postUserLogin(user);
         console.log(data);
 
-        if (data.username) {
+        if (data.username && data.accessToken) {
+          // ✅ JWT 저장 (로컬 스토리지 또는 메모리)
+          localStorage.setItem("access_token", data.accessToken);
+          localStorage.setItem("user_name", data.name);
           // redux login 호출
           //dispatch(login(data));
 

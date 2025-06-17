@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.mail.javamail.JavaMailSender;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -153,5 +154,7 @@ public class UserService {
         return isMatch;
     }
 
-
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
 }

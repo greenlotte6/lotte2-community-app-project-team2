@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { MemberModal } from "./Modal/MemberModal";
-import socket from "../../socket"; // socket.js import
+import socket, { getUserFromToken } from "../../socket";
 
 export const Messengermain = ({ currentRoom }) => {
   const [showMemberModal, setShowMemberModal] = useState(false);
@@ -8,39 +8,55 @@ export const Messengermain = ({ currentRoom }) => {
   const [input, setInput] = useState("");
 
   useEffect(() => {
-  if (!currentRoom) return;
+    if (!currentRoom) return;
 
-  socket.emit("join_room", currentRoom);
+    const uid = getUserFromToken();
 
-  // ✅ 이전 메시지 받기
-  socket.on("previous_messages", (prevMsgs) => {
-  const formatted = prevMsgs.map(msg => ({
-    ...msg,
-    type: "received",
-    time: msg.time || new Date().toLocaleTimeString("ko-KR", {
-      hour: "2-digit",
-      minute: "2-digit",
-    }),
-  }));
-  setMessages(formatted);
-});
+    // ✅ 채팅방 입장
+    socket.emit("join_room", currentRoom);
 
-  // ✅ 실시간 수신 메시지 처리
-  socket.on("receive_message", (data) => {
-    setMessages((prev) => [...prev, { ...data, type: "received" }]);
-  });
+    // ✅ 이전 메시지 불러오기
+    socket.on("previous_messages", (prevMsgs) => {
+      const formatted = prevMsgs.map((msg) => ({
+        ...msg,
+        type: msg.sender === uid ? "sent" : "received",
+        time:
+          msg.time ||
+          new Date().toLocaleTimeString("ko-KR", {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+      }));
+      setMessages(formatted);
+    });
 
-  return () => {
-    socket.off("receive_message");
-    socket.off("previous_messages"); // 꼭 해제!
-  };
-}, [currentRoom]);
+    // ✅ 실시간 메시지 수신
+    socket.on("receive_message", (data) => {
+      // 내가 보낸 메시지는 이미 sent로 추가했기 때문에 중복 제거
+      if (data.sender === uid) return;
 
+      setMessages((prev) => [...prev, { ...data, type: "received" }]);
+    });
+
+    // ✅ 클린업
+    return () => {
+      socket.off("receive_message");
+      socket.off("previous_messages");
+    };
+  }, [currentRoom]);
+
+  // ✅ 메시지 전송
   const sendMessage = () => {
+    const uid = getUserFromToken();
+    const name = localStorage.getItem("user_name");
+
+    if (!uid || !name) return alert("로그인이 필요합니다.");
+
     if (input.trim()) {
       const msg = {
         room: currentRoom,
-        sender: "나", // 임시
+        sender: uid,
+        senderName: name,
         message: input,
         time: new Date().toLocaleTimeString("ko-KR", {
           hour: "2-digit",
@@ -71,8 +87,12 @@ export const Messengermain = ({ currentRoom }) => {
             <div key={i} className={`message ${msg.type}`}>
               {msg.type === "received" && (
                 <div className="profile-wrapper">
-                  <div className="chat-username">{msg.sender}</div>
-                  <img src="/images/Avatar.png" alt="상대방" className="chat-avatar" />
+                  <div className="chat-username">{msg.senderName || msg.sender}</div>
+                  <img
+                    src="/images/Avatar.png"
+                    alt="상대방"
+                    className="chat-avatar"
+                  />
                 </div>
               )}
               <div className="message-bubble-wrapper">
@@ -81,8 +101,12 @@ export const Messengermain = ({ currentRoom }) => {
               </div>
               {msg.type === "sent" && (
                 <div className="profile-wrapper">
-                  <img src="/images/Avatar.png" alt="나" className="chat-avatar" />
-                  <div className="chat-username">{msg.sender}</div>
+                  <img
+                    src="/images/Avatar.png"
+                    alt="나"
+                    className="chat-avatar"
+                  />
+                  <div className="chat-username">{msg.senderName || msg.sender}</div>
                 </div>
               )}
             </div>
@@ -101,7 +125,12 @@ export const Messengermain = ({ currentRoom }) => {
         </div>
       </div>
 
-      {showMemberModal && <MemberModal onClose={() => setShowMemberModal(false)} />}
+      {showMemberModal && (
+        <MemberModal
+          onClose={() => setShowMemberModal(false)}
+          currentRoom={currentRoom} // ✅ 이 줄이 꼭 필요!
+        />
+      )}
     </div>
   );
 };
