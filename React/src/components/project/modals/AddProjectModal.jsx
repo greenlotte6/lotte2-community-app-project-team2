@@ -1,6 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function AddProjectModal({ onClose, onAdd }) {
+  const [projectName, setProjectName] = useState('');
+
+  const handleAddClick = () => {
+    if (!projectName.trim()) {
+      alert('프로젝트 이름을 입력하세요');
+      return;
+    }
+    onAdd(projectName.trim());
+  };
+
   return (
     <div className="modalContainer">
       <div className="addProjectModal modalWrapper">
@@ -18,6 +28,8 @@ export default function AddProjectModal({ onClose, onAdd }) {
               type="text"
               name="projectName"
               placeholder="프로젝트 이름을 입력하세요"
+              value={projectName}
+              onChange={(e) => setProjectName(e.target.value)}
             />
           </div>
 
@@ -26,7 +38,7 @@ export default function AddProjectModal({ onClose, onAdd }) {
               <button type="button" className="modalClose" onClick={onClose}>
                 취소
               </button>
-              <button type="button" onClick={onAdd}>
+              <button type="button" onClick={handleAddClick}>
                 추가
               </button>
             </div>

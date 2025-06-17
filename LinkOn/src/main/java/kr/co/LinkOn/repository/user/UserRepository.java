@@ -16,4 +16,7 @@ public interface UserRepository extends JpaRepository<User, String> {
     long countByHp(String hp);
 
     Optional<User> findByUid(String userId);
+
+    String uid(String uid);
+
 }
