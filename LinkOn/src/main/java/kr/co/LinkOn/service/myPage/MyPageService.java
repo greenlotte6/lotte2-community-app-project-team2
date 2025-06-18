@@ -22,6 +22,7 @@ public class MyPageService {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper; // ModelMapper가 주입되어 있어야 합니다.
+    private final PasswordEncoder passwordEncoder;
 
     // 사용자 정보 조회 메서드 (UID를 받아 UserDTO 반환)
     @Transactional(readOnly = true) // 조회 메서드는 readOnly = true 권장
@@ -51,8 +52,8 @@ public class MyPageService {
 
             if (userDTO.getPass() != null && !userDTO.getPass().trim().isEmpty()) {
                 // 비밀번호 인코딩 처리 필요 (여기서는 passwordEncoder가 없으므로 주석 처리 또는 추가)
-                // user.setPass(passwordEncoder.encode(userDTO.getPass()));
-                user.setPass(userDTO.getPass()); // 임시로 인코딩 없이 저장 (실제 서비스에서는 인코딩 필수!)
+                user.setPass(passwordEncoder.encode(userDTO.getPass()));
+                //user.setPass(userDTO.getPass()); // 임시로 인코딩 없이 저장 (실제 서비스에서는 인코딩 필수!)
                 log.info("MyPageService - Password updated for user: {}", loginUserId);
             }
             if (userDTO.getHp() != null && !userDTO.getHp().trim().isEmpty()) {

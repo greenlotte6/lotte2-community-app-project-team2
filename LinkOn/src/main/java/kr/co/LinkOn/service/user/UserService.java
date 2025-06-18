@@ -7,8 +7,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import kr.co.LinkOn.dto.user.TermsDTO;
 import kr.co.LinkOn.dto.user.UserDTO;
+import kr.co.LinkOn.entity.membership.Membership;
 import kr.co.LinkOn.entity.user.Terms;
 import kr.co.LinkOn.entity.user.User;
+import kr.co.LinkOn.repository.membership.MembershipRepository;
 import kr.co.LinkOn.repository.user.TermsRepository;
 import kr.co.LinkOn.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +38,7 @@ public class UserService {
     private final ModelMapper modelMapper;
     private final TermsRepository termsRepository;
     private final JavaMailSender mailSender;
+    private final MembershipRepository membershipRepository;
 
     private final HttpServletRequest request;
 
@@ -53,13 +56,32 @@ public class UserService {
 
     }
 
+    @Transactional // 쓰기 작업이므로 @Transactional을 명시적으로 붙여줍니다.
     public String register(UserDTO userDTO) {
 
+        // 1. 비밀번호 암호화
         String encoded = passwordEncoder.encode(userDTO.getPass());
-        userDTO.setPass(encoded);
+        userDTO.setPass(encoded); // DTO에 암호화된 비밀번호 설정 (ModelMapper가 사용하도록)
 
+        // 2. ModelMapper를 사용하여 DTO -> Entity 변환
+        // 이때 membership 필드는 null인 상태로 변환됩니다.
         User user = modelMapper.map(userDTO, User.class);
+
+        // 3. 기본 멤버십 조회 및 설정 (핵심 수정 부분)
+        // ID가 1인 'free' 멤버십을 조회합니다.
+        Membership defaultMembership = membershipRepository.findById(1) // no 필드가 int 타입이므로 1 사용
+                .orElseThrow(() -> {
+                    log.error("기본 멤버십(no: 1)을 찾을 수 없습니다. 데이터베이스 'membership' 테이블을 확인해주세요.");
+                    return new RuntimeException("회원가입에 필요한 기본 멤버십 정보를 찾을 수 없습니다.");
+                });
+
+        // 4. 조회한 기본 멤버십 객체를 User 엔티티에 설정
+        user.setMembership(defaultMembership);
+
+        // 5. User 저장
         User savedUser = userRepository.save(user);
+
+        log.info("User registered successfully with UID: {}, assigned Membership No: {}", savedUser.getUid(), savedUser.getMembership().getNo());
 
         return savedUser.getUid();
     }

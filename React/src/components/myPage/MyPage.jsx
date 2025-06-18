@@ -337,7 +337,7 @@ export const MyPage = () => {
           </div>
           <div className="info-row">
             <span className="label">멤버십</span>
-            <span className="value">{user?.membership}</span>
+            <span className="value">{user?.membership?.membership}</span>
           </div>
         </div>
       </div>
