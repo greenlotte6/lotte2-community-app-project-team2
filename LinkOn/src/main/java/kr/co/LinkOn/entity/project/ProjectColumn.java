@@ -2,6 +2,7 @@ package kr.co.LinkOn.entity.project;
 
 import jakarta.persistence.*;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +14,9 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "Column")
-public class Column {
+@Table(name = "ProjectColumn")
+public class ProjectColumn {
+
     @Id @GeneratedValue
     private Long cid;
 
@@ -24,6 +26,7 @@ public class Column {
     @JoinColumn(name = "pid")
     private Project project;
 
-    @OneToMany(mappedBy = "column", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "projectColumn", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Task> tasks = new ArrayList<>();
 }

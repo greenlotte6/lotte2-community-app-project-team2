@@ -63,6 +63,16 @@
     width: 24px;
     }
 
+    .editTitle {
+      width: 500px;
+      font-size: 16px;
+      font-weight: 500;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      padding: 4px;
+      outline: none;
+    }
+
     .editDate {
     display: flex;
     align-items: center;
@@ -99,7 +109,7 @@
             flex-direction: column;
             top: 30px;
             right: -6px;
-            width: 120px;
+            width: 114px;
             padding: 8px 6px;
             border-radius: 8px;
             background-color: white;
