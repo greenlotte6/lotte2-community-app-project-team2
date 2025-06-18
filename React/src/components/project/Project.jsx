@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import MoreOption from './modals/MoreOption';
 import AddProjectModal from './modals/AddProjectModal';
-import { PROJECTS_API } from '../../api/_http.js';
+import { PROJECT_DELETE_API, PROJECTS_API } from '../../api/_http.js';
 
 export const Project = () => {
   const [projects, setProjects] = useState([]);
   const [openOptionIndex, setOpenOptionIndex] = useState(null);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [editIndex, setEditIndex] = useState(null);
+  const [editedTitle, setEditedTitle] = useState('');
   const modalRef = useRef(null);
 
   // 프로젝트 목록 조회
@@ -40,6 +42,48 @@ export const Project = () => {
     }
   };
 
+  // 수정 버튼을 클릭했을 때
+  const handleEditClick = (index, title) => {
+    setEditIndex(index);
+    setEditedTitle(title);
+    setOpenOptionIndex(null); // 옵션 닫기
+  };
+
+  // 프로젝트 제목 수정
+  const handleUpdateProject = async (projectId) => {
+    if (!editedTitle.trim()) {
+      alert('프로젝트명을 입력해 주세요.');
+      return;
+    }
+
+    try {
+      await axios.put(`${PROJECTS_API}/${projectId}`, { title: editedTitle }, { withCredentials: true });
+      // 로컬 상태 업데이트
+      setProjects(prev =>
+        prev.map((p, idx) => idx === editIndex ? { ...p, title: editedTitle } : p)
+      );
+      setEditIndex(null);
+      setEditedTitle('');
+    } catch (error) {
+      console.error('프로젝트 수정 실패:', error);
+      alert('수정에 실패했습니다.');
+    }
+  };
+
+  // 프로젝트 삭제
+  const handleDeleteProject = async (projectId) => {
+    if (!window.confirm('정말 삭제하시겠습니까?')) return;
+
+    try {
+      await axios.delete(PROJECT_DELETE_API(projectId), {
+        withCredentials: true,
+      });
+      setProjects(prev => prev.filter(project => project.id !== projectId));
+    } catch (error) {
+      console.error('프로젝트 삭제 실패:', error);
+      alert('삭제에 실패했습니다.');
+    }
+  };
 
   // 모달 외부 클릭 시 닫기 (MoreOption 모달)
   const handleClickOutside = (e) => {
@@ -89,9 +133,21 @@ export const Project = () => {
                     alt="icon"
                     className="projectsIcon"
                   />
-                  <Link to={`/project/${project.id}`} className="projectTitle">
-                    {project.title}
-                  </Link>
+                  {editIndex === index ? (
+                    <input
+                      type="text"
+                      value={editedTitle}
+                      className="editTitle"
+                      placeholder="프로젝트명을 입력해 주세요."
+                      onChange={(e) => setEditedTitle(e.target.value)}
+                      onKeyDown={(e) => e.key === 'Enter' && handleUpdateProject(project.id)}
+                      autoFocus
+                    />
+                  ) : (
+                    <Link to={`/project/${project.id}`} className="projectTitle">
+                      {project.title}
+                    </Link>
+                  )}
                 </div>
                 <p className="editDate">
                   {new Date(project.updatedAt).toLocaleString()}
@@ -112,8 +168,8 @@ export const Project = () => {
 
                 {openOptionIndex === index && (
                   <MoreOption
-                    onEdit={() => alert(`프로젝트 ${project.id} 수정`)}
-                    onDelete={() => alert(`프로젝트 ${project.id} 삭제`)}
+                    onEdit={() => handleEditClick(index, project.title)}
+                    onDelete={() => handleDeleteProject(project.id)}
                     onClose={() => setOpenOptionIndex(null)}
                   />
                 )}

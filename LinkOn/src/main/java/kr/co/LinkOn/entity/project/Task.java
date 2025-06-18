@@ -24,5 +24,5 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "cid")
-    private Column column;
+    private ProjectColumn projectColumn;
 }

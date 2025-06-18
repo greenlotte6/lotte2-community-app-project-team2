@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../../../styles/project/projectModals.scss';
 
 export default function AddProjectModal({ onClose, onAdd }) {
   const [projectName, setProjectName] = useState('');
