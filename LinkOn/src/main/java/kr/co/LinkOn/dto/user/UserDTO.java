@@ -1,5 +1,6 @@
 package kr.co.LinkOn.dto.user;
 
+import kr.co.LinkOn.dto.membership.MembershipDTO;
 import lombok.*;
 
 @Getter
@@ -23,5 +24,5 @@ public class UserDTO {
     private String department; //팀명
     private String position;  // 직급
     private String status;  // 상태
-    private String membership;  // 맴버십
+    private MembershipDTO membership;  // 맴버십
 }

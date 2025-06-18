@@ -1,8 +1,7 @@
 package kr.co.LinkOn.entity.user;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import kr.co.LinkOn.entity.membership.Membership;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -36,7 +35,10 @@ public class User {
     private String department; //팀명
     private String position;  // 직급
     private String status;  // 상태
-    private String membership;  // 맴버십
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "membership")
+    private Membership membership;  // 맴버십
 
 
     // 사용자 권한 및 인가 설정을 hasRole() 메서드로 처리하기 위해 접두어 "ROLE_" 추가

@@ -25,4 +25,7 @@ export const MYPAGE_MYPAGE = `${SERVER_HOST}/myPage/myPage`;
 
 // Project
 export const PROJECTS_API = `${SERVER_HOST}/projects`; // GET (조회), POST (생성)
-export const PROJECT_DELETE_API = (id) => `${SERVER_HOST}/projects/${id}`; 
+export const PROJECT_DELETE_API = (id) => `${SERVER_HOST}/projects/${id}`;
+
+// membership
+export const MEMBERSHIP_PLANS = `${SERVER_HOST}/membership/membership`;
