@@ -163,7 +163,7 @@ export const Aside = () => {
           </div>
         </ul>
         <p className="copyright">
-          Copyright © LinkON. All rights reserved. 0.0.8-SNAPSHOT
+          Copyright © LinkON. All rights reserved. 0.1.0-SNAPSHOT
         </p>
       </aside>
     </>

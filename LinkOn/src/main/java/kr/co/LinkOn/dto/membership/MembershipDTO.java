@@ -10,7 +10,7 @@ import lombok.*;
 @Builder
 public class MembershipDTO {
 
-    int no;
+    Integer no;
     String membership;
-    int price;
+    Integer price;
 }
