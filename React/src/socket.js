@@ -22,12 +22,17 @@ function getUserFromToken() {
 
   try {
     const decoded = jwtDecode(token);
-    return decoded.sub || decoded.uid || decoded.username || null;
+    return {
+      uid: decoded.sub || decoded.uid || decoded.username || null,
+      name: decoded.name || decoded.nickname || "",
+    };
   } catch (e) {
     console.error("❌ JWT 디코딩 실패:", e);
     return null;
   }
 }
+
+
 
 export default socket;
 export { getUserFromToken };

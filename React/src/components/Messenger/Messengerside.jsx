@@ -1,41 +1,77 @@
+// ✅ Messengerside.jsx (클라이언트)
 import React, { useEffect, useState } from "react";
 import { ChannelModal } from "./Modal/ChannelModal";
+import { Messengermain } from "./Messengermain";
 import socket, { getUserFromToken } from "../../socket";
 
-export const Messengerside = ({ currentRoom, setCurrentRoom }) => {
+export const Messengerside = () => {
   const [channels, setChannels] = useState([]);
+  const [currentRoom, setCurrentRoom] = useState(null);
+  const [currentChannelId, setCurrentChannelId] = useState(null);
+  const [channelCreator, setChannelCreator] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    const uid = getUserFromToken();
-    if (!uid) return;
+    const user = getUserFromToken();
+    if (!user || !user.uid) return;
 
-    // ✅ 처음 연결 시 채널 목록 요청
-    socket.emit("get_channels", uid); // (추후 사용 가능)
+    socket.emit("get_channels", user.uid);
 
-    // ✅ 서버에서 보낸 채널 목록 수신
-    socket.on("channel_list", (channelList) => {
-      setChannels(channelList);
+    socket.on("channel_list", (channelList) => setChannels(channelList));
+
+    socket.on("channel_invited", ({ channelId, channelName }) => {
+      setChannels((prev) => {
+        if (prev.some((c) => c._id === channelId)) return prev;
+        return [...prev, { _id: channelId, name: channelName }];
+      });
     });
 
-    // ✅ 클린업
+    socket.on("kicked_from_channel", ({ channelId, channelName }) => {
+      alert(` 채널 "${channelName}"에서 강퇴당했습니다.`);
+      setChannels((prev) => prev.filter((c) => c._id !== channelId));
+      if (currentChannelId === channelId) {
+        setCurrentRoom(null);
+        setCurrentChannelId(null);
+        setChannelCreator(null);
+      }
+    });
+
+    socket.emit("register_uid", user.uid);
+
     return () => {
       socket.off("channel_list");
+      socket.off("channel_invited");
+      socket.off("kicked_from_channel");
     };
   }, []);
 
   const handleAddChannel = (name) => {
-    const uid = getUserFromToken();
-    console.log("채널 생성 요청됨:", name, uid); // ✅ 콘솔 확인
+    const user = getUserFromToken();
+    if (!user || !user.uid) return alert("로그인이 필요합니다.");
 
-    if (!uid) return alert("로그인이 필요합니다.");
-
-    socket.emit("create_channel", { name, creator: uid }, (res) => {
-      if (!res.ok) {
-        alert("채널 생성 실패: " + res.error);
-        return;
-      }
+    socket.emit("create_channel", { name, creator: user.uid }, (res) => {
+      if (!res.ok) return alert("채널 생성 실패: " + res.error);
       setShowModal(false);
+    });
+  };
+
+  const handleLeaveChannel = (channelId) => {
+    const user = getUserFromToken();
+    if (!user || !user.uid) return alert("로그인이 필요합니다.");
+
+    const confirmLeave = window.confirm("이 채팅방에서 나가시겠습니까?");
+    if (!confirmLeave) return;
+
+    socket.emit("leave_channel", { channelId, uid: user.uid }, (res) => {
+      if (res.ok) {
+        alert("채팅방에서 나갔습니다.");
+        setChannels((prev) => prev.filter((c) => c._id !== channelId));
+        setCurrentRoom(null);
+        setCurrentChannelId(null);
+        setChannelCreator(null);
+      } else {
+        alert("채팅방 나가기 실패: " + res.error);
+      }
     });
   };
 
@@ -48,14 +84,27 @@ export const Messengerside = ({ currentRoom, setCurrentRoom }) => {
             + 새 채널 만들기
           </p>
           {channels.map((room, idx) => (
-            <p
-              key={idx}
-              data-room={room.name}
+            <div key={idx} className="channel-item-wrapper">
+            <span
               className={`channel-item ${currentRoom === room.name ? "active" : ""}`}
-              onClick={() => setCurrentRoom(room.name)}
+              onClick={() => {
+                setCurrentRoom(room.name);
+                setCurrentChannelId(room._id);
+                setChannelCreator(room.creator);
+              }}
             >
-              {room.name} ⚙
-            </p>
+              {room.name}
+            </span>
+            <span
+              className="channel-settings-icon"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleLeaveChannel(room._id);
+              }}
+            >
+              ⚙
+            </span>
+          </div>
           ))}
         </div>
       </div>
@@ -64,6 +113,14 @@ export const Messengerside = ({ currentRoom, setCurrentRoom }) => {
         <ChannelModal
           onClose={() => setShowModal(false)}
           onCreate={handleAddChannel}
+        />
+      )}
+
+      {currentRoom && currentChannelId && (
+        <Messengermain
+          currentRoom={currentRoom}
+          currentChannelId={currentChannelId}
+          channelCreator={channelCreator}
         />
       )}
     </>
