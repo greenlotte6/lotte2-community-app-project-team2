@@ -4,16 +4,16 @@ import { Messengermain } from '../../components/Messenger/Messengermain'
 import { MainLayout } from '../../layouts/MainLayout'
 
 export const Messengerpage = () => {
-  const [currentRoom, setCurrentRoom] = useState('채팅 1');
+  const [currentRoom, setCurrentRoom] = useState(null);
 
   return (
     <MainLayout>
       <section className="messenger-main">
         <div className="content-layout">
           <Messengerside currentRoom={currentRoom} setCurrentRoom={setCurrentRoom} />
-          <Messengermain currentRoom={currentRoom} />
+          {currentRoom && <Messengermain currentRoom={currentRoom} />}
         </div>
       </section>
     </MainLayout>
-  )
+  );
 }

@@ -366,3 +366,44 @@ html, body {
 .friend-list li:hover {
   background: #f0f8ff;
 }
+
+.channel-item-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.channel-item-wrapper:hover {
+  background: #eef3ff;
+  box-shadow: 0 0 0 1px #7e9dd7;
+}
+
+.channel-item {
+  margin: 0;
+  font-size: 18px;
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.channel-settings-icon {
+  font-size: 16px;
+  color: #666;
+  margin-left: 12px;
+  cursor: pointer;
+}
+
+.system-message {
+  text-align: center;
+  color: gray;
+  font-style: italic;
+  font-size: 0.9rem;
+  margin: 10px 0;
+}

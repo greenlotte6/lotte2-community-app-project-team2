@@ -1,4 +1,3 @@
-// Server/models/message.model.js
 const mongoose = require("mongoose");
 
 const messageSchema = new mongoose.Schema({
@@ -7,6 +6,10 @@ const messageSchema = new mongoose.Schema({
   senderName: String,
   message: String,
   time: String,
+  type: {
+    type: String, // "sent", "received", "system" 등
+    default: "received"
+  }
 });
 
 module.exports = mongoose.model("Message", messageSchema);

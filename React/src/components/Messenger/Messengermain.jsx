@@ -2,54 +2,62 @@ import React, { useState, useEffect } from "react";
 import { MemberModal } from "./Modal/MemberModal";
 import socket, { getUserFromToken } from "../../socket";
 
-export const Messengermain = ({ currentRoom }) => {
+export const Messengermain = ({ currentRoom, currentChannelId, channelCreator }) => {
   const [showMemberModal, setShowMemberModal] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
 
+  const user = getUserFromToken();
+  const uid = user?.uid;
+
   useEffect(() => {
-    if (!currentRoom) return;
+    if (!currentRoom || !uid) return;
 
-    const uid = getUserFromToken();
-
-    // ✅ 채팅방 입장
     socket.emit("join_room", currentRoom);
 
-    // ✅ 이전 메시지 불러오기
     socket.on("previous_messages", (prevMsgs) => {
-      const formatted = prevMsgs.map((msg) => ({
+    const formatted = prevMsgs.map((msg) => {
+      const isSystem = msg.type === "system" || msg.sender === "system"; // fallback
+      return {
         ...msg,
-        type: msg.sender === uid ? "sent" : "received",
+        type: isSystem ? "system" : msg.sender === uid ? "sent" : "received",
         time:
           msg.time ||
           new Date().toLocaleTimeString("ko-KR", {
             hour: "2-digit",
             minute: "2-digit",
           }),
-      }));
-      setMessages(formatted);
+      };
     });
+    setMessages(formatted);
+  });
 
-    // ✅ 실시간 메시지 수신
+
+
     socket.on("receive_message", (data) => {
-      // 내가 보낸 메시지는 이미 sent로 추가했기 때문에 중복 제거
+      console.log("📥 수신 메시지:", data);
+
+       if (data.room !== currentRoom) return;
+
+      if (data.type === "system") {
+        console.log("✅ 시스템 메시지 반영됨!");
+        setMessages((prev) => [...prev, data]);
+        return;
+      }
+
       if (data.sender === uid) return;
 
       setMessages((prev) => [...prev, { ...data, type: "received" }]);
     });
 
-    // ✅ 클린업
     return () => {
       socket.off("receive_message");
       socket.off("previous_messages");
     };
-  }, [currentRoom]);
+  }, [currentRoom, currentChannelId, uid]);
 
-  // ✅ 메시지 전송
   const sendMessage = () => {
-    const uid = getUserFromToken();
     const name = localStorage.getItem("user_name");
-
     if (!uid || !name) return alert("로그인이 필요합니다.");
 
     if (input.trim()) {
@@ -83,34 +91,32 @@ export const Messengermain = ({ currentRoom }) => {
         </div>
 
         <div className="chat-messages">
-          {messages.map((msg, i) => (
-            <div key={i} className={`message ${msg.type}`}>
-              {msg.type === "received" && (
-                <div className="profile-wrapper">
-                  <div className="chat-username">{msg.senderName || msg.sender}</div>
-                  <img
-                    src="/images/Avatar.png"
-                    alt="상대방"
-                    className="chat-avatar"
-                  />
-                </div>
-              )}
-              <div className="message-bubble-wrapper">
-                <div className="bubble">{msg.message}</div>
-                <div className="chat-time">{msg.time}</div>
+          {messages.map((msg, i) =>
+            msg.type === "system" ? (
+              <div key={i} className="system-message">
+                {msg.message}
               </div>
-              {msg.type === "sent" && (
-                <div className="profile-wrapper">
-                  <img
-                    src="/images/Avatar.png"
-                    alt="나"
-                    className="chat-avatar"
-                  />
-                  <div className="chat-username">{msg.senderName || msg.sender}</div>
+            ) : (
+              <div key={i} className={`message ${msg.type}`}>
+                {msg.type === "received" && (
+                  <div className="profile-wrapper">
+                    <div className="chat-username">{msg.senderName || msg.sender}</div>
+                    <img src="/images/Avatar.png" alt="상대방" className="chat-avatar" />
+                  </div>
+                )}
+                <div className="message-bubble-wrapper">
+                  <div className="bubble">{msg.message}</div>
+                  <div className="chat-time">{msg.time}</div>
                 </div>
-              )}
-            </div>
-          ))}
+                {msg.type === "sent" && (
+                  <div className="profile-wrapper">
+                    <img src="/images/Avatar.png" alt="나" className="chat-avatar" />
+                    <div className="chat-username">{msg.senderName || msg.sender}</div>
+                  </div>
+                )}
+              </div>
+            )
+          )}
         </div>
 
         <div className="chat-input">
@@ -128,7 +134,8 @@ export const Messengermain = ({ currentRoom }) => {
       {showMemberModal && (
         <MemberModal
           onClose={() => setShowMemberModal(false)}
-          currentRoom={currentRoom} // ✅ 이 줄이 꼭 필요!
+          channelId={currentChannelId}
+          creatorUid={channelCreator}
         />
       )}
     </div>
