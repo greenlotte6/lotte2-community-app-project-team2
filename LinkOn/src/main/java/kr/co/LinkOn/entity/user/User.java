@@ -36,7 +36,7 @@ public class User {
     private String position;  // 직급
     private String status;  // 상태
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "membership")
     private Membership membership;  // 맴버십
 

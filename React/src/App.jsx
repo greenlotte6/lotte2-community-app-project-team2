@@ -12,6 +12,7 @@ import "./styles/membership/membership.scss";
 import "./styles/membership/checkout.scss";
 import "./styles/project/project.scss";
 import "./styles/project/inProject.scss";
+import "./styles/Landing/landing.scss";
 import { MainLayout } from "./layouts/MainLayout";
 import { RouterProvider } from "react-router-dom";
 import router from "./routers/router";

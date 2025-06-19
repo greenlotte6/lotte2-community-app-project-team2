@@ -29,3 +29,4 @@ export const PROJECT_DELETE_API = (id) => `${SERVER_HOST}/projects/${id}`;
 
 // membership
 export const MEMBERSHIP_PLANS = `${SERVER_HOST}/membership/membership`;
+export const MEMBERSHIP_CHECKOUT = `${SERVER_HOST}/membership/checkout`;

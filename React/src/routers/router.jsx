@@ -17,10 +17,11 @@ import { WritePage } from "../pages/board/WritePage";
 import { MainPage } from "../pages/board/MainPage";
 import { ProjectPage } from "../pages/project/ProjectPage";
 import { InProjectPage } from "../pages/project/InProjectPage";
+import { LandingPage } from "../pages/landing/LandingPage";
 
 // 라우터 생성
 const router = createBrowserRouter([
-  { path: "/", element: <Common /> },
+  { path: "/", element: <LandingPage /> },
 
   //--------------------user---------------------
   { path: "/user/login", element: <LoginPage /> },

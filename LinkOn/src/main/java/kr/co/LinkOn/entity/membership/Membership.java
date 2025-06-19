@@ -16,7 +16,7 @@ import lombok.*;
 public class Membership {
 
     @Id
-    int no;
+    Integer no;
     String membership;
-    int price;
+    Integer price;
 }
