@@ -1,5 +1,6 @@
 package kr.co.LinkOn.entity.project;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -14,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "ProjectColumn")
 public class ProjectColumn {
 
@@ -21,6 +23,11 @@ public class ProjectColumn {
     private Long cid;
 
     private String name; // ex: Todo, In Progress, Done
+
+    @Column(nullable = false)
+    private String color;
+
+    private String content;
 
     @ManyToOne
     @JoinColumn(name = "pid")
